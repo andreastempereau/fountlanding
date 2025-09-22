@@ -61,7 +61,7 @@ export default function EarlyAccessSection() {
 
         <div className="mt-12 grid sm:grid-cols-3 gap-8 text-center">
           <div>
-            <div className="text-2xl font-bold text-white mb-2">Q1 2026/div>
+            <div className="text-2xl font-bold text-white mb-2">Q1 2026</div>
             <div className="text-slate-400">Public Beta Launch</div>
           </div>
           <div>
