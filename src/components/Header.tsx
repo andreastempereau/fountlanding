@@ -1,5 +1,7 @@
 import React from 'react';
-import { Shield, Menu, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Shield, Menu, X, User } from 'lucide-react';
+import { isAuthenticated } from '../utils/tokenStorage';
 
 interface HeaderProps {
   mobileMenuOpen: boolean;
@@ -7,6 +9,17 @@ interface HeaderProps {
 }
 
 export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) {
+  const navigate = useNavigate();
+  const authenticated = isAuthenticated();
+
+  const handleAccountClick = () => {
+    if (authenticated) {
+      navigate('/dashboard');
+    } else {
+      navigate('/auth');
+    }
+  };
+
   return (
     <header className="fixed top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,13 +31,20 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProp
             <span className="text-xl font-bold text-white">Fount</span>
           </div>
           
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-slate-300 hover:text-white transition-colors">Features</a>
             <a href="#privacy" className="text-slate-300 hover:text-white transition-colors">Privacy</a>
             <a href="#enterprise" className="text-slate-300 hover:text-white transition-colors">Enterprise</a>
             <a href="#early-access" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
               Early Access
             </a>
+            <button
+              onClick={handleAccountClick}
+              className="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-colors"
+            >
+              <User className="w-4 h-4" />
+              <span>Account</span>
+            </button>
           </nav>
 
           <button 
@@ -46,6 +66,13 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProp
             <a href="#early-access" className="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors text-center">
               Early Access
             </a>
+            <button
+              onClick={handleAccountClick}
+              className="w-full flex items-center justify-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-colors"
+            >
+              <User className="w-4 h-4" />
+              <span>Account</span>
+            </button>
           </div>
         </div>
       )}
