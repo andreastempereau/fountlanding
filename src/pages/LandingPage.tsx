@@ -48,7 +48,7 @@ export default function LandingPage() {
       <Header mobileMenuOpen={false} setMobileMenuOpen={() => {}} />
       <div className="w-full relative">
         {/* Content */}
-        <div className="max-w-[1400px] mx-auto relative z-10 flex flex-col items-start min-h-screen px-12 pt-[10vh]">
+        <div className="max-w-[1400px] mx-auto relative z-10 flex flex-col items-start min-h-screen px-24 pt-[10vh]">
           <div className="flex flex-col items-start mb-12">
             <h1
               className="text-8xl italic bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent"
@@ -80,7 +80,7 @@ export default function LandingPage() {
         </div>
 
         {/* Principles Section */}
-        <div className="max-w-[1400px] mx-auto px-12 relative z-10 py-16">
+        <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
           <div className="mx-auto">
             <div className="flex items-center justify-between">
               <div className="flex flex-col space-y-8 flex-1">
@@ -129,10 +129,13 @@ export default function LandingPage() {
               </div>
               <div className="flex-shrink-0 ml-12">
                 <img
-                  src="/app-logo-3.svg"
+                  src="/app-logo-4.svg"
                   alt="Fount"
-                  className="w-[450px] h-auto"
+                  className="w-[350px] h-auto"
                 />
+                <h2 className="text-center mt-2 text-3xl text-gray-700">
+                  Download Now
+                </h2>
               </div>
             </div>
           </div>
