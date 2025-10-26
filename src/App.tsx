@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { restoreSession, setupAutoTokenRefresh } from "./utils/sessionManager";
 import { isAuthenticated } from "./utils/tokenStorage";
+import "../sunlit/index.css";
 
 function App() {
   const [isCheckingSession, setIsCheckingSession] = useState(true);

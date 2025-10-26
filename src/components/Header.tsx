@@ -1,77 +1,106 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Shield, Menu, X, User } from 'lucide-react';
-import { isAuthenticated } from '../utils/tokenStorage';
+import { useNavigate } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { isAuthenticated } from "../utils/tokenStorage";
 
 interface HeaderProps {
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
 }
 
-export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) {
+export default function Header({
+  mobileMenuOpen,
+  setMobileMenuOpen,
+}: HeaderProps) {
   const navigate = useNavigate();
   const authenticated = isAuthenticated();
 
   const handleAccountClick = () => {
     if (authenticated) {
-      navigate('/dashboard');
+      navigate("/dashboard");
     } else {
-      navigate('/auth');
+      navigate("/auth");
     }
   };
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-              <Shield className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-white">Fount</span>
+    <header className="w-full z-10 relative">
+      <div className="max-w-[1400px] mx-auto px-12">
+        <div className="flex justify-between items-center py-6">
+          {/* Left: Logo */}
+          <div className="flex items-center space-x-2">
+            <img src="/fount9.svg" alt="Fount Logo" className="w-10 h-10" />
+            <span
+              className="text-2xl font-light tracking-tight"
+              style={{ color: "var(--dark)" }}
+            >
+              Fount
+            </span>
           </div>
-          
+
+          {/* Right: Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-slate-300 hover:text-white transition-colors">Features</a>
-            <a href="#privacy" className="text-slate-300 hover:text-white transition-colors">Privacy</a>
-            <a href="#enterprise" className="text-slate-300 hover:text-white transition-colors">Enterprise</a>
-            <a href="#early-access" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
-              Early Access
+            <a
+              href="#download"
+              className="text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              Download
+            </a>
+            <a
+              href="#pricing"
+              className="text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              Pricing
             </a>
             <button
               onClick={handleAccountClick}
-              className="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-colors"
+              className="text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
             >
-              <User className="w-4 h-4" />
-              <span>Account</span>
+              Account
             </button>
           </nav>
 
-          <button 
-            className="md:hidden text-slate-300 hover:text-white"
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden transition-opacity hover:opacity-60"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{ color: "var(--dark)" }}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-slate-900 border-t border-slate-800">
-          <div className="px-4 py-4 space-y-4">
-            <a href="#features" className="block text-slate-300 hover:text-white transition-colors">Features</a>
-            <a href="#privacy" className="block text-slate-300 hover:text-white transition-colors">Privacy</a>
-            <a href="#enterprise" className="block text-slate-300 hover:text-white transition-colors">Enterprise</a>
-            <a href="#early-access" className="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors text-center">
-              Early Access
+        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-white/20">
+          <div className="px-12 py-6 space-y-4">
+            <a
+              href="#download"
+              className="block text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              Download
+            </a>
+            <a
+              href="#pricing"
+              className="block text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              Pricing
             </a>
             <button
               onClick={handleAccountClick}
-              className="w-full flex items-center justify-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-colors"
+              className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
             >
-              <User className="w-4 h-4" />
-              <span>Account</span>
+              Account
             </button>
           </div>
         </div>
