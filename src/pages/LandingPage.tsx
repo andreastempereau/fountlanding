@@ -129,7 +129,7 @@ export default function LandingPage() {
               </div>
               <div className="flex-shrink-0 ml-12">
                 <img
-                  src="/app-logo-4.svg"
+                  src="/app-logo-5.svg"
                   alt="Fount"
                   className="w-[350px] h-auto"
                 />
