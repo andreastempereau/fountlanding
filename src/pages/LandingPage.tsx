@@ -147,7 +147,7 @@ export default function LandingPage() {
           <div className="flex flex-col items-start gap-8">
             <div className="flex-1">
               <h3 className="text-3xl font-semibold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                Responses with Citations Linked to Your Documents
+                Grounded Responses with Citations Linked to Your Documents
               </h3>
               <p
                 className="text-lg"
@@ -186,35 +186,28 @@ export default function LandingPage() {
                 context-aware capabilities.
               </p>
             </div>
-            {/* <ImageCarousel
-              images={[
-                {
-                  src: "/fount-pdf-image-capture.png",
-                  alt: "Original webpage",
-                },
-                {
-                  src: "/html-drop.png",
-                  alt: "Converted webpage",
-                },
-                {
-                  src: "/html-highlight.png",
-                  alt: "HTML image drop",
-                },
-                {
-                  src: "/pdf-highlight.png",
-                  alt: "PDF image capture",
-                },
-              ]}
-            /> */}
+            <div className="flex flex-row items-start gap-8">
+              <img
+                src="/html-original.png"
+                alt="Fount"
+                className="w-1/2 h-auto"
+              />
+              <img
+                src="/html-converted.png"
+                alt="Fount"
+                className="w-1/2 h-auto"
+              />
+            </div>
           </div>
         </div>
 
         {/* Context Selection */}
         <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
-          <div className="flex items-center gap-12">
-            <div className="flex-1 order-2">
+          <div className="flex flex-col items-start gap-12">
+            <div className="flex-1 ">
               <h3 className="text-3xl font-semibold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                Powerful Context Selection - PDFs, Markdown, and Webpages
+                Powerful Context Selection across PDFs, Markdown files, and
+                Webpages
               </h3>
               <p
                 className="text-lg"
@@ -227,12 +220,21 @@ export default function LandingPage() {
                 search and retrieval.
               </p>
             </div>
-            <div className="flex-1 order-1">
-              <img
-                src="/fount-context-selection.png"
-                alt="Fount"
-                className="w-1/2 h-auto"
-              />
+            <div className="flex-1 flex flex-col gap-20">
+              <div className="flex flex-row gap-10">
+                <img
+                  src="/context-1.png"
+                  alt="Fount"
+                  className=" w-1/3 h-auto"
+                />
+                <img
+                  src="/context-2.png"
+                  alt="Fount"
+                  className="w-2/3 h-auto"
+                />
+              </div>
+
+              <img src="/context-3.png" alt="Fount" className=" h-auto" />
             </div>
           </div>
         </div>
