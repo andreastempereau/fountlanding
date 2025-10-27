@@ -4,6 +4,7 @@ import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import OAuth2LoginPage from "./pages/OAuth2LoginPage";
 import Dashboard from "./pages/Dashboard";
+import DownloadPage from "./pages/DownloadPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { restoreSession, setupAutoTokenRefresh } from "./utils/sessionManager";
 import { isAuthenticated } from "./utils/tokenStorage";
@@ -52,6 +53,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/download" element={<DownloadPage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/auth/login" element={<OAuth2LoginPage />} />
         <Route

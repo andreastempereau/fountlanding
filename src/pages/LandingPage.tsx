@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 // import Hero from "../components/Hero";
 import Header from "../components/Header";
+// import ImageCarousel from "../components/ImageCarousel";
 // import ProblemSection from "../components/ProblemSection";
 // import FeaturesSection from "../components/FeaturesSection";
 // import EnterpriseSection from "../components/EnterpriseSection";
@@ -138,6 +139,123 @@ export default function LandingPage() {
                 </h2>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Inline Citations Section */}
+        <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
+          <div className="flex flex-col items-start gap-8">
+            <div className="flex-1">
+              <h3 className="text-3xl font-semibold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                Responses with Citations Linked to Your Documents
+              </h3>
+              <p
+                className="text-lg"
+                style={{
+                  color: "var(--dark)",
+                }}
+              >
+                Get grounded responses with inline citations that link directly
+                to your documents. See exactly where information comes from with
+                highlighted references.
+              </p>
+            </div>
+            <img
+              src="/fount-citations.png"
+              alt="Fount"
+              className="w-[1000px] h-auto"
+            />
+          </div>
+        </div>
+
+        {/* Web Link Conversion Section */}
+        <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
+          <div className="flex flex-col items-start gap-8">
+            <div className="flex-1">
+              <h3 className="text-3xl font-semibold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                Convert Links to Local Webpages
+              </h3>
+              <p
+                className="text-lg"
+                style={{
+                  color: "var(--dark)",
+                }}
+              >
+                Seamlessly convert web links into locally stored webpages. View
+                and query your saved content with the same powerful
+                context-aware capabilities.
+              </p>
+            </div>
+            {/* <ImageCarousel
+              images={[
+                {
+                  src: "/fount-pdf-image-capture.png",
+                  alt: "Original webpage",
+                },
+                {
+                  src: "/html-drop.png",
+                  alt: "Converted webpage",
+                },
+                {
+                  src: "/html-highlight.png",
+                  alt: "HTML image drop",
+                },
+                {
+                  src: "/pdf-highlight.png",
+                  alt: "PDF image capture",
+                },
+              ]}
+            /> */}
+          </div>
+        </div>
+
+        {/* Context Selection */}
+        <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
+          <div className="flex items-center gap-12">
+            <div className="flex-1 order-2">
+              <h3 className="text-3xl font-semibold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                Powerful Context Selection - PDFs, Markdown, and Webpages
+              </h3>
+              <p
+                className="text-lg"
+                style={{
+                  color: "var(--dark)",
+                }}
+              >
+                Work with PDFs, markdown documents, and webpages as rich context
+                sources. Query across multiple document types with intelligent
+                search and retrieval.
+              </p>
+            </div>
+            <div className="flex-1 order-1">
+              <img
+                src="/fount-context-selection.png"
+                alt="Fount"
+                className="w-1/2 h-auto"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Verifiably Private AI Section */}
+        <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
+          <div className="text-center">
+            <p
+              className="text-lg"
+              style={{
+                color: "var(--dark)",
+              }}
+            >
+              Support for verifiably private AI,{" "}
+              <a
+                href="https://securetee.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 underline transition-colors"
+              >
+                learn more
+              </a>
+            </p>
           </div>
         </div>
       </div>

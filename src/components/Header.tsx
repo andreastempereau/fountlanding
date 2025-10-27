@@ -39,13 +39,13 @@ export default function Header({
 
           {/* Right: Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a
-              href="#download"
+            <button
+              onClick={() => navigate("/download")}
               className="text-base font-light transition-opacity hover:opacity-60"
               style={{ color: "var(--dark)" }}
             >
               Download
-            </a>
+            </button>
             <a
               href="#pricing"
               className="text-base font-light transition-opacity hover:opacity-60"
@@ -81,13 +81,13 @@ export default function Header({
       {mobileMenuOpen && (
         <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-white/20">
           <div className="px-12 py-6 space-y-4">
-            <a
-              href="#download"
-              className="block text-base font-light transition-opacity hover:opacity-60"
+            <button
+              onClick={() => navigate("/download")}
+              className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
               style={{ color: "var(--dark)" }}
             >
               Download
-            </a>
+            </button>
             <a
               href="#pricing"
               className="block text-base font-light transition-opacity hover:opacity-60"
