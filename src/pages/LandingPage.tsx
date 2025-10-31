@@ -252,7 +252,7 @@ export default function LandingPage() {
                 />
               </div>
 
-              <img src="/context-3.png" alt="Fount" className=" h-auto" />
+              <img src="/html-drop.png" alt="Fount" className=" h-auto" />
             </div>
           </div>
         </div>
