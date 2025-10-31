@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Shield, Mail, Lock, ArrowLeft } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 import {
   signUp,
   confirmSignUp,
@@ -141,42 +141,108 @@ export default function AuthPage() {
     setIsLoading(false);
   };
 
-  const handleBackToLanding = () => {
-    navigate("/");
-  };
+  useEffect(() => {
+    // Add animation-ready class after component mounts
+    // document.body.classList.add("animation-ready");
+    document.body.classList.add("twilight");
+
+    // Cleanup on unmount
+    return () => {
+      // document.body.classList.remove("animation-ready");
+      document.body.classList.remove("twilight");
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full">
-        {/* Back to Landing Button */}
-        <button
-          onClick={handleBackToLanding}
-          className="mb-6 flex items-center space-x-2 text-slate-400 hover:text-white transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Home</span>
-        </button>
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      {/* Dappled light background */}
+      <div id="dappled-light">
+        <div id="glow"></div>
+        <div id="glow-bounce"></div>
+        <div className="perspective">
+          <div id="blinds">
+            <div className="shutters">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="shutter"></div>
+              ))}
+            </div>
+            <div className="vertical">
+              <div className="bar"></div>
+              <div className="bar"></div>
+            </div>
+          </div>
+        </div>
+        <div id="progressive-blur">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
+      <div className="max-w-md w-full relative z-10 text-[var(--secondary-text)]">
+        {/* Demo Mode Switcher */}
+        {/* <div className="mb-6 p-4 bg-yellow-50 border-2 border-yellow-300 rounded-lg shadow-md">
+          <p className="text-sm font-semibold text-yellow-900 mb-3">
+            🎨 Demo Mode - Switch between auth phases:
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {(
+              [
+                "signin",
+                "signup",
+                "confirm",
+                "forgot-password",
+                "reset-password",
+              ] as AuthMode[]
+            ).map((authMode) => (
+              <button
+                key={authMode}
+                type="button"
+                onClick={() => {
+                  setMode(authMode);
+                  setError("");
+                  setSuccessMessage("");
+                  // Set sample data for demo
+                  if (authMode === "confirm" || authMode === "reset-password") {
+                    setPendingEmail("demo@example.com");
+                    setConfirmationCode("123456");
+                  }
+                  if (authMode === "reset-password") {
+                    setNewPassword("newpassword123");
+                  }
+                }}
+                className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
+                  mode === authMode
+                    ? "bg-yellow-600 text-white shadow-md"
+                    : "bg-white text-yellow-700 border border-yellow-300 hover:bg-yellow-100"
+                }`}
+              >
+                {authMode === "signin"
+                  ? "Sign In"
+                  : authMode === "signup"
+                  ? "Sign Up"
+                  : authMode === "confirm"
+                  ? "Confirm"
+                  : authMode === "forgot-password"
+                  ? "Forgot Password"
+                  : "Reset Password"}
+              </button>
+            ))}
+          </div>
+        </div> */}
 
         {/* Logo and Title */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center space-x-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-              <Shield className="w-7 h-7 text-white" />
-            </div>
-            <span className="text-3xl font-bold text-white">Fount</span>
+        <div className="text-center mb-0">
+          <div className="inline-flex items-center justify-center space-x-3 mb-2 text-[var(--dark)]">
+            <img
+              src="/app-logo-bg-transparent.svg"
+              alt="Fount"
+              className="w-12 h-12"
+            />
+            <span className="text-3xl font-bold bg-clip-text">Fount</span>
           </div>
-          <h2 className="text-2xl font-bold text-white">
-            {mode === "confirm"
-              ? "Verify Your Email"
-              : mode === "signup"
-              ? "Create Account"
-              : mode === "forgot-password"
-              ? "Reset Password"
-              : mode === "reset-password"
-              ? "Enter Reset Code"
-              : "Welcome Back"}
-          </h2>
-          <p className="text-slate-400 mt-2">
+          <p className="mt-2" style={{ color: "var(--dark)" }}>
             {mode === "confirm"
               ? "Enter the verification code sent to your email"
               : mode === "signup"
@@ -190,17 +256,17 @@ export default function AuthPage() {
         </div>
 
         {/* Auth Forms Container */}
-        <div className="bg-slate-800 rounded-lg p-8 border border-slate-700">
+        <div className="backdrop-blur-sm rounded-lg ">
           {/* Error Message */}
           {error && (
-            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm">
+            <div className="mb-4 p-3 bg-red-50 border border-red-300 rounded-lg text-red-700 text-sm">
               {error}
             </div>
           )}
 
           {/* Success Message */}
           {successMessage && (
-            <div className="mb-4 p-3 bg-green-500/10 border border-green-500/50 rounded-lg text-green-400 text-sm">
+            <div className="mb-4 p-3 bg-green-50 border border-green-300 rounded-lg text-green-700 text-sm">
               {successMessage}
             </div>
           )}
@@ -211,7 +277,8 @@ export default function AuthPage() {
               <div>
                 <label
                   htmlFor="code"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: "var(--dark)" }}
                 >
                   Verification Code
                 </label>
@@ -221,7 +288,8 @@ export default function AuthPage() {
                   value={confirmationCode}
                   onChange={(e) => setConfirmationCode(e.target.value)}
                   placeholder="Enter 6-digit code"
-                  className="w-full px-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                  className="w-full px-4 py-2 bg-white  rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                  style={{ color: "var(--light)" }}
                   required
                   autoFocus
                 />
@@ -229,7 +297,11 @@ export default function AuthPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full font-semibold py-3 px-4 rounded-lg transition-all hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: "var(--dark)",
+                  color: "var(--light)",
+                }}
               >
                 {isLoading ? "Verifying..." : "Verify & Sign In"}
               </button>
@@ -242,19 +314,20 @@ export default function AuthPage() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium mb-2"
                 >
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    style={{ color: "var(--light)" }}
                     required
                   />
                 </div>
@@ -262,19 +335,20 @@ export default function AuthPage() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium mb-2"
                 >
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    style={{ color: "var(--light)" }}
                     required
                   />
                 </div>
@@ -282,7 +356,11 @@ export default function AuthPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full font-semibold py-3 px-4 rounded-lg transition-all hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: "var(--dark)",
+                  color: "var(--light)",
+                }}
               >
                 {isLoading ? "Signing in..." : "Sign In"}
               </button>
@@ -296,7 +374,7 @@ export default function AuthPage() {
                     setError("");
                     setSuccessMessage("");
                   }}
-                  className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                  className="text-sm text-gray-600 hover:text-gray-800 transition-colors underline"
                 >
                   Forgot your password?
                 </button>
@@ -310,19 +388,20 @@ export default function AuthPage() {
               <div>
                 <label
                   htmlFor="signup-email"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium mb-2"
                 >
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="signup-email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    style={{ color: "var(--light)" }}
                     required
                   />
                 </div>
@@ -330,31 +409,36 @@ export default function AuthPage() {
               <div>
                 <label
                   htmlFor="signup-password"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium mb-2"
                 >
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="signup-password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    style={{ color: "var(--light)" }}
                     required
                     minLength={8}
                   />
                 </div>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-gray-500">
                   Minimum 8 characters
                 </p>
               </div>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full font-semibold py-3 px-4 rounded-lg transition-all hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: "var(--dark)",
+                  color: "var(--light)",
+                }}
               >
                 {isLoading ? "Creating account..." : "Sign Up"}
               </button>
@@ -367,19 +451,20 @@ export default function AuthPage() {
               <div>
                 <label
                   htmlFor="forgot-email"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium mb-2"
                 >
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="forgot-email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    style={{ color: "var(--light)" }}
                     required
                     autoFocus
                   />
@@ -388,7 +473,11 @@ export default function AuthPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full font-semibold py-3 px-4 rounded-lg transition-all hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: "var(--dark)",
+                  color: "var(--light)",
+                }}
               >
                 {isLoading ? "Sending code..." : "Send Reset Code"}
               </button>
@@ -402,7 +491,7 @@ export default function AuthPage() {
                     setError("");
                     setSuccessMessage("");
                   }}
-                  className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                  className="text-sm text-gray-600 hover:text-gray-800 transition-colors underline"
                 >
                   Back to sign in
                 </button>
@@ -416,7 +505,7 @@ export default function AuthPage() {
               <div>
                 <label
                   htmlFor="reset-code"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium mb-2"
                 >
                   Verification Code
                 </label>
@@ -426,7 +515,8 @@ export default function AuthPage() {
                   value={confirmationCode}
                   onChange={(e) => setConfirmationCode(e.target.value)}
                   placeholder="Enter 6-digit code"
-                  className="w-full px-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                  className="w-full px-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                  style={{ color: "var(--light)" }}
                   required
                   autoFocus
                 />
@@ -434,31 +524,36 @@ export default function AuthPage() {
               <div>
                 <label
                   htmlFor="new-password"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium mb-2"
                 >
                   New Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="new-password"
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    style={{ color: "var(--light)" }}
                     required
                     minLength={8}
                   />
                 </div>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-gray-500">
                   Minimum 8 characters
                 </p>
               </div>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full font-semibold py-3 px-4 rounded-lg transition-all hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: "var(--dark)",
+                  color: "var(--light)",
+                }}
               >
                 {isLoading ? "Resetting password..." : "Reset Password"}
               </button>
@@ -475,7 +570,7 @@ export default function AuthPage() {
                   setEmail("");
                   setPassword("");
                 }}
-                className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
+                className="text-gray-600 hover:text-gray-800 text-sm transition-colors underline"
               >
                 {mode === "signin"
                   ? "Don't have an account? Sign up"

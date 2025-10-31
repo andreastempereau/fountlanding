@@ -11,12 +11,18 @@ article a {
   color: var(--dark);
 }
 
-
+ 
 body {
+  --primary-bg: #16132b;
+  --secondary-bg: #0e1025;
+  --accent-bg: #fffdfa;
+  --accent-text: #16132b;
+  --secondary-text: #fffdfa;
+
   --day: #fffdfa;
   --evening: #fccc83;
   --dusk: #db7a2a;
-  --night: #0f131c;
+  --night: #1c204a;
   --dawn: #16132b;
   --morning: #9fb3bf;
 
@@ -63,7 +69,7 @@ body.dark {
 
 body.twilight {
   --light: var(--dawn);
-  --dark: var(--morning);
+  --dark: white;
   --shadow: #0a0814;
   --bounce-light: #4a5568;
 }

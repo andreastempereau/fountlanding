@@ -11,7 +11,34 @@ export default function DownloadPage() {
   const [accessCode, setAccessCode] = useState("");
   const [isAccessGranted, setIsAccessGranted] = useState(false);
   const [error, setError] = useState("");
+  const [platform, setPlatform] = useState<"mac" | "windows" | "unknown">(
+    "unknown"
+  );
   const navigate = useNavigate();
+
+  // Detect user's platform
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    if (userAgent.includes("mac")) {
+      setPlatform("mac");
+    } else if (userAgent.includes("win")) {
+      setPlatform("windows");
+    } else {
+      setPlatform("unknown");
+    }
+  }, []);
+
+  useEffect(() => {
+    // Add animation-ready class after component mounts
+    // document.body.classList.add("animation-ready");
+    document.body.classList.add("twilight");
+
+    // Cleanup on unmount
+    return () => {
+      // document.body.classList.remove("animation-ready");
+      document.body.classList.remove("twilight");
+    };
+  }, []);
 
   // Check localStorage on mount to see if user has already been granted access
   useEffect(() => {
@@ -37,8 +64,11 @@ export default function DownloadPage() {
   // Show access code form if access not granted
   if (!isAccessGranted) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-        <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+      <div className="min-h-screen">
+        <Header
+          mobileMenuOpen={mobileMenuOpen}
+          setMobileMenuOpen={setMobileMenuOpen}
+        />
 
         <div className="max-w-[1400px] mx-auto px-12 py-16">
           <div className="max-w-md mx-auto">
@@ -52,7 +82,7 @@ export default function DownloadPage() {
             </button>
 
             {/* Access Code Card */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+            <div className="bg-[var(--dark)] rounded-2xl shadow-lg p-8 border border-gray-100">
               <div className="text-center mb-8">
                 <img
                   src="/app-logo-5.svg"
@@ -82,7 +112,9 @@ export default function DownloadPage() {
                     autoFocus
                   />
                   {error && (
-                    <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+                    <p className="text-red-500 text-sm mt-2 text-center">
+                      {error}
+                    </p>
                   )}
                 </div>
 
@@ -105,20 +137,37 @@ export default function DownloadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
-
-      <div className="max-w-[1400px] mx-auto px-12 py-16">
+    <div className="min-h-screen">
+      {/* Simplified background - removed CPU-intensive animations */}
+      <div id="dappled-light">
+        <div id="glow"></div>
+        <div id="glow-bounce"></div>
+        <div className="perspective">
+          <div id="blinds">
+            <div className="shutters">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="shutter"></div>
+              ))}
+            </div>
+            <div className="vertical">
+              <div className="bar"></div>
+              <div className="bar"></div>
+            </div>
+          </div>
+        </div>
+        <div id="progressive-blur">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <Header
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
+      <div className="max-w-[1400px] mx-auto px-12 py-16 z-10 relative">
         <div className="max-w-3xl mx-auto">
-          {/* Back button */}
-          <button
-            onClick={() => navigate("/")}
-            className="mb-8 text-base font-light transition-opacity hover:opacity-60 flex items-center gap-2"
-            style={{ color: "var(--dark)" }}
-          >
-            ← Back to Home
-          </button>
-
           {/* Header */}
           <div className="text-center mb-12">
             <img
@@ -132,99 +181,204 @@ export default function DownloadPage() {
             >
               Download Fount
             </h1>
-            <p
-              className="text-xl font-light"
-              style={{ color: "var(--dark)" }}
-            >
+            <p className="text-xl font-light" style={{ color: "var(--dark)" }}>
               Your personal AI workspace for private thoughts
             </p>
           </div>
 
           {/* System Requirements Card */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-100">
-            <h2
-              className="text-2xl font-light mb-6"
-              style={{ color: "var(--dark)" }}
-            >
-              System Requirements
-            </h2>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+          <div className="rounded-2xl shadow-lg p-8 mb-8 bg-[var(--dark)] text-[var(--light)]">
+            <h2 className="text-2xl font-light mb-6">System Requirements</h2>
+            {platform === "mac" ? (
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  {/* <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg
+                      className="w-4 h-4 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div> */}
+                  <div>
+                    <p className="font-medium">
+                      Apple Silicon (M1, M2, M3, or later)
+                    </p>
+                    <p className="text-sm  mt-1">
+                      Fount is optimized for Apple's ARM-based processors
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium" style={{ color: "var(--dark)" }}>
-                    Apple Silicon (M1, M2, M3, or later)
-                  </p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Fount is optimized for Apple's ARM-based processors
-                  </p>
+                <div className="flex items-start gap-3">
+                  {/* <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg
+                      className="w-4 h-4 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div> */}
+                  <div>
+                    <p className="font-medium">macOS 14.1 (Sonoma) or later</p>
+                    <p className="text-sm  mt-1">
+                      Ensure your Mac is running the latest operating system
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+            ) : platform === "windows" ? (
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg
+                      className="w-4 h-4 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p
+                      className="font-medium"
+                      style={{ color: "var(--light)" }}
+                    >
+                      Windows 10 or later
+                    </p>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Compatible with Windows 10 and Windows 11
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium" style={{ color: "var(--dark)" }}>
-                    macOS 14.1 (Sonoma) or later
-                  </p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Ensure your Mac is running the latest operating system
-                  </p>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg
+                      className="w-4 h-4 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p
+                      className="font-medium"
+                      style={{ color: "var(--light)" }}
+                    >
+                      64-bit processor
+                    </p>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Requires a 64-bit version of Windows
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="space-y-4">
+                <p className="text-gray-600">
+                  Fount is available for macOS (Apple Silicon) and Windows 10+
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Download Button */}
           <div className="text-center">
-            <a
-              href="#"
-              className="inline-block px-12 py-5 text-lg font-semibold rounded-xl transition-all hover:opacity-80 shadow-lg"
-              style={{
-                backgroundColor: "var(--dark)",
-                color: "var(--light)",
-              }}
-            >
-              Download Fount.dmg
-            </a>
-            <p className="text-sm text-gray-500 mt-4">
-              Version 1.0.0 • Apple Silicon • macOS 14.1+
-            </p>
-          </div>
-
-          {/* Installation Instructions */}
-          <div className="mt-12 p-6 bg-gray-50 rounded-xl border border-gray-200">
-            <h3
-              className="text-lg font-medium mb-4"
-              style={{ color: "var(--dark)" }}
-            >
-              Installation Instructions
-            </h3>
-            <ol className="space-y-3 text-gray-700">
-              <li className="flex gap-3">
-                <span className="font-semibold">1.</span>
-                <span>Download the Fount.dmg file</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="font-semibold">2.</span>
-                <span>Open the downloaded file to mount the disk image</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="font-semibold">3.</span>
-                <span>Drag the Fount app to your Applications folder</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="font-semibold">4.</span>
-                <span>Launch Fount from your Applications folder</span>
-              </li>
-            </ol>
+            {platform === "mac" ? (
+              <>
+                <a
+                  href="#"
+                  className="inline-block px-12 py-5 text-lg font-semibold rounded-xl transition-all hover:opacity-80 shadow-lg"
+                  style={{
+                    backgroundColor: "var(--dark)",
+                    color: "var(--light)",
+                  }}
+                >
+                  Download for Mac
+                </a>
+                <p className="text-sm text-gray-500 mt-4">
+                  Version 1.0.0 • Apple Silicon • macOS 14.1+
+                </p>
+                <a
+                  href="#"
+                  className="text-sm text-gray-600 hover:text-gray-800 mt-3 inline-block underline"
+                >
+                  Download for Windows instead
+                </a>
+              </>
+            ) : platform === "windows" ? (
+              <>
+                <a
+                  href="#"
+                  className="inline-block px-12 py-5 text-lg font-semibold rounded-xl transition-all hover:opacity-80 shadow-lg"
+                  style={{
+                    backgroundColor: "var(--dark)",
+                    color: "var(--light)",
+                  }}
+                >
+                  Download for Windows
+                </a>
+                <p className="text-sm text-gray-500 mt-4">
+                  Version 1.0.0 • Windows 10+
+                </p>
+                <a
+                  href="#"
+                  className="text-sm text-gray-600 hover:text-gray-800 mt-3 inline-block underline"
+                >
+                  Download for Mac instead
+                </a>
+              </>
+            ) : (
+              <div className="space-y-4">
+                <a
+                  href="#"
+                  className="inline-block px-12 py-5 text-lg font-semibold rounded-xl transition-all hover:opacity-80 shadow-lg mb-4"
+                  style={{
+                    backgroundColor: "var(--dark)",
+                    color: "var(--light)",
+                  }}
+                >
+                  Download for Mac
+                </a>
+                <br />
+                <a
+                  href="#"
+                  className="inline-block px-12 py-5 text-lg font-semibold rounded-xl transition-all hover:opacity-80 shadow-lg"
+                  style={{
+                    backgroundColor: "var(--dark)",
+                    color: "var(--light)",
+                  }}
+                >
+                  Download for Windows
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

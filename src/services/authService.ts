@@ -6,6 +6,7 @@ import {
   ConfirmForgotPasswordCommand,
   ChangePasswordCommand,
   GlobalSignOutCommand,
+  DeleteUserCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClient, cognitoConfig } from "../config/cognito";
 import {
@@ -353,6 +354,42 @@ export async function signOut(): Promise<AuthResponse<void>> {
     return {
       success: false,
       error: error instanceof Error ? error.message : "Sign out failed",
+    };
+  }
+}
+
+/**
+ * Delete the current user's account
+ * Requires authentication token
+ * @returns AuthResponse indicating success or failure
+ */
+export async function deleteAccount(): Promise<AuthResponse<void>> {
+  try {
+    const accessToken = getAccessToken();
+
+    if (!accessToken) {
+      return {
+        success: false,
+        error: "No access token found. User must be signed in.",
+      };
+    }
+
+    const command = new DeleteUserCommand({
+      AccessToken: accessToken,
+    });
+
+    await cognitoClient.send(command);
+
+    // Clear tokens after successful deletion
+    clearTokens();
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Account deletion failed",
     };
   }
 }

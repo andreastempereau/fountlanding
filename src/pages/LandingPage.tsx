@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import Hero from "../components/Hero";
 import Header from "../components/Header";
+import { getPlatform, getPlatformDisplayName } from "../utils/platform";
 // import ImageCarousel from "../components/ImageCarousel";
 // import ProblemSection from "../components/ProblemSection";
 // import FeaturesSection from "../components/FeaturesSection";
@@ -10,13 +11,21 @@ import Header from "../components/Header";
 // import Footer from "../components/Footer";
 
 export default function LandingPage() {
+  const [platform, setPlatform] = useState<string>("MacOS");
+
   useEffect(() => {
     // Add animation-ready class after component mounts
-    document.body.classList.add("animation-ready");
+    // document.body.classList.add("animation-ready");
+    document.body.classList.add("twilight");
+
+    // Detect platform
+    const detectedPlatform = getPlatform();
+    setPlatform(getPlatformDisplayName(detectedPlatform));
 
     // Cleanup on unmount
     return () => {
-      document.body.classList.remove("animation-ready");
+      // document.body.classList.remove("animation-ready");
+      document.body.classList.remove("twilight");
     };
   }, []);
 
@@ -52,7 +61,7 @@ export default function LandingPage() {
         <div className="max-w-[1400px] mx-auto relative z-10 flex flex-col items-start min-h-screen px-24 pt-[10vh]">
           <div className="flex flex-col items-start mb-12">
             <h1
-              className="text-8xl italic bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent"
+              className="text-8xl italic text-[var(--dark)]"
               style={{ lineHeight: "1.2" }}
             >
               Stay Curious
@@ -72,11 +81,11 @@ export default function LandingPage() {
                 color: "var(--light)",
               }}
             >
-              Get Fount on MacOS
+              Get Fount for {platform}
             </button>
           </div>
           <div className="flex-shrink-0">
-            <img src="/fount11.png" alt="Fount" className="w-[1000px] h-auto" />
+            <img src="/hero.svg" alt="Fount" className="w-[1000px] h-auto" />
           </div>
         </div>
 
@@ -84,9 +93,14 @@ export default function LandingPage() {
         <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
           <div className="mx-auto">
             <div className="flex items-center justify-between">
-              <div className="flex flex-col space-y-8 flex-1">
+              <div className="flex flex-col flex-1">
                 <div className="text-left">
-                  <h3 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                  <h3
+                    className="text-2xl font-medium mb-4 bg-clip-text"
+                    style={{
+                      color: "var(--dark)",
+                    }}
+                  >
                     Privacy of Mind
                   </h3>
                   <p
@@ -99,8 +113,14 @@ export default function LandingPage() {
                     locally.
                   </p>
                 </div>
+                <hr className="my-8 border-t border-[color:var(--dark)]/20 w-4/5 self-start" />
                 <div className="text-left">
-                  <h3 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                  <h3
+                    className="text-2xl font- mb-4 bg-clip-text"
+                    style={{
+                      color: "var(--dark)",
+                    }}
+                  >
                     Model-Agnostic
                   </h3>
                   <p
@@ -113,8 +133,14 @@ export default function LandingPage() {
                     cloud models.
                   </p>
                 </div>
+                <hr className="my-8 border-t border-[color:var(--dark)]/20 w-4/5 self-start" />
                 <div className="text-left">
-                  <h3 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                  <h3
+                    className="text-2xl mb-4 bg-clip-text"
+                    style={{
+                      color: "var(--dark)",
+                    }}
+                  >
                     Context-aware Personalization
                   </h3>
                   <p
@@ -134,9 +160,6 @@ export default function LandingPage() {
                   alt="Fount"
                   className="w-[350px] h-auto"
                 />
-                <h2 className="text-center mt-2 text-3xl text-gray-700">
-                  Download Now
-                </h2>
               </div>
             </div>
           </div>
@@ -146,7 +169,7 @@ export default function LandingPage() {
         <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
           <div className="flex flex-col items-start gap-8">
             <div className="flex-1">
-              <h3 className="text-3xl font-semibold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+              <h3 className="text-3xl mb-6 bg-clip-text text-[var(--dark)]">
                 Grounded Responses with Citations Linked to Your Documents
               </h3>
               <p
@@ -160,11 +183,6 @@ export default function LandingPage() {
                 highlighted references.
               </p>
             </div>
-            <img
-              src="/fount-citations.png"
-              alt="Fount"
-              className="w-[1000px] h-auto"
-            />
           </div>
         </div>
 
@@ -172,7 +190,7 @@ export default function LandingPage() {
         <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
           <div className="flex flex-col items-start gap-8">
             <div className="flex-1">
-              <h3 className="text-3xl font-semibold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+              <h3 className="text-3xl mb-6 bg-clip-text text-transparent">
                 Convert Links to Local Webpages
               </h3>
               <p
@@ -205,7 +223,7 @@ export default function LandingPage() {
         <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
           <div className="flex flex-col items-start gap-12">
             <div className="flex-1 ">
-              <h3 className="text-3xl font-semibold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+              <h3 className="text-3xl mb-6 bg-clip-text text-transparent">
                 Powerful Context Selection across PDFs, Markdown files, and
                 Webpages
               </h3>

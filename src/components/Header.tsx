@@ -27,15 +27,29 @@ export default function Header({
       <div className="max-w-[1400px] mx-auto px-12">
         <div className="flex justify-between items-center py-6">
           {/* Left: Logo */}
-          <div className="flex items-center space-x-2">
-            <img src="/fount9.svg" alt="Fount Logo" className="w-10 h-10" />
+          <button
+            className="flex items-center space-x-2 transition-opacity hover:opacity-60"
+            onClick={() => navigate("/")}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+            }}
+            aria-label="Go to home"
+          >
+            <img
+              src="/app-logo-bg-transparent.svg"
+              alt="Fount Logo"
+              className="w-10 h-10"
+            />
             <span
               className="text-2xl font-light tracking-tight"
               style={{ color: "var(--dark)" }}
             >
               Fount
             </span>
-          </div>
+          </button>
 
           {/* Right: Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
