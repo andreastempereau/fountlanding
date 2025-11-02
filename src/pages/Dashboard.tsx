@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
-  Shield,
   LogOut,
   Lock,
   Eye,
@@ -10,6 +9,7 @@ import {
   CreditCard,
   Home,
   Trash2,
+  Check,
 } from "lucide-react";
 import {
   signOut,
@@ -17,15 +17,23 @@ import {
   deleteAccount,
 } from "../services/authService";
 import { getIdToken } from "../utils/tokenStorage";
-import { getEmailFromToken } from "../utils/jwtDecoder";
+import { getEmailFromToken, getUserSubFromToken } from "../utils/jwtDecoder";
+import { createCheckoutSession } from "../config/stripe";
 
-type Tab = "profile" | "billing";
+type Tab = "profile" | "plan";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState<Tab>("profile");
   const [userEmail, setUserEmail] = useState<string>("");
   const [isSigningOut, setIsSigningOut] = useState(false);
+
+  // Plan state
+  const [isYearly, setIsYearly] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
+  const [checkoutSuccess, setCheckoutSuccess] = useState("");
 
   // Change password state
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -63,6 +71,43 @@ export default function Dashboard() {
       setUserEmail(email || "Unknown");
     }
   }, []);
+
+  // Handle checkout success/cancel from URL params
+  useEffect(() => {
+    const success = searchParams.get("success");
+    const canceled = searchParams.get("canceled");
+    const plan = searchParams.get("plan");
+
+    if (success === "true") {
+      setCheckoutSuccess(
+        `Successfully subscribed to Pro ${
+          plan === "yearly" ? "Yearly" : "Monthly"
+        } plan!`
+      );
+      setActiveTab("plan");
+      // Clear URL params after showing message
+      setTimeout(() => {
+        setSearchParams({});
+      }, 100);
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setCheckoutSuccess("");
+      }, 5000);
+    }
+
+    if (canceled === "true") {
+      setCheckoutError("Checkout was canceled. You can try again anytime.");
+      setActiveTab("plan");
+      // Clear URL params after showing message
+      setTimeout(() => {
+        setSearchParams({});
+      }, 100);
+      // Clear error message after 5 seconds
+      setTimeout(() => {
+        setCheckoutError("");
+      }, 5000);
+    }
+  }, [searchParams, setSearchParams]);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
@@ -135,6 +180,40 @@ export default function Dashboard() {
       setIsDeletingAccount(false);
     }
   };
+
+  const handleSubscribe = async (planType: "monthly" | "yearly") => {
+    setIsCheckingOut(true);
+    setCheckoutError("");
+
+    try {
+      // Get user information from ID token
+      const idToken = getIdToken();
+      if (!idToken) {
+        throw new Error("Not authenticated");
+      }
+
+      const email = getEmailFromToken(idToken);
+      const cognitoUserId = getUserSubFromToken(idToken);
+
+      if (!email || !cognitoUserId) {
+        throw new Error("Unable to retrieve user information");
+      }
+
+      const { url } = await createCheckoutSession(
+        planType,
+        email,
+        cognitoUserId
+      );
+      console.log("checkout session created", url);
+      // Redirect to Stripe Checkout
+      window.location.href = url;
+    } catch (error) {
+      setCheckoutError(
+        error instanceof Error ? error.message : "Failed to start checkout"
+      );
+      setIsCheckingOut(false);
+    }
+  };
   useEffect(() => {
     // Add animation-ready class after component mounts
     // document.body.classList.add("animation-ready");
@@ -148,30 +227,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen flex relative">
-      <div id="dappled-light">
-        <div id="glow"></div>
-        <div id="glow-bounce"></div>
-        <div className="perspective">
-          <div id="blinds">
-            <div className="shutters">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <div key={i} className="shutter"></div>
-              ))}
-            </div>
-            <div className="vertical">
-              <div className="bar"></div>
-              <div className="bar"></div>
-            </div>
-          </div>
-        </div>
-        <div id="progressive-blur">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
+    <div className="min-h-screen flex relative bg-slate-900">
       {/* Sidebar */}
       <aside className="w-64 border-r border-slate-700 flex flex-col relative">
         {/* Logo */}
@@ -201,15 +257,15 @@ export default function Dashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("billing")}
+            onClick={() => setActiveTab("plan")}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-              activeTab === "billing"
+              activeTab === "plan"
                 ? "bg-[var(--accent-bg)] text-[var(--accent-text)]"
                 : "text-slate-300 hover:bg-slate-700"
             }`}
           >
             <CreditCard className="w-5 h-5" />
-            <span className="font-medium">Billing</span>
+            <span className="font-medium">Plan</span>
           </button>
         </nav>
 
@@ -240,10 +296,12 @@ export default function Dashboard() {
       <main className="flex-1 overflow-y-auto relative">
         <div className="max-w-4xl mx-auto p-8">
           {activeTab === "profile" && (
-            <div className="space-y-6">
+            <div className="space-y-3">
+              <h2 className="text-xl mb-4 text-[var(--secondary-text)]">
+                Account Information
+              </h2>
               {/* Email Section */}
-              <div className="text-[var(--secondary-text)] rounded-lg p-6">
-                <h2 className="text-xl font-bold mb-4">Account Information</h2>
+              <div className="text-[var(--secondary-text)] rounded-lg">
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <span className="">Email:</span>
@@ -253,11 +311,9 @@ export default function Dashboard() {
               </div>
 
               {/* Change Password Section */}
-              <div className="rounded-lg p-6 ">
+              <div className="rounded-lg ">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white">
-                    Change Password
-                  </h2>
+                  <h2 className="text-xl text-white">Change Password</h2>
                   {!showChangePassword && (
                     <button
                       onClick={() => setShowChangePassword(true)}
@@ -414,16 +470,10 @@ export default function Dashboard() {
               </div>
 
               {/* Delete Account Section */}
-              <div className=" rounded-lg p-6">
-                <h2 className="text-xl font-bold text-white mb-4">
-                  Delete Account
-                </h2>
-                {!showDeleteAccount ? (
-                  <div className="space-y-4">
-                    <p className="text-slate-400 text-sm">
-                      Permanently delete your account and all associated data.
-                      This action cannot be undone.
-                    </p>
+              <div className="rounded-lg ">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl text-white">Delete Account</h2>
+                  {!showDeleteAccount && (
                     <button
                       onClick={() => setShowDeleteAccount(true)}
                       className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors text-sm"
@@ -431,8 +481,10 @@ export default function Dashboard() {
                       <Trash2 className="w-4 h-4" />
                       <span>Delete Account</span>
                     </button>
-                  </div>
-                ) : (
+                  )}
+                </div>
+
+                {showDeleteAccount ? (
                   <div className="space-y-4">
                     {deleteError && (
                       <div className="p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm">
@@ -470,15 +522,162 @@ export default function Dashboard() {
                       </button>
                     </div>
                   </div>
+                ) : (
+                  <p className="text-slate-400 text-sm">
+                    Permanently delete your account and all associated data.
+                    This action cannot be undone.
+                  </p>
                 )}
               </div>
             </div>
           )}
 
-          {activeTab === "billing" && (
-            <div className="bg-slate-800 rounded-lg p-8 border border-slate-700">
-              <h2 className="text-2xl font-bold text-white mb-4">Billing</h2>
-              <p className="text-slate-400">Billing information coming soon.</p>
+          {activeTab === "plan" && (
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-white mb-3">
+                Subscription Plan
+              </h2>
+
+              {/* Success Message */}
+              {checkoutSuccess && (
+                <div className="p-4 bg-green-500/10 border border-green-500/50 rounded-lg text-green-400">
+                  {checkoutSuccess}
+                </div>
+              )}
+
+              {/* Error Message */}
+              {checkoutError && (
+                <div className="p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400">
+                  {checkoutError}
+                </div>
+              )}
+
+              {/* Current Plan Status */}
+              <div className="bg-slate-800 rounded-lg p-3 border border-slate-700">
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Current Plan
+                </h3>
+                <p className="text-slate-300">
+                  <span className="font-medium">Free (BYOK)</span> - Bring Your
+                  Own API Key
+                </p>
+                <p className="text-slate-400 text-sm mt-2">
+                  Upgrade to Pro for managed API access and priority support.
+                </p>
+              </div>
+
+              {/* Monthly/Yearly Toggle */}
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex flex-row items-center gap-3">
+                  <span
+                    className={`text-base transition-opacity ${
+                      !isYearly
+                        ? "opacity-100 text-white"
+                        : "opacity-50 text-slate-400"
+                    }`}
+                  >
+                    Monthly
+                  </span>
+                  <button
+                    onClick={() => setIsYearly(!isYearly)}
+                    className="relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus:outline-none"
+                    style={{
+                      backgroundColor: isYearly ? "#60a5fa" : "#475569",
+                    }}
+                    aria-label="Toggle between monthly and yearly pricing"
+                  >
+                    <span
+                      className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${
+                        isYearly ? "translate-x-6" : "translate-x-1"
+                      }`}
+                    />
+                  </button>
+                  <span
+                    className={`text-base transition-opacity ${
+                      isYearly
+                        ? "opacity-100 text-white"
+                        : "opacity-50 text-slate-400"
+                    }`}
+                  >
+                    Yearly
+                  </span>
+                </div>
+                {isYearly && (
+                  <p className="text-sm text-green-400">
+                    Save $48/year with annual billing!
+                  </p>
+                )}
+              </div>
+
+              {/* Pro Plan Card */}
+              <div className="bg-slate-800 rounded-lg p-4 border-2 border-blue-500/50 relative">
+                {/* Popular badge */}
+                <div className="absolute top-0 right-8 transform -translate-y-1/2 px-4 py-1 rounded-full text-sm font-medium bg-blue-500 text-white">
+                  Recommended
+                </div>
+
+                <div className="mb-6">
+                  <h3 className="text-2xl font-semibold text-white mb-2">
+                    Pro Plan
+                  </h3>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-bold text-white">
+                      ${isYearly ? "16" : "20"}
+                    </span>
+                    <span className="text-slate-400">/month</span>
+                  </div>
+                  {isYearly && (
+                    <p className="text-sm text-slate-400 mt-2">
+                      Billed annually at $192/year
+                    </p>
+                  )}
+                </div>
+
+                {/* Features List */}
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-300">
+                      Managed API access - no setup required
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-300">Priority support</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-300">Advanced features</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-300">Automatic updates</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-300">
+                      Full privacy & local storage
+                    </span>
+                  </li>
+                </ul>
+
+                {/* Subscribe Button */}
+                <button
+                  onClick={() =>
+                    handleSubscribe(isYearly ? "yearly" : "monthly")
+                  }
+                  disabled={isCheckingOut}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isCheckingOut
+                    ? "Redirecting to checkout..."
+                    : `Subscribe to Pro ${isYearly ? "Yearly" : "Monthly"}`}
+                </button>
+
+                <p className="text-xs text-slate-400 text-center mt-4">
+                  Cancel anytime. No questions asked.
+                </p>
+              </div>
             </div>
           )}
         </div>

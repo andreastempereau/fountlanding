@@ -251,7 +251,6 @@ export default function LandingPage() {
                   className="w-2/3 h-auto"
                 />
               </div>
-
               <img src="/html-drop.png" alt="Fount" className=" h-auto" />
             </div>
           </div>

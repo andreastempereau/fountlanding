@@ -60,13 +60,13 @@ export default function Header({
             >
               Download
             </button>
-            <a
-              href="#pricing"
+            <button
+              onClick={() => navigate("/pricing")}
               className="text-base font-light transition-opacity hover:opacity-60"
               style={{ color: "var(--dark)" }}
             >
               Pricing
-            </a>
+            </button>
             <button
               onClick={handleAccountClick}
               className="text-base font-light transition-opacity hover:opacity-60"
@@ -102,13 +102,13 @@ export default function Header({
             >
               Download
             </button>
-            <a
-              href="#pricing"
-              className="block text-base font-light transition-opacity hover:opacity-60"
+            <button
+              onClick={() => navigate("/pricing")}
+              className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
               style={{ color: "var(--dark)" }}
             >
               Pricing
-            </a>
+            </button>
             <button
               onClick={handleAccountClick}
               className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"

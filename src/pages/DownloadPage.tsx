@@ -181,9 +181,6 @@ export default function DownloadPage() {
             >
               Download Fount
             </h1>
-            <p className="text-xl font-light" style={{ color: "var(--dark)" }}>
-              Your personal AI workspace for private thoughts
-            </p>
           </div>
 
           {/* System Requirements Card */}

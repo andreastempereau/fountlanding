@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Mail, Lock } from "lucide-react";
 import {
   signUp,
   confirmSignUp,
@@ -180,7 +179,7 @@ export default function AuthPage() {
         </div>
       </div>
 
-      <div className="max-w-md w-full relative z-10 text-[var(--secondary-text)]">
+      <div className="w-full relative z-10 text-[var(--secondary-text)] flex flex-col items-center">
         {/* Demo Mode Switcher */}
         {/* <div className="mb-6 p-4 bg-yellow-50 border-2 border-yellow-300 rounded-lg shadow-md">
           <p className="text-sm font-semibold text-yellow-900 mb-3">
@@ -233,16 +232,18 @@ export default function AuthPage() {
         </div> */}
 
         {/* Logo and Title */}
-        <div className="text-center mb-0">
+        <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center space-x-3 mb-2 text-[var(--dark)]">
             <img
               src="/app-logo-bg-transparent.svg"
               alt="Fount"
-              className="w-12 h-12"
+              className="w-32 h-32"
             />
-            <span className="text-3xl font-bold bg-clip-text">Fount</span>
           </div>
-          <p className="mt-2" style={{ color: "var(--dark)" }}>
+          <p
+            className="mt-2 font-thin text-2xl"
+            style={{ color: "var(--dark)" }}
+          >
             {mode === "confirm"
               ? "Enter the verification code sent to your email"
               : mode === "signup"
@@ -256,24 +257,10 @@ export default function AuthPage() {
         </div>
 
         {/* Auth Forms Container */}
-        <div className="backdrop-blur-sm rounded-lg ">
-          {/* Error Message */}
-          {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-300 rounded-lg text-red-700 text-sm">
-              {error}
-            </div>
-          )}
-
-          {/* Success Message */}
-          {successMessage && (
-            <div className="mb-4 p-3 bg-green-50 border border-green-300 rounded-lg text-green-700 text-sm">
-              {successMessage}
-            </div>
-          )}
-
+        <div className="w-[400px] backdrop-blur-sm rounded-lg flex flex-col items-center">
           {/* Confirmation Form */}
           {mode === "confirm" && (
-            <form onSubmit={handleConfirmSignUp} className="space-y-4">
+            <form onSubmit={handleConfirmSignUp} className="space-y-4 w-full">
               <div>
                 <label
                   htmlFor="code"
@@ -290,6 +277,7 @@ export default function AuthPage() {
                   placeholder="Enter 6-digit code"
                   className="w-full px-4 py-2 bg-white  rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
                   style={{ color: "var(--light)" }}
+                  autoComplete="off"
                   required
                   autoFocus
                 />
@@ -310,7 +298,7 @@ export default function AuthPage() {
 
           {/* Sign In Form */}
           {mode === "signin" && (
-            <form onSubmit={handleSignIn} className="space-y-4">
+            <form onSubmit={handleSignIn} className="w-full">
               <div>
                 <label
                   htmlFor="email"
@@ -319,20 +307,34 @@ export default function AuthPage() {
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
-                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
                     style={{ color: "var(--light)" }}
+                    autoComplete="off"
                     required
                   />
                 </div>
+                {/* Forgot Password Link */}
+                <div className="mt-1 text-right">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMode("forgot-password");
+                      setError("");
+                      setSuccessMessage("");
+                    }}
+                    className="text-sm  transition-colors font-medium"
+                    tabIndex={-1}
+                  >
+                    Forgot your password?
+                  </button>
+                </div>
               </div>
-              <div>
+              <div className="mb-4">
                 <label
                   htmlFor="password"
                   className="block text-sm font-medium mb-2"
@@ -340,15 +342,14 @@ export default function AuthPage() {
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
                     style={{ color: "var(--light)" }}
+                    autoComplete="off"
                     required
                   />
                 </div>
@@ -361,30 +362,16 @@ export default function AuthPage() {
                   backgroundColor: "var(--dark)",
                   color: "var(--light)",
                 }}
+                tabIndex={-1}
               >
                 {isLoading ? "Signing in..." : "Sign In"}
               </button>
-
-              {/* Forgot Password Link */}
-              <div className="text-center">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMode("forgot-password");
-                    setError("");
-                    setSuccessMessage("");
-                  }}
-                  className="text-sm text-gray-600 hover:text-gray-800 transition-colors underline"
-                >
-                  Forgot your password?
-                </button>
-              </div>
             </form>
           )}
 
           {/* Sign Up Form */}
           {mode === "signup" && (
-            <form onSubmit={handleSignUp} className="space-y-4">
+            <form onSubmit={handleSignUp} className="space-y-4 w-full">
               <div>
                 <label
                   htmlFor="signup-email"
@@ -393,15 +380,14 @@ export default function AuthPage() {
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="signup-email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
-                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
                     style={{ color: "var(--light)" }}
+                    autoComplete="off"
                     required
                   />
                 </div>
@@ -414,15 +400,14 @@ export default function AuthPage() {
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="signup-password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
                     style={{ color: "var(--light)" }}
+                    autoComplete="off"
                     required
                     minLength={8}
                   />
@@ -447,7 +432,7 @@ export default function AuthPage() {
 
           {/* Forgot Password Form */}
           {mode === "forgot-password" && (
-            <form onSubmit={handleForgotPassword} className="space-y-4">
+            <form onSubmit={handleForgotPassword} className="space-y-4 w-full">
               <div>
                 <label
                   htmlFor="forgot-email"
@@ -456,15 +441,14 @@ export default function AuthPage() {
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="forgot-email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
-                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
                     style={{ color: "var(--light)" }}
+                    autoComplete="off"
                     required
                     autoFocus
                   />
@@ -491,7 +475,7 @@ export default function AuthPage() {
                     setError("");
                     setSuccessMessage("");
                   }}
-                  className="text-sm text-gray-600 hover:text-gray-800 transition-colors underline"
+                  className="text-sm transition-colors"
                 >
                   Back to sign in
                 </button>
@@ -501,7 +485,7 @@ export default function AuthPage() {
 
           {/* Reset Password Form */}
           {mode === "reset-password" && (
-            <form onSubmit={handleResetPassword} className="space-y-4">
+            <form onSubmit={handleResetPassword} className="space-y-4 w-full">
               <div>
                 <label
                   htmlFor="reset-code"
@@ -517,6 +501,7 @@ export default function AuthPage() {
                   placeholder="Enter 6-digit code"
                   className="w-full px-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
                   style={{ color: "var(--light)" }}
+                  autoComplete="off"
                   required
                   autoFocus
                 />
@@ -529,15 +514,15 @@ export default function AuthPage() {
                   New Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     id="new-password"
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
+                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
                     style={{ color: "var(--light)" }}
+                    autoComplete="off"
                     required
                     minLength={8}
                   />
@@ -562,7 +547,7 @@ export default function AuthPage() {
 
           {/* Toggle between Sign In and Sign Up */}
           {(mode === "signin" || mode === "signup") && (
-            <div className="mt-6 text-center">
+            <div className="mt-6 text-center w-full">
               <button
                 onClick={() => {
                   setMode(mode === "signin" ? "signup" : "signin");
@@ -570,12 +555,27 @@ export default function AuthPage() {
                   setEmail("");
                   setPassword("");
                 }}
-                className="text-gray-600 hover:text-gray-800 text-sm transition-colors underline"
+                className="text-sm transition-colors"
+                tabIndex={-1}
               >
                 {mode === "signin"
                   ? "Don't have an account? Sign up"
                   : "Already have an account? Sign in"}
               </button>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {error && (
+            <div className="mt-4 p-3 bg-red-50 border border-red-300 rounded-lg text-red-700 text-sm">
+              {error}
+            </div>
+          )}
+
+          {/* Success Message */}
+          {successMessage && (
+            <div className="mt-4 p-3 bg-green-50 border border-green-300 rounded-lg text-green-700 text-sm">
+              {successMessage}
             </div>
           )}
         </div>
