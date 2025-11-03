@@ -16,9 +16,11 @@ import {
   changePassword,
   deleteAccount,
 } from "../services/authService";
+import { getUserAccount } from "../services/userService";
 import { getIdToken } from "../utils/tokenStorage";
 import { getEmailFromToken, getUserSubFromToken } from "../utils/jwtDecoder";
-import { createCheckoutSession } from "../config/stripe";
+import { createCheckoutSession, createCustomerPortalSession } from "../config/stripe";
+import { UserAccountData } from "../types/auth";
 
 type Tab = "profile" | "plan";
 
@@ -28,6 +30,11 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<Tab>("profile");
   const [userEmail, setUserEmail] = useState<string>("");
   const [isSigningOut, setIsSigningOut] = useState(false);
+
+  // User account state
+  const [userAccountData, setUserAccountData] = useState<UserAccountData | null>(null);
+  const [isLoadingAccount, setIsLoadingAccount] = useState(false);
+  const [accountError, setAccountError] = useState("");
 
   // Plan state
   const [isYearly, setIsYearly] = useState(false);
@@ -71,6 +78,40 @@ export default function Dashboard() {
       setUserEmail(email || "Unknown");
     }
   }, []);
+
+  // Fetch user account data
+  const fetchUserAccount = async () => {
+    setIsLoadingAccount(true);
+    setAccountError("");
+    
+    const result = await getUserAccount();
+    
+    if (result.success && result.data) {
+      setUserAccountData(result.data);
+    } else if (result.error === "not_found") {
+      // User account not found in DynamoDB yet - this is normal for new users
+      setUserAccountData(null);
+    } else {
+      setAccountError(result.error || "Failed to load account data");
+    }
+    
+    setIsLoadingAccount(false);
+  };
+
+  // Fetch user account on mount
+  useEffect(() => {
+    fetchUserAccount();
+  }, []);
+
+  // Re-fetch account data after successful checkout
+  useEffect(() => {
+    if (checkoutSuccess) {
+      // Wait a bit for webhook to process
+      setTimeout(() => {
+        fetchUserAccount();
+      }, 2000);
+    }
+  }, [checkoutSuccess]);
 
   // Handle checkout success/cancel from URL params
   useEffect(() => {
@@ -210,6 +251,29 @@ export default function Dashboard() {
     } catch (error) {
       setCheckoutError(
         error instanceof Error ? error.message : "Failed to start checkout"
+      );
+      setIsCheckingOut(false);
+    }
+  };
+
+  const handleManageSubscription = async () => {
+    setIsCheckingOut(true);
+    setCheckoutError("");
+
+    try {
+      if (!userAccountData?.stripe_customer_id) {
+        throw new Error("No customer ID found");
+      }
+
+      const { url } = await createCustomerPortalSession(
+        userAccountData.stripe_customer_id
+      );
+      console.log("customer portal session created", url);
+      // Redirect to Stripe Customer Portal
+      window.location.href = url;
+    } catch (error) {
+      setCheckoutError(
+        error instanceof Error ? error.message : "Failed to open subscription management"
       );
       setIsCheckingOut(false);
     }
@@ -553,17 +617,89 @@ export default function Dashboard() {
               )}
 
               {/* Current Plan Status */}
-              <div className="bg-slate-800 rounded-lg p-3 border border-slate-700">
-                <h3 className="text-lg font-semibold text-white mb-2">
+              <div className="space-y-3">
+                <h3 className="text-lg font-semibold text-white">
                   Current Plan
                 </h3>
-                <p className="text-slate-300">
-                  <span className="font-medium">Free (BYOK)</span> - Bring Your
-                  Own API Key
-                </p>
-                <p className="text-slate-400 text-sm mt-2">
-                  Upgrade to Pro for managed API access and priority support.
-                </p>
+                
+                {/* Loading State */}
+                {isLoadingAccount && (
+                  <div className="bg-slate-800 rounded-lg p-4 border border-slate-700">
+                    <p className="text-slate-400">Loading subscription data...</p>
+                  </div>
+                )}
+
+                {/* Error State */}
+                {accountError && !isLoadingAccount && (
+                  <div className="bg-red-500/10 rounded-lg p-4 border border-red-500/50">
+                    <p className="text-red-400 text-sm">{accountError}</p>
+                  </div>
+                )}
+
+                {/* Free Plan Card */}
+                {!isLoadingAccount && (
+                  <div className={`bg-slate-800 rounded-lg p-4 border-2 transition-all ${
+                    !userAccountData?.subscription_status || userAccountData.subscription_status !== 'active'
+                      ? 'border-blue-500/50'
+                      : 'border-slate-700'
+                  }`}>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="text-lg font-semibold text-white flex items-center gap-2">
+                          Free (BYOK)
+                          {(!userAccountData?.subscription_status || userAccountData.subscription_status !== 'active') && (
+                            <span className="px-2 py-0.5 text-xs font-medium bg-blue-500 text-white rounded-full">
+                              Current
+                            </span>
+                          )}
+                        </h4>
+                        <p className="text-slate-400 text-sm mt-1">
+                          Bring Your Own API Key
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Pro Plan Card (if active) */}
+                {!isLoadingAccount && userAccountData?.subscription_status === 'active' && (
+                  <div className="bg-slate-800 rounded-lg p-4 border-2 border-green-500/50">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <h4 className="text-lg font-semibold text-white flex items-center gap-2">
+                          Pro Plan
+                          <span className="px-2 py-0.5 text-xs font-medium bg-green-500 text-white rounded-full">
+                            Active
+                          </span>
+                        </h4>
+                        <p className="text-slate-400 text-sm mt-1">
+                          {userAccountData.subscription_plan === 'yearly' ? 'Annual' : 'Monthly'} Subscription
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-3 space-y-1 text-sm">
+                      <p className="text-slate-300">
+                        <span className="text-slate-500">Status:</span>{' '}
+                        <span className="font-medium text-green-400">
+                          {userAccountData.subscription_status === 'active' ? 'Active' :
+                           userAccountData.subscription_status === 'canceled' ? 'Cancelled' :
+                           userAccountData.subscription_status === 'past_due' ? 'Payment Issue' :
+                           userAccountData.subscription_status === 'trialing' ? 'Trial' :
+                           userAccountData.subscription_status === 'incomplete' ? 'Incomplete' :
+                           userAccountData.subscription_status === 'incomplete_expired' ? 'Expired' :
+                           userAccountData.subscription_status === 'unpaid' ? 'Unpaid' :
+                           userAccountData.subscription_status}
+                        </span>
+                      </p>
+                      {userAccountData.subscription_created_at && (
+                        <p className="text-slate-400">
+                          <span className="text-slate-500">Subscribed since:</span>{' '}
+                          {new Date(userAccountData.subscription_created_at).toLocaleDateString()}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Monthly/Yearly Toggle */}
@@ -661,21 +797,33 @@ export default function Dashboard() {
                   </li>
                 </ul>
 
-                {/* Subscribe Button */}
+                {/* Subscribe/Manage Button */}
                 <button
                   onClick={() =>
-                    handleSubscribe(isYearly ? "yearly" : "monthly")
+                    userAccountData?.subscription_status === 'active'
+                      ? handleManageSubscription()
+                      : handleSubscribe(isYearly ? "yearly" : "monthly")
                   }
                   disabled={isCheckingOut}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={`w-full font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                    userAccountData?.subscription_status === 'active'
+                      ? 'bg-slate-600 hover:bg-slate-500 text-white'
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}
                 >
                   {isCheckingOut
-                    ? "Redirecting to checkout..."
+                    ? userAccountData?.subscription_status === 'active'
+                      ? "Opening portal..."
+                      : "Redirecting to checkout..."
+                    : userAccountData?.subscription_status === 'active'
+                    ? "Manage Subscription"
                     : `Subscribe to Pro ${isYearly ? "Yearly" : "Monthly"}`}
                 </button>
 
                 <p className="text-xs text-slate-400 text-center mt-4">
-                  Cancel anytime. No questions asked.
+                  {userAccountData?.subscription_status === 'active'
+                    ? "Update payment method, view invoices, or cancel subscription"
+                    : "Cancel anytime. No questions asked."}
                 </p>
               </div>
             </div>

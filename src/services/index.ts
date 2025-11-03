@@ -15,6 +15,9 @@ export {
   signOut,
 } from "./authService";
 
+// Export user service functions
+export { getUserAccount } from "./userService";
+
 // Export token utilities
 export {
   storeTokens,
@@ -43,6 +46,7 @@ export type {
   SignInResponse,
   UserAttribute,
   RefreshTokensResponse,
+  UserAccountData,
 } from "../types/auth";
 
 // Export config (useful for debugging or advanced usage)

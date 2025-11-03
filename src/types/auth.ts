@@ -68,3 +68,21 @@ export interface AuthorizationCode {
   expiresAt: number; // Unix timestamp (5 minutes from creation)
   createdAt: number; // Unix timestamp
 }
+
+/**
+ * User Account Data from DynamoDB fount-users table
+ * Retrieved via Lambda function
+ */
+export interface UserAccountData {
+  userId: string;
+  email: string;
+  stripe_customer_id?: string;
+  stripe_subscription_id?: string;
+  subscription_status?: string;
+  subscription_plan?: string;
+  subscription_plan_id?: string;
+  subscription_created_at?: string;
+  subscription_updated_at?: string;
+  last_invoice_paid_at?: string;
+  last_invoice_failed_at?: string | null;
+}

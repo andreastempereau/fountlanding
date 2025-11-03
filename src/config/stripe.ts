@@ -77,3 +77,35 @@ export async function createCheckoutSession(
 
   return response.json();
 }
+
+/**
+ * Create a Stripe customer portal session
+ * @param customerId - Stripe customer ID
+ * @returns Promise with the portal URL
+ */
+export async function createCustomerPortalSession(
+  customerId: string
+): Promise<{ url: string }> {
+  console.log("creating customer portal session", customerId, stripeConfig.apiUrl);
+  
+  const response = await fetch(
+    `${stripeConfig.apiUrl}/create-customer-portal-session`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customerId,
+      }),
+    }
+  );
+  console.log("response", response);
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to create customer portal session");
+  }
+
+  return response.json();
+}
