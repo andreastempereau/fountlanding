@@ -30,10 +30,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: "User information required" });
     }
 
-    // Get the origin from the request or use default
-    const origin =
-      req.headers.origin || req.headers.referer || "http://localhost:5173";
-    const YOUR_DOMAIN = origin.replace(/\/$/, ""); // Remove trailing slash if present
+    // Get the domain using Vercel's environment variables (most robust)
+    // VERCEL_URL is automatically set by Vercel for all deployments
+    let YOUR_DOMAIN: string;
+
+    if (process.env.VERCEL_URL) {
+      // VERCEL_URL doesn't include protocol, so prepend https://
+      // Use http:// only for local development
+      const protocol =
+        process.env.VERCEL_ENV === "development" ? "http://" : "https://";
+      YOUR_DOMAIN = `${protocol}${process.env.VERCEL_URL}`.replace(/\/$/, "");
+    } else {
+      // Fallback to headers for local development when VERCEL_URL is not set
+      const origin =
+        req.headers.origin || req.headers.referer || "http://localhost:5173";
+      YOUR_DOMAIN = origin.replace(/\/$/, ""); // Remove trailing slash if present
+    }
 
     // Check if customer already exists with this email
     const existingCustomers = await stripe.customers.list({
