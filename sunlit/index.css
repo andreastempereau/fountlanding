@@ -67,7 +67,7 @@ body.dark {
   --bounce-light: #1b293f;
 }
 
-body.twilight {
+body {
   --light: var(--dawn);
   --dark: white;
   --shadow: #0a0814;

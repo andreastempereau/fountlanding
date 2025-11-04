@@ -7,8 +7,6 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { stripe, PRICE_IDS } from "./_lib/stripe.js";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  console.log("checkout session request received", req, res);
-  console.log("body", req.body);
   // Handle CORS preflight
   if (req.method === "OPTIONS") {
     return res.status(200).end();
@@ -54,7 +52,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     let customerId;
-
+    console.log(
+      "existingCustomers",
+      existingCustomers,
+      userEmail,
+      cognitoUserId
+    );
     if (existingCustomers.data.length > 0) {
       // Customer exists, update metadata to ensure it has cognitoUserId
       customerId = existingCustomers.data[0].id;

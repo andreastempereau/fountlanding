@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { Shield, Mail, Lock, AlertCircle } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { signIn } from "../services/authService";
 import { completeOAuth2Flow } from "../services/oauth2Service";
 
@@ -81,7 +81,7 @@ export default function OAuth2LoginPage() {
   };
 
   const handleBackToHome = () => {
-    navigate("/");
+    navigate("/auth?mode=signup");
   };
 
   // Show error state if no session ID
@@ -91,16 +91,19 @@ export default function OAuth2LoginPage() {
         <div className="max-w-md w-full">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-                <Shield className="w-7 h-7 text-white" />
-              </div>
-              <span className="text-3xl font-bold text-white">Fount</span>
+              <img
+                src="/app-logo-bg-transparent.svg"
+                alt="Fount Logo"
+                className="w-10 h-10"
+              />
+              <span className="text-3xl font-bold text-[var(--dark)]">
+                Fount
+              </span>
             </div>
           </div>
 
-          <div className="bg-slate-800 rounded-lg p-8 border border-slate-700">
+          <div className="bg-[var(--dark)] rounded-lg p-8 border border-[var(--shadow)] text-[var(--light)]">
             <div className="flex items-start space-x-3 text-red-400">
-              <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
               <div>
                 <h3 className="font-semibold mb-2">Invalid OAuth2 Request</h3>
                 <p className="text-sm text-slate-400 mb-4">
@@ -122,26 +125,49 @@ export default function OAuth2LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full">
-        {/* Logo and Title */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center space-x-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-              <Shield className="w-7 h-7 text-white" />
+    <div className="min-h-screen  flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div id="dappled-light">
+        <div id="glow"></div>
+        <div id="glow-bounce"></div>
+        <div className="perspective">
+          <div id="blinds">
+            <div className="shutters">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="shutter"></div>
+              ))}
             </div>
-            <span className="text-3xl font-bold text-white">Fount</span>
+            <div className="vertical">
+              <div className="bar"></div>
+              <div className="bar"></div>
+            </div>
           </div>
-          <h2 className="text-2xl font-bold text-white">
-            Desktop Authentication
-          </h2>
+        </div>
+        <div id="progressive-blur">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <div className="max-w-md w-full relative">
+        {/* Logo and Title */}
+        <div className="text-center mb-8 text-[var(--dark)]">
+          <div className="inline-flex items-center justify-center space-x-3 mb-4">
+            <img
+              src="/app-logo-bg-transparent.svg"
+              alt="Fount Logo"
+              className="w-10 h-10"
+            />
+            <span className="text-3xl font-bold">Fount</span>
+          </div>
+          <h2 className="text-2xl font-bold">Desktop Authentication</h2>
           <p className="text-slate-400 mt-2">
             Sign in to authorize your desktop application
           </p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-slate-800 rounded-lg p-8 border border-slate-700">
+        <div className="rounded-lg p-8">
           {/* Error Message */}
           {error && (
             <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm flex items-start space-x-2">
@@ -168,14 +194,12 @@ export default function OAuth2LoginPage() {
                 Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                  className="w-full px-2 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
                   required
                   autoFocus
                   disabled={isLoading}
@@ -191,14 +215,12 @@ export default function OAuth2LoginPage() {
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                  className="w-full px-2 py-2 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
                   required
                   disabled={isLoading}
                 />
@@ -233,14 +255,6 @@ export default function OAuth2LoginPage() {
               </button>
             </p>
           </div>
-        </div>
-
-        {/* Security Notice */}
-        <div className="mt-6 text-center">
-          <p className="text-xs text-slate-500">
-            This is a secure OAuth2 authentication flow. Your credentials are
-            encrypted and never shared with the desktop application.
-          </p>
         </div>
       </div>
     </div>

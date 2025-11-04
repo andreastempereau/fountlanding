@@ -7,8 +7,8 @@ import { AuthResponse, UserAccountData } from "../types/auth";
  */
 
 const USER_ACCOUNT_ENDPOINT =
+  import.meta.env.VITE_USER_ACCOUNT_API_URL ||
   "https://aj44ou2ld4.execute-api.us-east-1.amazonaws.com/prod/auth/user/account";
-
 /**
  * Get user account information from DynamoDB via Lambda
  * @returns AuthResponse with user account data including subscription info

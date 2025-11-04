@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   signUp,
   confirmSignUp,
@@ -17,9 +17,30 @@ type AuthMode =
 
 export default function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<AuthMode>("signin");
+  const [searchParams] = useSearchParams();
+
+  // Get initial mode from URL query parameter
+  const getInitialMode = (): AuthMode => {
+    const modeParam = searchParams.get("mode");
+    if (
+      modeParam &&
+      [
+        "signin",
+        "signup",
+        "confirm",
+        "forgot-password",
+        "reset-password",
+      ].includes(modeParam)
+    ) {
+      return modeParam as AuthMode;
+    }
+    return "signin";
+  };
+
+  const [mode, setMode] = useState<AuthMode>(getInitialMode());
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmationCode, setConfirmationCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
@@ -49,6 +70,13 @@ export default function AuthPage() {
     e.preventDefault();
     setError("");
     setIsLoading(true);
+
+    // Validate that passwords match
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
 
     const result = await signUp(email, password);
 
@@ -275,8 +303,7 @@ export default function AuthPage() {
                   value={confirmationCode}
                   onChange={(e) => setConfirmationCode(e.target.value)}
                   placeholder="Enter 6-digit code"
-                  className="w-full px-4 py-2 bg-white  rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
-                  style={{ color: "var(--light)" }}
+                  className="w-full px-4 py-2 bg-slate-900 text-white rounded-lg border border-slate-600 placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
                   autoComplete="off"
                   required
                   autoFocus
@@ -312,8 +339,7 @@ export default function AuthPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
-                    style={{ color: "var(--light)" }}
+                    className="w-full px-2 py-2 bg-slate-900 text-white  rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                     autoComplete="off"
                     required
                   />
@@ -347,8 +373,7 @@ export default function AuthPage() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
-                    style={{ color: "var(--light)" }}
+                    className="w-full px-2 py-2 bg-slate-900 text-white  rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                     autoComplete="off"
                     required
                   />
@@ -385,8 +410,7 @@ export default function AuthPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
-                    style={{ color: "var(--light)" }}
+                    className="w-full px-2 py-2 bg-slate-900 text-white rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                     autoComplete="off"
                     required
                   />
@@ -405,8 +429,7 @@ export default function AuthPage() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
-                    style={{ color: "var(--light)" }}
+                    className="w-full px-2 py-2 bg-slate-900 text-white rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                     autoComplete="off"
                     required
                     minLength={8}
@@ -415,6 +438,26 @@ export default function AuthPage() {
                 <p className="mt-1 text-xs text-gray-500">
                   Minimum 8 characters
                 </p>
+              </div>
+              <div>
+                <label
+                  htmlFor="signup-confirm-password"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Confirm Password
+                </label>
+                <div className="relative">
+                  <input
+                    id="signup-confirm-password"
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="w-full px-2 py-2 bg-slate-900 text-white rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    autoComplete="off"
+                    required
+                    minLength={8}
+                  />
+                </div>
               </div>
               <button
                 type="submit"
@@ -446,8 +489,7 @@ export default function AuthPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
-                    style={{ color: "var(--light)" }}
+                    className="w-full px-2 py-2 bg-slate-900 text-white  rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                     autoComplete="off"
                     required
                     autoFocus
@@ -499,8 +541,7 @@ export default function AuthPage() {
                   value={confirmationCode}
                   onChange={(e) => setConfirmationCode(e.target.value)}
                   placeholder="Enter 6-digit code"
-                  className="w-full px-4 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
-                  style={{ color: "var(--light)" }}
+                  className="w-full px-4 py-2 bg-slate-900 text-white  rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                   autoComplete="off"
                   required
                   autoFocus
@@ -520,8 +561,7 @@ export default function AuthPage() {
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full px-2 py-2 bg-white rounded-lg placeholder-gray-400 focus:outline-none focus:border-gray-500 transition-colors"
-                    style={{ color: "var(--light)" }}
+                    className="w-full px-2 py-2 bg-slate-900 text-white  rounded-lg border border-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                     autoComplete="off"
                     required
                     minLength={8}
@@ -554,6 +594,7 @@ export default function AuthPage() {
                   setError("");
                   setEmail("");
                   setPassword("");
+                  setConfirmPassword("");
                 }}
                 className="text-sm transition-colors"
                 tabIndex={-1}

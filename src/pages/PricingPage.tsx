@@ -5,7 +5,6 @@ import { Check } from "lucide-react";
 
 export default function PricingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isYearly, setIsYearly] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +19,6 @@ export default function PricingPage() {
 
   const freFeatures = [
     "Bring Your Own API Key",
-    "Full privacy & local storage",
     "All core features included",
     "Community support",
   ];
@@ -77,42 +75,6 @@ export default function PricingPage() {
           <p className="text-xl font-light" style={{ color: "var(--dark)" }}>
             Choose the plan that works best for you
           </p>
-        </div>
-
-        {/* Monthly/Yearly Toggle */}
-        <div className="flex flex-col justify-center items-center gap-4 mb-12">
-          <div className="flex flex-row items-center gap-2">
-            <span
-              className={`text-lg font-light transition-opacity ${
-                !isYearly ? "opacity-100" : "opacity-50"
-              }`}
-              style={{ color: "var(--dark)" }}
-            >
-              Monthly
-            </span>
-            <button
-              onClick={() => setIsYearly(!isYearly)}
-              className="relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-0 focus:ring-offset-0"
-              style={{
-                backgroundColor: isYearly ? "var(--dark)" : "var(--light)",
-              }}
-              aria-label="Toggle between monthly and yearly pricing"
-            >
-              <span
-                className={`inline-block h-6 w-6 transform rounded-full bg-white border-2 border-gray-200 transition-transform ${
-                  isYearly ? "translate-x-7" : "translate-x-1"
-                }`}
-              />
-            </button>
-            <span
-              className={`text-lg font-light transition-opacity ${
-                isYearly ? "opacity-100" : "opacity-50"
-              }`}
-              style={{ color: "var(--dark)" }}
-            >
-              Yearly
-            </span>
-          </div>
         </div>
 
         {/* Pricing Cards */}
@@ -181,7 +143,7 @@ export default function PricingPage() {
                   className="text-5xl font-light tracking-tight"
                   style={{ color: "var(--light)" }}
                 >
-                  ${isYearly ? "16" : "20"}
+                  $20
                 </span>
                 <span
                   className="font-light"
@@ -190,14 +152,6 @@ export default function PricingPage() {
                   /month
                 </span>
               </div>
-              {isYearly && (
-                <p
-                  className="text-sm font-light mt-2"
-                  style={{ color: "var(--light)", opacity: 0.7 }}
-                >
-                  Billed annually at $192/year
-                </p>
-              )}
             </div>
 
             <ul className="space-y-3 mb-8 flex-grow">
