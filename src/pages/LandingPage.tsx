@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import Hero from "../components/Hero";
 import Header from "../components/Header";
 import { getPlatform, getPlatformDisplayName } from "../utils/platform";
@@ -17,6 +18,7 @@ import { DeepSeekIcon } from "../svgs/DeepSeekIcon";
 
 export default function LandingPage() {
   const [platform, setPlatform] = useState<string>("MacOS");
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Add animation-ready class after component mounts
@@ -85,6 +87,7 @@ export default function LandingPage() {
                 backgroundColor: "var(--dark)",
                 color: "var(--light)",
               }}
+              onClick={() => navigate("/download")}
             >
               Get Fount for {platform}
             </button>
@@ -137,7 +140,9 @@ export default function LandingPage() {
                     Context That Matters
                   </h3>
                   <p className="text-lg" style={{ color: "var(--dark)" }}>
-                    Query your documents with citations, memory, and web search.
+                    Get context-aware answers from your documents with
+                    verifiable citations, persistent memory, and live web
+                    search.
                   </p>
                 </div>
               </div>
