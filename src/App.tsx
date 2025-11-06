@@ -8,6 +8,8 @@ import DownloadPage from "./pages/DownloadPage";
 import PricingPage from "./pages/PricingPage";
 import FAQPage from "./pages/FAQPage";
 import BlogPage from "./pages/BlogPage";
+import TermsPage from "./pages/TermsPage";
+import PrivacyPage from "./pages/PrivacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { restoreSession, setupAutoTokenRefresh } from "./utils/sessionManager";
 import { isAuthenticated } from "./utils/tokenStorage";
@@ -62,6 +64,8 @@ function App() {
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/faq" element={<FAQPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/auth/login" element={<OAuth2LoginPage />} />
         <Route
