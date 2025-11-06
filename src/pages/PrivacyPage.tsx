@@ -56,7 +56,7 @@ export default function PrivacyPage() {
             >
               Privacy Policy
             </h1>
-            <p className="text-lg text-white">Last Updated: January 2025</p>
+            <p className="text-lg text-white">Last Updated: November 2025</p>
           </div>
 
           {/* Privacy Content */}
@@ -64,213 +64,125 @@ export default function PrivacyPage() {
             <div className="space-y-8">
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  Our Commitment to Privacy
+                  1. Introduction
                 </h2>
                 <p className="text-white leading-relaxed">
-                  At Fount, privacy is not just a feature—it's our foundation.
-                  This Privacy Policy explains how we handle your data when you
-                  use our application. The short version: we designed Fount so
-                  that we don't have access to your private data, and we intend
-                  to keep it that way.
+                  Zekiel Dee (“we,” “us,” or “our”) operates Fount and its
+                  related website (collectively, the “Service”). This Privacy
+                  Policy explains how we collect, use, and protect your personal
+                  information when you use the Service. By using Fount, you
+                  agree to the terms described here.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  1. Information We Don't Collect
-                </h2>
-                <p className="text-white leading-relaxed mb-4">
-                  By design, we do not collect, store, or have access to:
-                </p>
-                <ul className="list-disc list-inside text-white space-y-2 ml-4">
-                  <li>Your documents or files</li>
-                  <li>Your conversations with AI models</li>
-                  <li>Your notes or personal data</li>
-                  <li>Your search queries or usage patterns</li>
-                  <li>Your AI model API keys</li>
-                </ul>
-                <p className="text-white leading-relaxed mt-4">
-                  All of this information stays on your device, locally stored
-                  and under your control.
-                </p>
-              </section>
-
-              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
-                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  2. Information We Do Collect
-                </h2>
-                <p className="text-white leading-relaxed mb-4">
-                  We collect minimal information necessary to provide and
-                  improve our service:
-                </p>
-                <ul className="list-disc list-inside text-white space-y-2 ml-4">
-                  <li>
-                    <strong>Account Information:</strong> If you create an
-                    account, we collect your email address for authentication
-                    purposes.
-                  </li>
-                  <li>
-                    <strong>Technical Information:</strong> Basic application
-                    diagnostics, error logs, and crash reports to improve
-                    performance and fix bugs.
-                  </li>
-                  <li>
-                    <strong>Usage Analytics:</strong> Anonymized statistics
-                    about feature usage to help us understand how to improve the
-                    application.
-                  </li>
-                </ul>
-              </section>
-
-              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
-                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  3. How Your Data is Stored
-                </h2>
-                <p className="text-white leading-relaxed mb-4">
-                  <strong>Local Storage:</strong> All your documents,
-                  conversations, and personal data are stored locally on your
-                  device. We use industry-standard encryption to protect this
-                  data at rest.
-                </p>
-                <p className="text-white leading-relaxed">
-                  <strong>Optional Cloud Features:</strong> If you choose to use
-                  cloud-based features (such as syncing across devices), your
-                  data will be encrypted before transmission and stored securely
-                  in your own cloud storage that you control.
-                </p>
-              </section>
-
-              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
-                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  4. Third-Party Services
-                </h2>
-                <p className="text-white leading-relaxed mb-4">
-                  When you use AI models through Fount, your queries are sent
-                  directly to the AI provider you choose (e.g., OpenAI,
-                  Anthropic, Google). These interactions are subject to the
-                  privacy policies of those providers:
-                </p>
-                <ul className="list-disc list-inside text-white space-y-2 ml-4">
-                  <li>
-                    <strong>Cloud Providers:</strong> Your data is transmitted
-                    to and processed by the AI provider according to their
-                    privacy policy.
-                  </li>
-                  <li>
-                    <strong>Verifiably Private Models:</strong> These models use
-                    secure enclaves and cryptographic techniques to ensure your
-                    data remains private even during processing.
-                  </li>
-                  <li>
-                    <strong>Local Models:</strong> Processing happens entirely
-                    on your device with no external data transmission.
-                  </li>
-                </ul>
-              </section>
-
-              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
-                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  5. Data Sharing and Disclosure
-                </h2>
-                <p className="text-white leading-relaxed mb-4">
-                  We do not sell, rent, or share your personal information with
-                  third parties, except:
-                </p>
-                <ul className="list-disc list-inside text-white space-y-2 ml-4">
-                  <li>When you explicitly direct us to do so</li>
-                  <li>
-                    When required by law or to protect our legal rights
-                  </li>
-                  <li>
-                    With service providers who help us operate the application
-                    (under strict confidentiality agreements)
-                  </li>
-                </ul>
-              </section>
-
-              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
-                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  6. Data Security
+                  2. Information We Collect
                 </h2>
                 <p className="text-white leading-relaxed">
-                  We implement industry-standard security measures to protect
-                  your information. This includes encryption of data at rest and
-                  in transit, secure authentication protocols, and regular
-                  security audits. However, no method of electronic storage or
-                  transmission is 100% secure, and we cannot guarantee absolute
-                  security.
+                  We collect only the information necessary to operate and
+                  provide the Service: Account Information: Email address and
+                  password (stored securely as a cryptographic hash). Payment
+                  Information: Billing details handled by our payment processor
+                  (Stripe). We never see or store your full credit card number.
+                  We do not track personal behavior or location, and we do not
+                  sell user data to anyone.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  7. Your Rights and Choices
-                </h2>
-                <p className="text-white leading-relaxed mb-4">
-                  You have the right to:
-                </p>
-                <ul className="list-disc list-inside text-white space-y-2 ml-4">
-                  <li>Access your data at any time (it's on your device)</li>
-                  <li>
-                    Delete your data by uninstalling the application or deleting
-                    local files
-                  </li>
-                  <li>Export your data in standard formats</li>
-                  <li>
-                    Opt out of analytics and diagnostics in application settings
-                  </li>
-                  <li>Request deletion of your account information</li>
-                </ul>
-              </section>
-
-              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
-                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  8. Children's Privacy
+                  3. How We Use Your Information
                 </h2>
                 <p className="text-white leading-relaxed">
-                  Fount is not intended for use by children under the age of 13.
-                  We do not knowingly collect personal information from children
-                  under 13. If you believe we have inadvertently collected such
-                  information, please contact us immediately.
+                  We use the information we collect to: Create and maintain your
+                  user account. Process and manage your subscription through
+                  Stripe. Provide customer support and communicate about updates
+                  or service issues. Maintain and improve our software’s
+                  functionality and security.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  9. International Users
+                  4. How We Share Your Information
                 </h2>
                 <p className="text-white leading-relaxed">
-                  Fount is designed for use worldwide. Since your data is stored
-                  locally on your device, international data transfer regulations
-                  primarily apply only when you choose to use cloud-based AI
-                  services, which are subject to their own privacy policies and
-                  data handling practices.
+                  We share your information only when necessary to operate the
+                  Service: Stripe: For secure payment processing. AWS: For
+                  managing logins and subscriptions. Legal Requirements: If
+                  required by law, regulation, or court order. We do not sell,
+                  rent, or otherwise disclose personal information to marketers
+                  or advertisers.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  10. Changes to This Privacy Policy
+                  5. Data Retention
                 </h2>
                 <p className="text-white leading-relaxed">
-                  We may update this Privacy Policy from time to time. We will
-                  notify you of any material changes by posting the new Privacy
-                  Policy in the application and updating the "Last Updated"
-                  date. Your continued use of Fount after such changes
-                  constitutes acceptance of the updated policy.
+                  We keep your data only as long as your account remains active
+                  or as needed to comply with legal obligations (e.g., tax and
+                  accounting records). When you delete your account, we remove
+                  your personal information from our systems within a reasonable
+                  period, except for records we are legally required to retain.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  11. Contact Us
+                  6. Security
                 </h2>
                 <p className="text-white leading-relaxed">
-                  If you have any questions about this Privacy Policy or our
-                  privacy practices, please contact us at:
+                  We take reasonable measures to protect your personal
+                  information from unauthorized access, disclosure, alteration,
+                  or destruction. Passwords are stored using secure,
+                  industry-standard hashing algorithms. No system is completely
+                  secure, but we continuously review and improve our security
+                  practices.
                 </p>
-                <p className="text-white leading-relaxed mt-4">
-                  Email: hello@fount.ai
+              </section>
+              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
+                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
+                  7. Your Rights
+                </h2>
+                <p className="text-white leading-relaxed">
+                  You may: Access, correct, or delete your account information.
+                  Request that we delete your account and associated data.
+                  Withdraw consent where applicable (for example, unsubscribing
+                  from emails). To exercise these rights, contact us at
+                  support@fount.sh. If you are located in the European Union,
+                  you have additional rights under the General Data Protection
+                  Regulation (GDPR), including the right to lodge a complaint
+                  with your local data protection authority.
+                </p>
+              </section>
+              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
+                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
+                  8. Children’s Privacy
+                </h2>
+                <p className="text-white leading-relaxed">
+                  Our Service is not directed to children under 13, and we do
+                  not knowingly collect data from them. If we learn that a child
+                  under 13 has provided personal information, we will delete it
+                  immediately.
+                </p>
+              </section>
+              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
+                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
+                  9. Changes to This Policy
+                </h2>
+                <p className="text-white leading-relaxed">
+                  We may update this Privacy Policy from time to time. The “Last
+                  Updated” date at the top of this page reflects the most recent
+                  version. By continuing to use the Service after changes take
+                  effect, you agree to the updated policy.
+                </p>
+              </section>
+              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
+                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
+                  10. Contact Us
+                </h2>
+                <p className="text-white leading-relaxed">
+                  If you have questions or concerns about this Privacy Policy or
+                  our data practices, contact us at: Zekiel Dee Email:
+                  support@fount.sh Address: Los Angeles, CA, 90001 USA
                 </p>
               </section>
             </div>

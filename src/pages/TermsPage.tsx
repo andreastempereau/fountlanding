@@ -56,7 +56,7 @@ export default function TermsPage() {
             >
               Terms of Service
             </h1>
-            <p className="text-lg text-white">Last Updated: January 2025</p>
+            <p className="text-lg text-white">Last Updated: November 2025</p>
           </div>
 
           {/* Terms Content */}
@@ -64,154 +64,180 @@ export default function TermsPage() {
             <div className="space-y-8">
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  1. Acceptance of Terms
+                  1. Introduction
                 </h2>
                 <p className="text-white leading-relaxed">
-                  By accessing or using Fount ("the Application"), you agree to
-                  be bound by these Terms of Service. If you do not agree to
-                  these terms, please do not use the Application.
+                  Welcome to Fount! This document (“Agreement”) governs your use
+                  of our software and related services. By downloading,
+                  installing, or using Fount (the “Software”), you agree to
+                  these terms. If you do not agree, do not install or use the
+                  Software. Zekiel Dee, operating as a sole proprietorship based
+                  in CA, owns and provides this Software.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  2. Description of Service
+                  2. License Grant
                 </h2>
                 <p className="text-white leading-relaxed mb-4">
-                  Fount is a private AI workspace that provides knowledge
-                  management capabilities with local data storage. The
-                  Application allows you to:
+                  You are granted a limited, non-exclusive, non-transferable,
+                  revocable license to install and use one copy of the Software
+                  on your personal computer for your own use. You may not:
+                  Modify, reverse engineer, decompile, or disassemble the
+                  Software. Share, sublicense, or redistribute the Software
+                  without written permission. Circumvent license or subscription
+                  mechanisms. All rights not expressly granted are reserved by
+                  Zekiel Dee.{" "}
                 </p>
-                <ul className="list-disc list-inside text-white space-y-2 ml-4">
-                  <li>Store and manage your documents locally on your device</li>
-                  <li>Interact with various AI models using your own API keys</li>
-                  <li>Process and analyze your documents privately</li>
-                  <li>
-                    Access optional cloud features when you provide your own
-                    credentials
-                  </li>
-                </ul>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  3. User Responsibilities
+                  2. License Grant
                 </h2>
                 <p className="text-white leading-relaxed mb-4">
-                  You are responsible for:
-                </p>
-                <ul className="list-disc list-inside text-white space-y-2 ml-4">
-                  <li>
-                    Maintaining the security of your own API keys and
-                    credentials
-                  </li>
-                  <li>All content you create, store, or process using Fount</li>
-                  <li>Backing up your data as needed</li>
-                  <li>Compliance with applicable laws and regulations</li>
-                  <li>
-                    Any costs associated with third-party services (AI model
-                    providers)
-                  </li>
-                </ul>
-              </section>
-
-              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
-                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  4. Privacy and Data Storage
-                </h2>
-                <p className="text-white leading-relaxed">
-                  Fount is designed with privacy as a core principle. Your data
-                  is stored locally on your device by default. When you use
-                  third-party AI services, your data may be transmitted to those
-                  services according to their respective privacy policies. We do
-                  not collect, store, or have access to your documents or
-                  conversations unless you explicitly opt-in to cloud features
-                  that require such access.
+                  You are granted a limited, non-exclusive, non-transferable,
+                  revocable license to install and use one copy of the Software
+                  on your personal computer for your own use. You may not:
+                  Modify, reverse engineer, decompile, or disassemble the
+                  Software. Share, sublicense, or redistribute the Software
+                  without written permission. Circumvent license or subscription
+                  mechanisms. All rights not expressly granted are reserved by
+                  Zekiel Dee.{" "}
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  5. Intellectual Property
+                  3. Subscriptions and Payments
                 </h2>
-                <p className="text-white leading-relaxed">
-                  The Fount application, including its design, features, and
-                  functionality, is owned by Fount and protected by
-                  international copyright, trademark, and other intellectual
-                  property laws. You retain all rights to your content and data.
+                <p className="text-white leading-relaxed mb-4">
+                  Access to premium features requires an active paid
+                  subscription ($20 per month) processed securely via Stripe.
+                  Subscriptions automatically renew each month unless canceled.
+                  You can cancel at any time from your account settings.
+                  Cancellation stops future charges but does not refund previous
+                  payments unless otherwise stated below. Refund Policy All
+                  subscription payments are non-refundable. When you cancel your
+                  subscription, you will retain access to premium features until
+                  the end of your current billing period, after which your
+                  subscription will not renew. No partial refunds or credits are
+                  provided for unused time or features.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  6. Disclaimer of Warranties
+                  4. Account and Security
                 </h2>
-                <p className="text-white leading-relaxed">
-                  THE APPLICATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-                  KIND, EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT THE
-                  APPLICATION WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF
-                  VIRUSES OR OTHER HARMFUL COMPONENTS.
+                <p className="text-white leading-relaxed mb-4">
+                  To access premium features, you must create an account with
+                  your email and password. You are responsible for keeping your
+                  login credentials secure and for all activity under your
+                  account. If you believe your account has been compromised,
+                  contact us immediately at support@fount.sh
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  7. Limitation of Liability
+                  5. Privacy
                 </h2>
-                <p className="text-white leading-relaxed">
-                  TO THE MAXIMUM EXTENT PERMITTED BY LAW, FOUNT SHALL NOT BE
-                  LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL,
-                  OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES,
-                  WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA,
-                  USE, GOODWILL, OR OTHER INTANGIBLE LOSSES.
+                <p className="text-white leading-relaxed mb-4">
+                  We collect only the information needed to operate your account
+                  — namely your email address, hashed password, and subscription
+                  details via Stripe. All payment information is handled by
+                  Stripe; we never see or store your credit card data. For full
+                  details, please see our Privacy Policy.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  8. Third-Party Services
+                  6. Intellectual Property
                 </h2>
-                <p className="text-white leading-relaxed">
-                  Fount integrates with third-party AI model providers. Your use
-                  of these services is subject to their respective terms of
-                  service and privacy policies. We are not responsible for the
-                  performance, availability, or practices of third-party
-                  services.
+                <p className="text-white leading-relaxed mb-4">
+                  The Software, including all content, design, and code, is
+                  owned by Zekiel Dee. This Agreement does not transfer
+                  ownership. All trademarks, logos, and third-party libraries
+                  remain the property of their respective owners.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  9. Modifications to Terms
+                  7. Acceptable Use
                 </h2>
-                <p className="text-white leading-relaxed">
-                  We reserve the right to modify these Terms of Service at any
-                  time. We will notify users of any material changes through the
-                  Application or via email. Your continued use of the
-                  Application after such modifications constitutes acceptance of
-                  the updated terms.
+                <p className="text-white leading-relaxed mb-4">
+                  You agree not to use the Software for any unlawful purpose or
+                  to disrupt, damage, or interfere with servers, networks, or
+                  other users.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  10. Termination
+                  8. Termination
                 </h2>
-                <p className="text-white leading-relaxed">
-                  You may stop using the Application at any time. We reserve the
-                  right to suspend or terminate your access to the Application
-                  for violation of these Terms of Service or for any other
-                  reason at our discretion.
+                <p className="text-white leading-relaxed mb-4">
+                  We may suspend or terminate your account or license at any
+                  time for violation of this Agreement, non-payment, or
+                  fraudulent activity. Upon termination, you must stop using the
+                  Software and uninstall all copies from your devices.
                 </p>
               </section>
-
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
                 <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  11. Contact Information
+                  9. Disclaimer of Warranties
                 </h2>
-                <p className="text-white leading-relaxed">
-                  If you have any questions about these Terms of Service, please
-                  contact us at hello@fount.ai
+                <p className="text-white leading-relaxed mb-4">
+                  The Software is provided “as is” and “as available.” To the
+                  maximum extent permitted by law, Zekiel Dee disclaims all
+                  warranties, express or implied, including but not limited to
+                  warranties of merchantability, fitness for a particular
+                  purpose, or non-infringement. We make no guarantee that the
+                  Software will be uninterrupted, error-free, or free of harmful
+                  components.
+                </p>
+              </section>
+              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
+                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
+                  10. Limitation of Liability
+                </h2>
+                <p className="text-white leading-relaxed mb-4">
+                  To the fullest extent permitted by law, Zekiel Dee will not be
+                  liable for any indirect, incidental, or consequential damages,
+                  including lost profits, data loss, or business interruption.
+                  In no event shall our total liability exceed the amount you
+                  paid to us in the past twelve (12) months.
+                </p>
+              </section>
+              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
+                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
+                  11. Governing Law
+                </h2>
+                <p className="text-white leading-relaxed mb-4">
+                  This Agreement is governed by the laws of the State of
+                  California, without regard to its conflict of law principles.
+                  Any disputes will be handled in the courts of the United
+                  States of America, California, unless otherwise required by
+                  applicable law.
+                </p>
+              </section>
+              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
+                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
+                  12. Changes to This Agreement
+                </h2>
+                <p className="text-white leading-relaxed mb-4">
+                  We may update these terms occasionally. When we do, we’ll
+                  update the “Last Updated” date at the top of this page.
+                  Continued use of the Software after changes means you accept
+                  the revised terms.{" "}
+                </p>
+              </section>
+              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
+                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
+                  13. Contact Information{" "}
+                </h2>
+                <p className="text-white leading-relaxed mb-4">
+                  For questions, legal notices, or support, contact: Zekiel Dee
+                  <br />
+                  Email: support@fount.sh
+                  <br />
+                  Address: Los Angeles, CA, 90001 USA
                 </p>
               </section>
             </div>

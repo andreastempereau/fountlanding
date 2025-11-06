@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function FAQPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function FAQPage() {
     {
       question: "How does Fount protect my privacy?",
       answer:
-        "Fount is privacy-first by design. All your data stays on your device—we don't use cloud storage or track your usage. You maintain complete control over your information. You can choose your AI model based on your specific privacy requirements; run models locally on your device, use verifiably private models through Tinfoil, or connect to cloud providers",
+        "Fount is privacy-first by design. We only store email addresses for account verification if you sign up for a subscription. You maintain complete control over your information. You can choose your AI model based on your specific privacy requirements; run models locally on your device, use verifiably private models through Tinfoil, or connect to cloud providers",
     },
     {
       question: "Is Fount free to use?",
@@ -148,6 +149,8 @@ export default function FAQPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

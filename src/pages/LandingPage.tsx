@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import Hero from "../components/Hero";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { getPlatform, getPlatformDisplayName } from "../utils/platform";
 import { AnthropicIcon } from "../svgs/AnthropicIcon";
 import { OpenAiIcon } from "../svgs/OpenAiIcon";
@@ -14,7 +15,6 @@ import { DeepSeekIcon } from "../svgs/DeepSeekIcon";
 // import EnterpriseSection from "../components/EnterpriseSection";
 // import EarlyAccessSection from "../components/EarlyAccessSection";
 // import ProductShowcase from "../components/ProductShowcase";
-// import Footer from "../components/Footer";
 
 export default function LandingPage() {
   const [platform, setPlatform] = useState<string>("MacOS");
@@ -462,6 +462,8 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 // Access code for downloads - change this to your desired code
 const ACCESS_CODE = "FOUNT2025";
@@ -379,6 +380,8 @@ export default function DownloadPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

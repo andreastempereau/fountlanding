@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { CiLink } from "react-icons/ci";
 
 interface BlogPost {
@@ -104,7 +105,7 @@ Zeke`,
               </button>
 
               {/* Post Header */}
-              <article className="rounded-lg p-12">
+              <article className="rounded-lg p-12 pt-4">
                 {/* Title */}
                 <h1
                   className="text-5xl font-bold mb-6"
@@ -247,6 +248,8 @@ Zeke`,
           )}
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

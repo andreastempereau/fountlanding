@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Check } from "lucide-react";
 
 export default function PricingPage() {
@@ -24,7 +25,6 @@ export default function PricingPage() {
   ];
 
   const paidFeatures = [
-    "Managed API access",
     "No API key setup required",
     "Priority support",
     "Advanced features",
@@ -193,6 +193,8 @@ export default function PricingPage() {
           </p>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
