@@ -3,7 +3,7 @@ import { Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 border-t border-slate-800 relative">
+    <footer className="relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-4 gap-8">
           <div className="lg:col-span-2">
@@ -87,18 +87,6 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
-
-        <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center">
-          <div className="text-slate-400 text-sm">Fount 2025</div>
-          <div className="flex space-x-6 mt-4 sm:mt-0 text-sm text-slate-400">
-            <Link to="/privacy" className="hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link to="/terms" className="hover:text-white transition-colors">
-              Terms of Service
-            </Link>
           </div>
         </div>
       </div>
