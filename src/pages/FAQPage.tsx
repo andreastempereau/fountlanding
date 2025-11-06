@@ -17,44 +17,14 @@ export default function FAQPage() {
 
   const faqData = [
     {
-      question: "What is Fount?",
-      answer:
-        "Fount is a personal AI workspace designed to keep your private thoughts secure. It combines powerful AI capabilities with privacy-first design, allowing you to work with AI models while keeping your data on your device.",
-    },
-    {
       question: "How does Fount protect my privacy?",
       answer:
-        "Your data stays on your device. Fount doesn't use cloud storage or track your usage. You have full control over your information, and you can choose to use local models, verifiably private models, or cloud providers based on your privacy needs.",
-    },
-    {
-      question: "What AI models can I use with Fount?",
-      answer:
-        "Fount supports multiple AI models including cloud providers (Anthropic, OpenAI, xAI, Google Gemini), verifiably private models (DeepSeek R1, DeepSeek V3.1 Terminus, GPT-OSS 120B), and local models (coming soon). You can switch between them based on your needs.",
-    },
-    {
-      question: "What platforms does Fount support?",
-      answer:
-        "Fount is available for macOS, Windows, and Linux. You can download the appropriate version for your operating system from our Download page.",
+        "Fount is privacy-first by design. All your data stays on your device—we don't use cloud storage or track your usage. You maintain complete control over your information. You can choose your AI model based on your specific privacy requirements; run models locally on your device, use verifiably private models through Tinfoil, or connect to cloud providers",
     },
     {
       question: "Is Fount free to use?",
       answer:
-        "Fount offers both free and premium plans. Check our Pricing page for detailed information about features available in each tier.",
-    },
-    {
-      question: "Can I use Fount offline?",
-      answer:
-        "Yes! When using local models (coming soon), you'll be able to use Fount completely offline. Even with cloud providers, your documents and data remain stored locally on your device.",
-    },
-    {
-      question: "What file types does Fount support?",
-      answer:
-        "Fount supports PDFs, Markdown files, and webpages. You can highlight and extract specific sections from these documents for context-aware AI interactions.",
-    },
-    {
-      question: "How do I get started with Fount?",
-      answer:
-        "Simply download Fount for your platform, create an account, and you're ready to go! You can start adding documents, selecting context, and chatting with AI models right away.",
+        "Yes! Users can download the application and use their own api keys.",
     },
   ];
 
@@ -63,7 +33,7 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ scrollbarWidth: "none" }}>
       {/* Same background as LandingPage */}
       <div id="dappled-light">
         <div id="glow"></div>
@@ -96,7 +66,7 @@ export default function FAQPage() {
 
       <div className="w-full relative">
         {/* FAQ Content */}
-        <div className="max-w-[1400px] mx-auto relative z-10 px-24 py-16">
+        <div className="max-w-[1440px] mx-auto relative z-10 px-24 py-16">
           {/* Header */}
           <div className="mb-16 text-center">
             <h1

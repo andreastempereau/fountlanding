@@ -104,7 +104,47 @@ export default function BlogPage() {
               </div>
             </article>
 
-            {/* You can add more articles here in the future */}
+            <article className="bg-slate-900 border border-slate-600 rounded-lg p-8 hover:shadow-lg transition-all">
+              <div className="flex flex-col gap-4">
+                {/* Date */}
+                <time
+                  className="text-sm font-medium"
+                  style={{ color: "var(--dark)" }}
+                >
+                  January 15, 2025
+                </time>
+
+                {/* Title */}
+                <h2
+                  className="text-3xl font-semibold"
+                  style={{ color: "var(--dark)" }}
+                >
+                  Introducing Fount: Your Personal AI Workspace
+                </h2>
+
+                {/* Excerpt */}
+                <p className="text-lg text-white leading-relaxed">
+                  We're excited to announce the launch of Fount, a new kind of
+                  AI workspace built with privacy at its core. In a world where
+                  your conversations and data are constantly being analyzed,
+                  Fount gives you complete control over your information while
+                  providing access to the most powerful AI models available.
+                </p>
+
+                {/* Read More Button */}
+                <div className="mt-4">
+                  <button
+                    className="px-6 py-3 text-base font-semibold rounded-lg transition-all hover:opacity-80"
+                    style={{
+                      backgroundColor: "var(--dark)",
+                      color: "var(--light)",
+                    }}
+                  >
+                    Read More
+                  </button>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </div>

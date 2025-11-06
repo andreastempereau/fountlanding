@@ -197,12 +197,23 @@ export default function LandingPage() {
 
             {/* Section 2: Verifiably Private Models */}
             <div className="flex flex-col bg-slate-900 border border-slate-600 rounded-lg p-6">
-              <h3
-                className="text-2xl font-medium mb-6"
-                style={{ color: "var(--dark)" }}
-              >
-                Verifiably Private
-              </h3>
+              <div className="flex items-center justify-between mb-6">
+                <h3
+                  className="text-2xl font-medium"
+                  style={{ color: "var(--dark)" }}
+                >
+                  Verifiably Private
+                </h3>
+                <a
+                  href="https://tinfoil.sh/technology"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm underline hover:opacity-80 transition-opacity"
+                  style={{ color: "var(--dark)" }}
+                >
+                  Learn More
+                </a>
+              </div>
               <div className="flex flex-col gap-3 mb-6">
                 <div className="flex items-center gap-3">
                   <DeepSeekIcon size="24" color="var(--dark)" />
