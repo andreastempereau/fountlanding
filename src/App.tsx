@@ -6,6 +6,8 @@ import OAuth2LoginPage from "./pages/OAuth2LoginPage";
 import Dashboard from "./pages/Dashboard";
 import DownloadPage from "./pages/DownloadPage";
 import PricingPage from "./pages/PricingPage";
+import FAQPage from "./pages/FAQPage";
+import BlogPage from "./pages/BlogPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { restoreSession, setupAutoTokenRefresh } from "./utils/sessionManager";
 import { isAuthenticated } from "./utils/tokenStorage";
@@ -58,6 +60,8 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/download" element={<DownloadPage />} />
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/faq" element={<FAQPage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/auth/login" element={<OAuth2LoginPage />} />
         <Route

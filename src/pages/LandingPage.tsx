@@ -159,6 +159,11 @@ export default function LandingPage() {
 
         {/* Supported Models Section */}
         <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
+          <div className="w-full text-center">
+            <h3 className="text-4xl font-bold mb-10 text-[var(--dark)]">
+              Supported Models
+            </h3>
+          </div>
           <div className="grid grid-cols-3 gap-8">
             {/* Section 1: Cloud Providers */}
             <div className="flex flex-col bg-slate-900 border border-slate-600 rounded-lg p-6">
@@ -284,7 +289,7 @@ export default function LandingPage() {
               {/* Top Row: PDF and Markdown */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* PDF Section */}
-                <div className="flex flex-col gap-4 p-6 rounded-lg bg-white/50 backdrop-blur-sm border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex flex-col gap-4 p-6 rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 hover:shadow-lg transition-shadow">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
                       <svg
@@ -324,7 +329,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Markdown Section */}
-                <div className="flex flex-col gap-4 p-6 rounded-lg bg-white/50 backdrop-blur-sm border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex flex-col gap-4 p-6 rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 hover:shadow-lg transition-shadow">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
                       <svg
@@ -358,7 +363,7 @@ export default function LandingPage() {
               </div>
 
               {/* Bottom Row: Webpages (Full Width) */}
-              <div className="flex flex-col gap-4 p-6 rounded-lg bg-white/50 backdrop-blur-sm border border-gray-200 hover:shadow-lg transition-shadow">
+              <div className="flex flex-col gap-4 p-6 rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 hover:shadow-lg transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
                     <svg
@@ -405,7 +410,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 p-6 rounded-lg bg-white/50 backdrop-blur-sm border border-gray-200 hover:shadow-lg transition-shadow w-full">
+            <div className="flex flex-col gap-4 p-6 rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 hover:shadow-lg transition-shadow w-full">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
                   <svg

@@ -23,7 +23,7 @@ export default function Header({
   };
 
   return (
-    <header className="w-full z-10 relative">
+    <header className="w-full z-50 sticky top-0 backdrop-blur-md bg-gradient-to-b from-[var(--dawn)]/80 via-[var(--dawn)]/60 to-transparent transition-all duration-300 border-b border-white/5">
       <div className="max-w-[1400px] mx-auto px-12">
         <div className="flex justify-between items-center py-6">
           {/* Left: Logo */}
@@ -68,6 +68,29 @@ export default function Header({
               Pricing
             </button>
             <button
+              onClick={() => navigate("/blog")}
+              className="text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              Blog
+            </button>
+            <button
+              onClick={() => navigate("/faq")}
+              className="text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              FAQ
+            </button>
+            <a
+              href="https://discord.gg/h6JY84yZvU"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              Community
+            </a>
+            <button
               onClick={handleAccountClick}
               className="text-base font-light transition-opacity hover:opacity-60"
               style={{ color: "var(--dark)" }}
@@ -93,7 +116,7 @@ export default function Header({
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-white/20">
+        <div className="md:hidden bg-[var(--dawn)]/95 backdrop-blur-md border-t border-white/10">
           <div className="px-12 py-6 space-y-4">
             <button
               onClick={() => navigate("/download")}
@@ -109,6 +132,29 @@ export default function Header({
             >
               Pricing
             </button>
+            <button
+              onClick={() => navigate("/blog")}
+              className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              Blog
+            </button>
+            <button
+              onClick={() => navigate("/faq")}
+              className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              FAQ
+            </button>
+            <a
+              href="https://discord.gg/h6JY84yZvU"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--dark)" }}
+            >
+              Community
+            </a>
             <button
               onClick={handleAccountClick}
               className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
