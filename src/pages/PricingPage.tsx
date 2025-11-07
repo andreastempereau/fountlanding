@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Check } from "lucide-react";
+import { features } from "../config/features";
 
 export default function PricingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -171,16 +172,29 @@ export default function PricingPage() {
               ))}
             </ul>
 
-            <button
-              onClick={() => navigate("/dashboard")}
-              className="w-full px-6 py-3 text-base font-semibold rounded-lg transition-all hover:opacity-80 shadow-md"
-              style={{
-                backgroundColor: "var(--light)",
-                color: "var(--dark)",
-              }}
-            >
-              Subscribe
-            </button>
+            {features.dashboard ? (
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="w-full px-6 py-3 text-base font-semibold rounded-lg transition-all hover:opacity-80 shadow-md"
+                style={{
+                  backgroundColor: "var(--light)",
+                  color: "var(--dark)",
+                }}
+              >
+                Subscribe
+              </button>
+            ) : (
+              <div
+                className="w-full px-6 py-3 text-base font-light text-center rounded-lg"
+                style={{
+                  backgroundColor: "var(--light)",
+                  color: "var(--dark)",
+                  opacity: 0.6,
+                }}
+              >
+                Coming Soon
+              </div>
+            )}
           </div>
         </div>
 

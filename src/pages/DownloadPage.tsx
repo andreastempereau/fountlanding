@@ -15,7 +15,6 @@ export default function DownloadPage() {
   const [platform, setPlatform] = useState<"mac" | "windows" | "unknown">(
     "unknown"
   );
-  const navigate = useNavigate();
 
   // Detect user's platform
   useEffect(() => {
@@ -72,32 +71,24 @@ export default function DownloadPage() {
         />
 
         <div className="max-w-[1400px] mx-auto px-12 py-16">
-          <div className="max-w-md mx-auto">
-            {/* Back button */}
-            <button
-              onClick={() => navigate("/")}
-              className="mb-8 text-base font-light transition-opacity hover:opacity-60 flex items-center gap-2"
-              style={{ color: "var(--dark)" }}
-            >
-              ← Back to Home
-            </button>
-
+          <div className="max-w-lg mx-auto">
             {/* Access Code Card */}
-            <div className="bg-[var(--dark)] rounded-2xl shadow-lg p-8 border border-gray-100">
+            <div className="backdrop-blur-md bg-slate-900 rounded-2xl shadow-lg p-8 border border-white/20">
               <div className="text-center mb-8">
-                <img
-                  src="/app-logo-5.svg"
-                  alt="Fount Logo"
-                  className="w-24 h-24 mx-auto mb-6"
-                />
-                <h1
-                  className="text-3xl font-light tracking-tight mb-3"
-                  style={{ color: "var(--dark)" }}
+                <p
+                  className="text-sm font-light"
+                  style={{ color: "var(--dark)", opacity: 0.6 }}
                 >
-                  Access Code Required
-                </h1>
-                <p className="text-base font-light text-gray-600">
-                  Enter the access code to view the downloads page
+                  Get your access code from the{" "}
+                  <a
+                    href="https://discord.gg/h6JY84yZvU"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:opacity-60 transition-opacity"
+                    style={{ color: "var(--dark)" }}
+                  >
+                    Community Discord
+                  </a>
                 </p>
               </div>
 
@@ -108,12 +99,11 @@ export default function DownloadPage() {
                     value={accessCode}
                     onChange={(e) => setAccessCode(e.target.value)}
                     placeholder="Enter access code"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-lg tracking-wider"
-                    style={{ color: "var(--dark)" }}
+                    className="w-full px-4 py-3 rounded-lg bg-white backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-offset-0 text-center text-lg tracking-wider transition-all"
                     autoFocus
                   />
                   {error && (
-                    <p className="text-red-500 text-sm mt-2 text-center">
+                    <p className="text-red-500 text-sm mt-2 text-center font-light">
                       {error}
                     </p>
                   )}
@@ -121,7 +111,7 @@ export default function DownloadPage() {
 
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 text-base font-semibold rounded-lg transition-all hover:opacity-80 shadow-md"
+                  className="w-full px-6 py-3 text-base font-light rounded-lg transition-all hover:opacity-80 shadow-md"
                   style={{
                     backgroundColor: "var(--dark)",
                     color: "var(--light)",
@@ -190,21 +180,6 @@ export default function DownloadPage() {
             {platform === "mac" ? (
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  {/* <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg
-                      className="w-4 h-4 text-blue-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div> */}
                   <div>
                     <p className="font-medium">
                       Apple Silicon (M1, M2, M3, or later)
@@ -215,21 +190,6 @@ export default function DownloadPage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  {/* <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg
-                      className="w-4 h-4 text-blue-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div> */}
                   <div>
                     <p className="font-medium">macOS 14.1 (Sonoma) or later</p>
                     <p className="text-sm  mt-1">

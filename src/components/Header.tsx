@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { isAuthenticated } from "../utils/tokenStorage";
+import { features } from "../config/features";
 
 interface HeaderProps {
   mobileMenuOpen: boolean;
@@ -15,12 +16,20 @@ export default function Header({
   const authenticated = isAuthenticated();
 
   const handleAccountClick = () => {
-    if (authenticated) {
+    // Don't navigate if features are disabled
+    if (!features.auth && !features.dashboard) {
+      return;
+    }
+
+    if (authenticated && features.dashboard) {
       navigate("/dashboard");
-    } else {
+    } else if (features.auth) {
       navigate("/auth");
     }
   };
+
+  // Hide account button if both auth and dashboard features are disabled
+  const showAccountButton = features.auth || features.dashboard;
 
   return (
     <header className="w-full z-50 sticky top-0 backdrop-blur-md bg-gradient-to-b from-[var(--dawn)]/80 via-[var(--dawn)]/60 to-transparent transition-all duration-300 border-b border-white/5">
@@ -90,13 +99,15 @@ export default function Header({
             >
               Community
             </a>
-            <button
-              onClick={handleAccountClick}
-              className="text-base font-light transition-opacity hover:opacity-60"
-              style={{ color: "var(--dark)" }}
-            >
-              Account
-            </button>
+            {showAccountButton && (
+              <button
+                onClick={handleAccountClick}
+                className="text-base font-light transition-opacity hover:opacity-60"
+                style={{ color: "var(--dark)" }}
+              >
+                Account
+              </button>
+            )}
           </nav>
 
           {/* Mobile menu button */}
@@ -155,13 +166,15 @@ export default function Header({
             >
               Community
             </a>
-            <button
-              onClick={handleAccountClick}
-              className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
-              style={{ color: "var(--dark)" }}
-            >
-              Account
-            </button>
+            {showAccountButton && (
+              <button
+                onClick={handleAccountClick}
+                className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
+                style={{ color: "var(--dark)" }}
+              >
+                Account
+              </button>
+            )}
           </div>
         </div>
       )}

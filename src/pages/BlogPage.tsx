@@ -201,9 +201,9 @@ Zeke`,
               {/* Articles Grid */}
               <div className="flex flex-col gap-8">
                 {blogPosts.map((post) => (
-                  <article
+                  <div
                     key={post.id}
-                    className="bg-slate-900 border border-slate-600 rounded-lg p-8 hover:shadow-lg transition-all"
+                    className="rounded-lg p-8 hover:shadow-lg backdrop-blur-lg border border-slate-600 transition-all"
                   >
                     <div className="flex flex-col gap-4">
                       {/* Date */}
@@ -241,7 +241,7 @@ Zeke`,
                         </button>
                       </div>
                     </div>
-                  </article>
+                  </div>
                 ))}
               </div>
             </div>

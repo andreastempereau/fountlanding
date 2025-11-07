@@ -13,6 +13,7 @@ import PrivacyPage from "./pages/PrivacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { restoreSession, setupAutoTokenRefresh } from "./utils/sessionManager";
 import { isAuthenticated } from "./utils/tokenStorage";
+import { features } from "./config/features";
 import "../sunlit/index.css";
 
 function App() {
@@ -66,16 +67,24 @@ function App() {
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/auth/login" element={<OAuth2LoginPage />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+        {/* Auth routes - conditionally enabled via feature flags */}
+        {features.auth && (
+          <>
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/auth/login" element={<OAuth2LoginPage />} />
+          </>
+        )}
+        {/* Dashboard route - conditionally enabled via feature flags */}
+        {features.dashboard && (
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+        )}
         {/* Redirect any unknown routes to landing page */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
