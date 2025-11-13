@@ -141,8 +141,7 @@ export default function LandingPage() {
                   </h3>
                   <p className="text-lg" style={{ color: "var(--dark)" }}>
                     Get context-aware answers from your documents with
-                    verifiable citations, persistent memory, and live web
-                    search.
+                    citations, persistent memory, and live web search.
                   </p>
                 </div>
               </div>

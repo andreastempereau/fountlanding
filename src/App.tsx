@@ -8,6 +8,7 @@ import DownloadPage from "./pages/DownloadPage";
 import PricingPage from "./pages/PricingPage";
 import FAQPage from "./pages/FAQPage";
 import BlogPage from "./pages/BlogPage";
+import RoadmapPage from "./pages/RoadmapPage";
 import TermsPage from "./pages/TermsPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -64,6 +65,7 @@ function App() {
         <Route path="/download" element={<DownloadPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/roadmap" element={<RoadmapPage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
