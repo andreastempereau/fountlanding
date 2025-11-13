@@ -323,3 +323,65 @@ body {
     transform: perspective(400px) rotateX(0deg) rotateY(0deg) scale(1);
   }
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Reduce blur intensity on mobile for better performance */
+  #progressive-blur>div:nth-child(2) {
+    --blur-amount: 8px;
+  }
+
+  #progressive-blur>div:nth-child(3) {
+    --blur-amount: 24px;
+  }
+
+  #progressive-blur>div:nth-child(4) {
+    --blur-amount: 48px;
+  }
+
+  /* Reduce opacity of decorative elements on mobile */
+  .perspective {
+    opacity: 0.04;
+    width: 90vw;
+  }
+
+  .dark .perspective {
+    opacity: 0.15;
+  }
+
+  .twilight .perspective {
+    opacity: 0.08;
+  }
+
+  /* Simplify glow effects on mobile */
+  #glow,
+  #glow-bounce {
+    opacity: 0.3;
+  }
+
+  /* Reduce gap in shutters for mobile */
+  #blinds>.shutters {
+    gap: 40px;
+  }
+
+  .dark #blinds>.shutters {
+    gap: 15px;
+  }
+
+  .twilight #blinds>.shutters {
+    gap: 30px;
+  }
+
+  /* Adjust shutter heights for mobile */
+  .shutter {
+    height: 30px;
+  }
+
+  .dark .shutter {
+    height: 60px;
+  }
+
+  .twilight .shutter {
+    height: 45px;
+  }
+}

@@ -67,11 +67,11 @@ export default function FAQPage() {
 
       <div className="w-full relative">
         {/* FAQ Content */}
-        <div className="max-w-[1440px] mx-auto relative z-10 px-24 py-16">
+        <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-8 lg:px-24 py-12 sm:py-16">
           {/* Header */}
-          <div className="mb-16 text-center">
+          <div className="mb-12 sm:mb-16 text-center">
             <h1
-              className="text-6xl italic text-[var(--dark)] mb-6"
+              className="text-3xl sm:text-5xl lg:text-6xl italic text-[var(--dark)] mb-4 sm:mb-6 px-4"
               style={{ lineHeight: "1.2" }}
             >
               Frequently Asked Questions
@@ -79,7 +79,7 @@ export default function FAQPage() {
           </div>
 
           {/* FAQ Items */}
-          <div className="space-y-4 max-w-4xl mx-auto">
+          <div className="space-y-3 sm:space-y-4 max-w-4xl mx-auto">
             {faqData.map((faq, index) => (
               <div
                 key={index}
@@ -87,12 +87,12 @@ export default function FAQPage() {
               >
                 <button
                   onClick={() => toggleQuestion(index)}
-                  className="w-full px-8 py-6 text-left flex justify-between items-center transition-all"
+                  className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6 text-left flex justify-between items-center transition-all"
                   style={{ color: "var(--dark)" }}
                 >
-                  <h3 className="text-2xl font-medium pr-8">{faq.question}</h3>
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-medium pr-4 sm:pr-8">{faq.question}</h3>
                   <svg
-                    className={`w-6 h-6 flex-shrink-0 transition-transform duration-300 ${
+                    className={`w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 transition-transform duration-300 ${
                       openQuestionIndex === index ? "rotate-180" : ""
                     }`}
                     fill="none"
@@ -114,8 +114,8 @@ export default function FAQPage() {
                       : "max-h-0 opacity-0"
                   }`}
                 >
-                  <div className="px-8 pb-6">
-                    <p className="text-lg text-white leading-relaxed">
+                  <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6">
+                    <p className="text-base sm:text-lg text-white leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -125,19 +125,19 @@ export default function FAQPage() {
           </div>
 
           {/* Contact Section */}
-          <div className="mt-16 text-center">
-            <div className="inline-block px-8 py-6 rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600">
-              <h3 className="text-2xl font-medium mb-3 text-[var(--dark)]">
+          <div className="mt-12 sm:mt-16 text-center px-4">
+            <div className="inline-block px-4 sm:px-6 lg:px-8 py-4 sm:py-6 rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 max-w-2xl">
+              <h3 className="text-xl sm:text-2xl font-medium mb-2 sm:mb-3 text-[var(--dark)]">
                 Still have questions?
               </h3>
-              <p className="text-lg text-white mb-4">
+              <p className="text-base sm:text-lg text-white mb-3 sm:mb-4">
                 Join our community for support and discussions
               </p>
               <a
                 href="https://discord.gg/h6JY84yZvU"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-6 py-3 text-lg font-semibold rounded-lg transition-all hover:opacity-80"
+                className="inline-block px-4 sm:px-6 py-2 sm:py-3 text-base sm:text-lg font-semibold rounded-lg transition-all hover:opacity-80"
                 style={{
                   backgroundColor: "var(--dark)",
                   color: "var(--light)",

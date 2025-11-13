@@ -64,46 +64,46 @@ export default function PricingPage() {
         setMobileMenuOpen={setMobileMenuOpen}
       />
 
-      <div className="max-w-[1400px] mx-auto px-12 py-16 z-10 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-12 sm:py-16 z-10 relative">
         {/* Hero Section */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <h1
-            className="text-5xl font-light tracking-tight mb-4"
+            className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight mb-3 sm:mb-4"
             style={{ color: "var(--dark)" }}
           >
             Simple, Transparent Pricing
           </h1>
-          <p className="text-xl font-light" style={{ color: "var(--dark)" }}>
+          <p className="text-lg sm:text-xl font-light" style={{ color: "var(--dark)" }}>
             Choose the plan that works best for you
           </p>
         </div>
 
         {/* Pricing Cards */}
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {/* Free (BYOK) Plan */}
           <div
-            className="rounded-2xl shadow-lg p-8 border-2 border-gray-200 flex flex-col"
+            className="rounded-2xl shadow-lg p-6 sm:p-8 border-2 border-gray-200 flex flex-col"
             style={{
               backgroundColor: "var(--dark)",
               borderColor: "var(--dark)",
             }}
           >
-            <div className="mb-6">
-              <h2 className="text-2xl font-light mb-2">Free (BYOK)</h2>
+            <div className="mb-4 sm:mb-6">
+              <h2 className="text-xl sm:text-2xl font-light mb-2">Free (BYOK)</h2>
             </div>
 
-            <ul className="space-y-3 mb-8 flex-grow">
+            <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-grow">
               {freFeatures.map((feature, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <Check className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                  <span className="text-base font-light">{feature}</span>
+                <li key={index} className="flex items-start gap-2 sm:gap-3">
+                  <Check className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm sm:text-base font-light">{feature}</span>
                 </li>
               ))}
             </ul>
 
             <button
               onClick={() => navigate("/download")}
-              className="w-full px-6 py-3 text-base font-semibold rounded-lg transition-all hover:opacity-80 shadow-md"
+              className="w-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all hover:opacity-80 shadow-md"
               style={{
                 backgroundColor: "var(--light)",
                 color: "var(--dark)",
@@ -115,7 +115,7 @@ export default function PricingPage() {
 
           {/* Paid Plan */}
           <div
-            className="rounded-2xl shadow-xl p-8 flex flex-col relative border-2"
+            className="rounded-2xl shadow-xl p-6 sm:p-8 flex flex-col relative border-2"
             style={{
               backgroundColor: "var(--dark)",
               borderColor: "var(--dark)",
@@ -123,7 +123,7 @@ export default function PricingPage() {
           >
             {/* Popular badge */}
             <div
-              className="absolute top-0 right-8 transform -translate-y-1/2 px-4 py-1 rounded-full text-sm font-medium"
+              className="absolute top-0 right-4 sm:right-8 transform -translate-y-1/2 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-medium"
               style={{
                 backgroundColor: "var(--light)",
                 color: "var(--dark)",
@@ -132,22 +132,22 @@ export default function PricingPage() {
               Popular
             </div>
 
-            <div className="mb-6">
+            <div className="mb-4 sm:mb-6">
               <h2
-                className="text-2xl font-light mb-2"
+                className="text-xl sm:text-2xl font-light mb-2"
                 style={{ color: "var(--light)" }}
               >
                 Pro
               </h2>
               <div className="flex items-baseline gap-2">
                 <span
-                  className="text-5xl font-light tracking-tight"
+                  className="text-4xl sm:text-5xl font-light tracking-tight"
                   style={{ color: "var(--light)" }}
                 >
                   $20
                 </span>
                 <span
-                  className="font-light"
+                  className="text-sm sm:text-base font-light"
                   style={{ color: "var(--light)", opacity: 0.7 }}
                 >
                   /month
@@ -155,15 +155,15 @@ export default function PricingPage() {
               </div>
             </div>
 
-            <ul className="space-y-3 mb-8 flex-grow">
+            <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-grow">
               {paidFeatures.map((feature, index) => (
-                <li key={index} className="flex items-start gap-3">
+                <li key={index} className="flex items-start gap-2 sm:gap-3">
                   <Check
-                    className="w-5 h-5 flex-shrink-0 mt-0.5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5"
                     style={{ color: "var(--light)" }}
                   />
                   <span
-                    className="text-base font-light"
+                    className="text-sm sm:text-base font-light"
                     style={{ color: "var(--light)" }}
                   >
                     {feature}
@@ -175,7 +175,7 @@ export default function PricingPage() {
             {features.dashboard ? (
               <button
                 onClick={() => navigate("/dashboard")}
-                className="w-full px-6 py-3 text-base font-semibold rounded-lg transition-all hover:opacity-80 shadow-md"
+                className="w-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all hover:opacity-80 shadow-md"
                 style={{
                   backgroundColor: "var(--light)",
                   color: "var(--dark)",
@@ -185,7 +185,7 @@ export default function PricingPage() {
               </button>
             ) : (
               <div
-                className="w-full px-6 py-3 text-base font-light text-center rounded-lg"
+                className="w-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-light text-center rounded-lg"
                 style={{
                   backgroundColor: "var(--light)",
                   color: "var(--dark)",
@@ -199,8 +199,8 @@ export default function PricingPage() {
         </div>
 
         {/* Additional info section */}
-        <div className="max-w-3xl mx-auto mt-16 text-center">
-          <p className="text-base font-light" style={{ color: "var(--dark)" }}>
+        <div className="max-w-3xl mx-auto mt-12 sm:mt-16 text-center px-4">
+          <p className="text-sm sm:text-base font-light" style={{ color: "var(--dark)" }}>
             All plans include access to our AI workspace platform.{" "}
             <br className="hidden md:block" />
             Upgrade, downgrade, or cancel anytime.

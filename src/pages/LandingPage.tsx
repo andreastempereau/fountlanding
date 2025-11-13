@@ -65,16 +65,16 @@ export default function LandingPage() {
       <Header mobileMenuOpen={false} setMobileMenuOpen={() => {}} />
       <div className="w-full relative">
         {/* Content */}
-        <div className="max-w-[1400px] mx-auto relative z-10 flex flex-col items-start min-h-screen px-24 pt-[10vh]">
+        <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-start min-h-screen px-4 sm:px-8 lg:px-24 pt-[10vh]">
           <div className="flex flex-col items-start mb-12">
             <h1
-              className="text-8xl italic text-[var(--dark)]"
+              className="text-4xl sm:text-6xl lg:text-8xl italic text-[var(--dark)]"
               style={{ lineHeight: "1.2" }}
             >
               Stay Curious
             </h1>
             <p
-              className="text-xl mt-6"
+              className="text-base sm:text-lg lg:text-xl mt-4 sm:mt-6"
               style={{
                 color: "var(--dark)",
               }}
@@ -82,7 +82,7 @@ export default function LandingPage() {
               The personal AI workspace for your private thoughts
             </p>
             <button
-              className="mt-8 px-8 py-4 text-lg font-semibold rounded-lg transition-all hover:opacity-80"
+              className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg transition-all hover:opacity-80"
               style={{
                 backgroundColor: "var(--dark)",
                 color: "var(--light)",
@@ -92,64 +92,77 @@ export default function LandingPage() {
               Get Fount for {platform}
             </button>
           </div>
-          <div className="flex-shrink-0">
-            <img src="/hero.svg" alt="Fount" className="w-[1000px] h-auto" />
+          <div className="flex-shrink-0 w-full">
+            <img
+              src="/hero.svg"
+              alt="Fount"
+              className="w-full max-w-[1000px] h-auto"
+            />
           </div>
         </div>
 
         {/* Principles Section */}
-        <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16">
           <div className="mx-auto">
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col flex-1">
+            <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-8 lg:gap-0">
+              <div className="flex flex-col flex-1 w-full">
                 <div className="text-left">
                   <h3
-                    className="text-2xl font-medium mb-4"
+                    className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4"
                     style={{ color: "var(--dark)" }}
                   >
                     Privacy First
                   </h3>
-                  <p className="text-lg" style={{ color: "var(--dark)" }}>
+                  <p
+                    className="text-base sm:text-lg"
+                    style={{ color: "var(--dark)" }}
+                  >
                     Your data stays on your device. No cloud storage, no
                     tracking.
                   </p>
                 </div>
 
-                <hr className="my-8 border-t border-[color:var(--dark)]/20 w-4/5 self-start" />
+                <hr className="my-6 sm:my-8 border-t border-[color:var(--dark)]/20 w-4/5 self-start" />
 
                 <div className="text-left">
                   <h3
-                    className="text-2xl font-medium mb-4"
+                    className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4"
                     style={{ color: "var(--dark)" }}
                   >
                     Any Model, Your Choice
                   </h3>
-                  <p className="text-lg" style={{ color: "var(--dark)" }}>
+                  <p
+                    className="text-base sm:text-lg"
+                    style={{ color: "var(--dark)" }}
+                  >
                     Switch between local, frontier, or verifiably private
                     models.
                   </p>
                 </div>
 
-                <hr className="my-8 border-t border-[color:var(--dark)]/20 w-4/5 self-start" />
+                <hr className="my-6 sm:my-8 border-t border-[color:var(--dark)]/20 w-4/5 self-start" />
 
                 <div className="text-left">
                   <h3
-                    className="text-2xl font-medium mb-4"
+                    className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4"
                     style={{ color: "var(--dark)" }}
                   >
                     Context That Matters
                   </h3>
-                  <p className="text-lg" style={{ color: "var(--dark)" }}>
+                  <p
+                    className="text-base sm:text-lg"
+                    style={{ color: "var(--dark)" }}
+                  >
                     Get context-aware answers from your documents with
                     citations, persistent memory, and live web search.
                   </p>
                 </div>
               </div>
-              <div className="flex-shrink-0 ml-12">
+              <div className="hidden lg:flex flex-shrink-0 lg:ml-12 w-full sm:w-auto justify-center lg:justify-end">
                 <img
                   src="/app-logo-5.svg"
                   alt="Fount"
-                  className="w-[350px] h-auto"
+                  className="w-full max-w-[250px] sm:max-w-[350px] h-auto"
                 />
               </div>
             </div>
@@ -157,13 +170,13 @@ export default function LandingPage() {
         </div>
 
         {/* Supported Models Section */}
-        <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16">
           <div className="w-full text-center">
-            <h3 className="text-4xl font-bold mb-10 text-[var(--dark)]">
+            <h3 className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-10 text-[var(--dark)]">
               Supported Models
             </h3>
           </div>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Section 1: Cloud Providers */}
             <div className="flex flex-col bg-slate-900 border border-slate-600 rounded-lg p-6">
               <h3
@@ -282,13 +295,13 @@ export default function LandingPage() {
         </div>
 
         {/* Context Selection */}
-        <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
-          <div className="flex flex-col items-start gap-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16">
+          <div className="flex flex-col items-start gap-8 sm:gap-12">
             <div className="w-full text-center">
-              <h3 className="text-4xl font-bold mb-4 text-[var(--dark)]">
+              <h3 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 text-[var(--dark)]">
                 Granular Context Selection
               </h3>
-              <p className="text-lg text-white">
+              <p className="text-base sm:text-lg text-white">
                 Select and highlight exactly what you need across different
                 content types
               </p>
@@ -409,18 +422,18 @@ export default function LandingPage() {
         </div>
 
         {/* Web Link Conversion Section */}
-        <div className="max-w-[1400px] mx-auto px-24 relative z-10 py-16">
-          <div className="flex flex-col items-start gap-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16">
+          <div className="flex flex-col items-start gap-8 sm:gap-12">
             <div className="w-full text-center">
-              <h3 className="text-4xl font-bold mb-4 text-[var(--dark)]">
+              <h3 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 text-[var(--dark)]">
                 Convert Links to Local Webpages
               </h3>
-              <p className="text-lg text-white">
+              <p className="text-base sm:text-lg text-white">
                 Transform any web link into a locally stored, searchable webpage
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 p-6 rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 hover:shadow-lg transition-shadow w-full">
+            <div className="flex flex-col gap-4 p-4 sm:p-6 rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 hover:shadow-lg transition-shadow w-full">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
                   <svg
@@ -437,24 +450,24 @@ export default function LandingPage() {
                     />
                   </svg>
                 </div>
-                <h4 className="text-2xl font-semibold text-[var(--dark)]">
+                <h4 className="text-xl sm:text-2xl font-semibold text-[var(--dark)]">
                   Link Conversion
                 </h4>
               </div>
-              <p className="text-white mb-4">
+              <p className="text-white mb-4 text-sm sm:text-base">
                 Paste any URL and instantly convert it to a local webpage
                 format, preserving content and structure
               </p>
-              <div className="flex flex-row gap-5">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
                 <img
                   src="/html-original.png"
                   alt="Original webpage"
-                  className="w-1/2 h-auto rounded-md shadow-md"
+                  className="w-full sm:w-1/2 h-auto rounded-md shadow-md"
                 />
                 <img
                   src="/html-converted.png"
                   alt="Converted webpage"
-                  className="w-1/2 h-auto rounded-md shadow-md"
+                  className="w-full sm:w-1/2 h-auto rounded-md shadow-md"
                 />
               </div>
             </div>

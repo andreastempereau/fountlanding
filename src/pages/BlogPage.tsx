@@ -88,14 +88,14 @@ Zeke`,
       />
 
       <div className="w-full relative">
-        <div className="max-w-[1440px] mx-auto relative z-10 px-24 pt-[5vh] pb-16">
+        <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-8 lg:px-24 pt-[5vh] pb-16">
           {selectedPost ? (
             /* Full Post View */
             <div className="max-w-4xl mx-auto">
               {/* Back Button */}
               <button
                 onClick={() => setSelectedPost(null)}
-                className="mb-8 px-4 py-2 rounded-lg transition-all hover:opacity-80"
+                className="mb-6 sm:mb-8 px-4 py-2 text-sm sm:text-base rounded-lg transition-all hover:opacity-80"
                 style={{
                   backgroundColor: "var(--dark)",
                   color: "var(--light)",
@@ -105,36 +105,36 @@ Zeke`,
               </button>
 
               {/* Post Header */}
-              <article className="rounded-lg p-12 pt-4">
+              <article className="rounded-lg p-4 sm:p-8 lg:p-12 pt-4">
                 {/* Title */}
                 <h1
-                  className="text-5xl font-bold mb-6"
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6"
                   style={{ color: "var(--dark)" }}
                 >
                   {selectedPost.title}
                 </h1>
 
                 {/* Meta Information */}
-                <div className="flex items-center gap-6 mb-8 pb-6 border-b border-slate-600">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-slate-600">
                   <div className="flex flex-col">
                     <span
-                      className="text-sm font-medium"
+                      className="text-xs sm:text-sm font-medium"
                       style={{ color: "var(--dark)" }}
                     >
                       Author
                     </span>
-                    <span className="text-lg text-white">
+                    <span className="text-base sm:text-lg text-white">
                       {selectedPost.author}
                     </span>
                   </div>
                   <div className="flex flex-col">
                     <span
-                      className="text-sm font-medium"
+                      className="text-xs sm:text-sm font-medium"
                       style={{ color: "var(--dark)" }}
                     >
                       Published
                     </span>
-                    <time className="text-lg text-white">
+                    <time className="text-base sm:text-lg text-white">
                       {selectedPost.date}
                     </time>
                   </div>
@@ -146,7 +146,7 @@ Zeke`,
                       color: "var(--light)",
                     }}
                   >
-                    <CiLink className="w-10 h-10" />
+                    <CiLink className="w-8 h-8 sm:w-10 sm:h-10" />
                   </button>
                 </div>
 
@@ -172,7 +172,7 @@ Zeke`,
                       return (
                         <p
                           key={index}
-                          className="text-lg text-white leading-[1.8] mb-6"
+                          className="text-base sm:text-lg text-white leading-[1.8] mb-4 sm:mb-6"
                           style={{ textAlign: "justify" }}
                         >
                           {paragraph}
@@ -186,29 +186,29 @@ Zeke`,
             /* Blog List View */
             <div className="max-w-4xl mx-auto">
               {/* Page Title */}
-              <div className="mb-12">
+              <div className="mb-8 sm:mb-12">
                 <h1
-                  className="text-6xl font-bold mb-4"
+                  className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4"
                   style={{ color: "var(--dark)" }}
                 >
                   Blog
                 </h1>
-                <p className="text-xl" style={{ color: "var(--dark)" }}>
+                <p className="text-lg sm:text-xl" style={{ color: "var(--dark)" }}>
                   Thoughts and updates from the Fount team
                 </p>
               </div>
 
               {/* Articles Grid */}
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-6 sm:gap-8">
                 {blogPosts.map((post) => (
                   <div
                     key={post.id}
-                    className="rounded-lg p-8 hover:shadow-lg backdrop-blur-lg border border-slate-600 transition-all"
+                    className="rounded-lg p-4 sm:p-6 lg:p-8 hover:shadow-lg backdrop-blur-lg border border-slate-600 transition-all"
                   >
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-3 sm:gap-4">
                       {/* Date */}
                       <time
-                        className="text-sm font-medium"
+                        className="text-xs sm:text-sm font-medium"
                         style={{ color: "var(--dark)" }}
                       >
                         {post.date}
@@ -216,22 +216,22 @@ Zeke`,
 
                       {/* Title */}
                       <h2
-                        className="text-3xl font-semibold"
+                        className="text-2xl sm:text-3xl font-semibold"
                         style={{ color: "var(--dark)" }}
                       >
                         {post.title}
                       </h2>
 
                       {/* Excerpt */}
-                      <div className="text-lg text-white leading-relaxed">
+                      <div className="text-base sm:text-lg text-white leading-relaxed">
                         <p>{post.excerpt}</p>
                       </div>
 
                       {/* Read More Button */}
-                      <div className="mt-4">
+                      <div className="mt-2 sm:mt-4">
                         <button
                           onClick={() => setSelectedPost(post)}
-                          className="px-6 py-3 text-base font-semibold rounded-lg transition-all hover:opacity-80"
+                          className="px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all hover:opacity-80"
                           style={{
                             backgroundColor: "var(--dark)",
                             color: "var(--light)",
