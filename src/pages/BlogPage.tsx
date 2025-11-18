@@ -26,14 +26,24 @@ export default function BlogPage() {
       date: "November 6, 2025",
       excerpt:
         "There is this inevitable flywheel in AI that pushes private companies to capture increasingly more of users' private information...",
-      content: `There is this inevitable flywheel in AI that pushes private companies to capture increasingly more of users' private information; the more that the model knows about the user and their singular context, the more useful it becomes. AI coding editors have seen such success in part because an entire coding project – the files, user clipboard, recent edits, project specifications, package documentation – are visible to the LLM. Similarly, AI therapists will work better the more they know about you, just like real therapists. It's clear that private companies will offer ever more seductive options for users to upload more of their life. Given no alternative, most users will consent to such an arrangement; after all, who wouldn't want a better product for free? That is the choice we've made up to now, where most users are locked into large data silos and have relinquished control of their data. It's likely that two years from now the bits you create you will not own. Your digital mindscape — your thoughts, goals, fears — will be stored in a remote data silo owned by a private company.
+      content: `There is an inevitable flywheel in AI that pushes private companies to capture increasingly more of our data; the more that the model knows about us, the more useful it becomes. AI coding editors have seen such success in part because an entire coding project – the files, user clipboard, package documentation – are visible to the LLM. Similarly, AI therapists will work better the more they know about you, just like real therapists. 
 
-Dovetailing with this is how much large scale semantic analysis of data has improved. Higher quality embeddings, a falling cost of compute, and more powerful agents have led to a world where anyone can analyze hundreds of thousands of words for cents on the dollar. This seems vaguely bad, but why exactly? In this world, the weight of millions of lives rests on faith. A faith in the benevolence not just of those who hold power today, but of those who will follow, and those who will follow them, and those who will follow still. A faith in their adherence to the "common good". But what is the common good? Culture and belief are fickle; a century ago women couldn't vote and segregation laws still existed; what is considered heretical today might be considered gospel tomorrow. Now one can wax philosophical, but there are countless examples we can point to breaches of trust.
+In a world where two-player thinking has become the norm, a person and an llm, the default looks pretty dystopian, private companies will offer ever more seductive options for users to upload more of their life. Given no alternative, most users will consent to such an arrangement. After all, who wouldn’t want a better product for free?
+That is the choice we've made up to now, where most users are locked into large data silos and have relinquished control of their data. It’s likely that two years from now the bits you create you will not own. Your digital mindscape — your thoughts, goals, fears — will be stored in a remote data silo owned by a private company.
+Dovetailing with this is how much large scale semantic analysis of data has improved. Higher quality embeddings, a falling cost of compute, and more powerful agents have led to a world where anyone can analyze hundreds of thousands of words for cents on the dollar.
+This seems vaguely bad, but why exactly?
+In this world, the weight of millions of lives rests on faith. A faith in the benevolence not just of those who hold power today, but of those who will follow, and those who will follow them, and those who will follow still. A faith in their adherence to the "common good". But what is the common good? Culture and belief are fickle; a century ago women couldn't vote and segregation laws still existed; what is considered heretical today might be considered gospel tomorrow. Now one can wax philosophical, but there are countless examples we can point to breaches of institutional trust.
+That’s where Fount comes in, providing a way to leverage personalized AI without compromising on cognitive security.
 
-That's where Fount comes in, providing a way to leverage the power of AI without the dystopian nightmare of cognitive surveillance. Fount is a simple, AI-enhanced personal workspace that gives users ownership of their data. All processing except for the LLM inference itself is done locally; the context engine, the document processor, and the memory storage. Users can then choose models based on their own privacy requirements.
+Fount is a simple, AI workspace that gives users ownership of their data. All processing except for the LLM inference itself is done locally. Users can then choose what models to use based on their own privacy requirements.
+
+Fount is timely; trusted execution environments have made private inference possible on open-source models like deep-seek r1, and improvements to consumer hardware is unlocking powerful features at the edge.
+
+More updates to come!
 
 Stay Curious Friends,
-Zeke`,
+Zeke
+`,
     },
     // Add more blog posts here
   ];
@@ -193,7 +203,10 @@ Zeke`,
                 >
                   Blog
                 </h1>
-                <p className="text-lg sm:text-xl" style={{ color: "var(--dark)" }}>
+                <p
+                  className="text-lg sm:text-xl"
+                  style={{ color: "var(--dark)" }}
+                >
                   Thoughts and updates from the Fount team
                 </p>
               </div>

@@ -15,8 +15,10 @@ export const stripeConfig = {
 
   // Price IDs for subscription plans
   priceIds: {
-    monthly: "price_1SORQLCnVR8qOLc4qTCiLhEO", // $20/month subscription
-    yearly: "price_1SOiqWCnVR8qOLc4784hAQ3q", // $192/year subscription
+    monthly: "price_1SORQLCnVR8qOLc4qTCiLhEO", // $20/month subscription (legacy)
+    yearly: "price_1SOiqWCnVR8qOLc4784hAQ3q", // $192/year subscription (legacy)
+    plus_monthly: "price_1SORQLCnVR8qOLc4qTCiLhEO", // $20/month Plus subscription
+    pro_monthly: "price_PLACEHOLDER_PRO_MONTHLY", // $60/month Pro subscription - TODO: Replace with actual price ID
   },
 
   // Plan pricing for display
@@ -32,18 +34,28 @@ export const stripeConfig = {
       currency: "USD",
       interval: "year",
     },
+    plus_monthly: {
+      amount: 20,
+      currency: "USD",
+      interval: "month",
+    },
+    pro_monthly: {
+      amount: 60,
+      currency: "USD",
+      interval: "month",
+    },
   },
 };
 
 /**
  * Create a Stripe checkout session
- * @param planType - 'monthly' or 'yearly'
+ * @param planType - 'monthly', 'yearly', 'plus_monthly', or 'pro_monthly'
  * @param userEmail - User's email address
  * @param cognitoUserId - User's Cognito sub (user ID)
  * @returns Promise with the checkout URL
  */
 export async function createCheckoutSession(
-  planType: "monthly" | "yearly",
+  planType: "monthly" | "yearly" | "plus_monthly" | "pro_monthly",
   userEmail: string,
   cognitoUserId: string
 ): Promise<{ url: string }> {

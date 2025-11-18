@@ -9,7 +9,7 @@ interface PlanTabProps {
   isLoadingAccount: boolean;
   accountError: string;
   isCheckingOut: boolean;
-  handleSubscribe: () => void;
+  handleSubscribe: (tier: "plus" | "pro") => void;
   handleManageSubscription: () => void;
 }
 
@@ -309,14 +309,14 @@ export default function PlanTab({
           </div>
         )}
 
-        {/* Pro Plan Card (if active) */}
+        {/* Active Subscription Card (if active) */}
         {!testProps.isLoadingAccount &&
           testProps.userAccountData?.subscription_status === "active" && (
             <div className="bg-slate-800 rounded-lg p-2 border-2 border-green-500/50">
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-                    Pro Plan
+                    Active Subscription
                     <span className="px-2 py-0.5 text-xs font-medium bg-green-500 text-white rounded-full">
                       Active
                     </span>
@@ -366,81 +366,136 @@ export default function PlanTab({
           )}
       </div>
 
-      {/* Pro Plan Card */}
-      <div className="bg-slate-800 rounded-lg p-2 border-2 border-blue-500/50 relative">
-        {/* Popular badge */}
-        <div className="absolute top-0 right-8 transform -translate-y-1/2 px-4 py-1 rounded-full text-sm font-medium bg-blue-500 text-white">
-          Recommended
-        </div>
-
-        <div className="mb-6">
-          <h3 className="text-2xl font-semibold text-white mb-2">Pro Plan</h3>
-          <div className="flex items-baseline gap-2">
-            <span className="text-4xl font-bold text-white">$20</span>
-            <span className="text-slate-400">/month</span>
+      {/* Subscription Plans */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Plus Plan Card */}
+        <div className="bg-slate-800 rounded-lg p-4 border-2 border-blue-500/50 relative">
+          {/* Recommended badge */}
+          <div className="absolute top-0 right-4 transform -translate-y-1/2 px-3 py-1 rounded-full text-xs font-medium bg-blue-500 text-white">
+            Recommended
           </div>
+
+          <div className="mb-4">
+            <h3 className="text-xl font-semibold text-white mb-2">Plus Plan</h3>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-bold text-white">$20</span>
+              <span className="text-slate-400 text-sm">/month</span>
+            </div>
+          </div>
+
+          {/* Features List */}
+          <ul className="space-y-2 mb-6">
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+              <span className="text-slate-300 text-sm">
+                Managed API access - no setup required
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+              <span className="text-slate-300 text-sm">Priority support</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+              <span className="text-slate-300 text-sm">Advanced features</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+              <span className="text-slate-300 text-sm">Automatic updates</span>
+            </li>
+          </ul>
+
+          {/* Subscribe/Manage Button */}
+          <button
+            onClick={() =>
+              testProps.userAccountData?.subscription_status === "active"
+                ? handleManageSubscription()
+                : handleSubscribe("plus")
+            }
+            disabled={testProps.isCheckingOut}
+            className={`w-full font-semibold py-2.5 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm ${
+              testProps.userAccountData?.subscription_status === "active"
+                ? "bg-slate-600 hover:bg-slate-500 text-white"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            }`}
+          >
+            {testProps.isCheckingOut && (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            )}
+            <span>
+              {testProps.isCheckingOut
+                ? "Redirecting..."
+                : testProps.userAccountData?.subscription_status === "active"
+                ? "Manage Subscription"
+                : "Subscribe to Plus"}
+            </span>
+          </button>
         </div>
 
-        {/* Features List */}
-        <ul className="space-y-3 mb-8">
-          <li className="flex items-start gap-3">
-            <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-            <span className="text-slate-300">
-              Managed API access - no setup required
+        {/* Pro Plan Card */}
+        <div className="bg-slate-800 rounded-lg p-4 border-2 border-slate-700">
+          <div className="mb-4">
+            <h3 className="text-xl font-semibold text-white mb-2">Pro Plan</h3>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-bold text-white">$60</span>
+              <span className="text-slate-400 text-sm">/month</span>
+            </div>
+          </div>
+
+          {/* Features List */}
+          <ul className="space-y-2 mb-6">
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+              <span className="text-slate-300 text-sm">Higher message limit</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+              <span className="text-slate-300 text-sm">All Plus features included</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+              <span className="text-slate-300 text-sm">Premium support</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+              <span className="text-slate-300 text-sm">Early access to new features</span>
+            </li>
+          </ul>
+
+          {/* Subscribe/Manage Button */}
+          <button
+            onClick={() =>
+              testProps.userAccountData?.subscription_status === "active"
+                ? handleManageSubscription()
+                : handleSubscribe("pro")
+            }
+            disabled={testProps.isCheckingOut}
+            className={`w-full font-semibold py-2.5 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm ${
+              testProps.userAccountData?.subscription_status === "active"
+                ? "bg-slate-600 hover:bg-slate-500 text-white"
+                : "bg-slate-700 hover:bg-slate-600 text-white"
+            }`}
+          >
+            {testProps.isCheckingOut && (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            )}
+            <span>
+              {testProps.isCheckingOut
+                ? "Redirecting..."
+                : testProps.userAccountData?.subscription_status === "active"
+                ? "Manage Subscription"
+                : "Subscribe to Pro"}
             </span>
-          </li>
-          <li className="flex items-start gap-3">
-            <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-            <span className="text-slate-300">Priority support</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-            <span className="text-slate-300">Advanced features</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-            <span className="text-slate-300">Automatic updates</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-            <span className="text-slate-300">Full privacy & local storage</span>
-          </li>
-        </ul>
-
-        {/* Subscribe/Manage Button */}
-        <button
-          onClick={() =>
-            testProps.userAccountData?.subscription_status === "active"
-              ? handleManageSubscription()
-              : handleSubscribe()
-          }
-          disabled={testProps.isCheckingOut}
-          className={`w-full font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${
-            testProps.userAccountData?.subscription_status === "active"
-              ? "bg-slate-600 hover:bg-slate-500 text-white"
-              : "bg-blue-600 hover:bg-blue-700 text-white"
-          }`}
-        >
-          {testProps.isCheckingOut && (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          )}
-          <span>
-            {testProps.isCheckingOut
-              ? testProps.userAccountData?.subscription_status === "active"
-                ? "Opening portal..."
-                : "Redirecting to checkout..."
-              : testProps.userAccountData?.subscription_status === "active"
-              ? "Manage Subscription"
-              : "Subscribe to Pro"}
-          </span>
-        </button>
-
-        <p className="text-xs text-slate-400 text-center mt-4">
-          {testProps.userAccountData?.subscription_status === "active"
-            ? "Update payment method, view invoices, or cancel subscription"
-            : "Cancel anytime. No questions asked."}
-        </p>
+          </button>
+        </div>
       </div>
+
+      <p className="text-xs text-slate-400 text-center mt-4">
+        {testProps.userAccountData?.subscription_status === "active"
+          ? "Update payment method, view invoices, or cancel subscription"
+          : "Cancel anytime. No questions asked."}
+      </p>
     </div>
   );
 }
+

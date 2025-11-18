@@ -212,7 +212,7 @@ export default function Dashboard() {
     }
   };
 
-  const handleSubscribe = async () => {
+  const handleSubscribe = async (tier: "plus" | "pro") => {
     setIsCheckingOut(true);
     setCheckoutError("");
 
@@ -230,8 +230,9 @@ export default function Dashboard() {
         throw new Error("Unable to retrieve user information");
       }
 
+      const planType = tier === "plus" ? "plus_monthly" : "pro_monthly";
       const { url } = await createCheckoutSession(
-        "monthly",
+        planType,
         email,
         cognitoUserId
       );

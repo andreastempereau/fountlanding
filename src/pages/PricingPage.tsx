@@ -25,11 +25,18 @@ export default function PricingPage() {
     "Community support",
   ];
 
-  const paidFeatures = [
+  const plusFeatures = [
     "No API key setup required",
     "Priority support",
     "Advanced features",
     "Automatic updates",
+  ];
+
+  const proFeatures = [
+    "Higher message limit",
+    "All Plus features included",
+    "Premium support",
+    "Early access to new features",
   ];
 
   return (
@@ -79,7 +86,7 @@ export default function PricingPage() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {/* Free (BYOK) Plan */}
           <div
             className="rounded-2xl shadow-lg p-6 sm:p-8 border-2 border-gray-200 flex flex-col"
@@ -137,7 +144,7 @@ export default function PricingPage() {
                 className="text-xl sm:text-2xl font-light mb-2"
                 style={{ color: "var(--light)" }}
               >
-                Pro
+                Plus
               </h2>
               <div className="flex items-baseline gap-2">
                 <span
@@ -156,7 +163,80 @@ export default function PricingPage() {
             </div>
 
             <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-grow">
-              {paidFeatures.map((feature, index) => (
+              {plusFeatures.map((feature, index) => (
+                <li key={index} className="flex items-start gap-2 sm:gap-3">
+                  <Check
+                    className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5"
+                    style={{ color: "var(--light)" }}
+                  />
+                  <span
+                    className="text-sm sm:text-base font-light"
+                    style={{ color: "var(--light)" }}
+                  >
+                    {feature}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            {features.dashboard ? (
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="w-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold rounded-lg transition-all hover:opacity-80 shadow-md"
+                style={{
+                  backgroundColor: "var(--light)",
+                  color: "var(--dark)",
+                }}
+              >
+                Subscribe
+              </button>
+            ) : (
+              <div
+                className="w-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-light text-center rounded-lg"
+                style={{
+                  backgroundColor: "var(--light)",
+                  color: "var(--dark)",
+                  opacity: 0.6,
+                }}
+              >
+                Coming Soon
+              </div>
+            )}
+          </div>
+
+          {/* Pro Plan */}
+          <div
+            className="rounded-2xl shadow-xl p-6 sm:p-8 flex flex-col border-2"
+            style={{
+              backgroundColor: "var(--dark)",
+              borderColor: "var(--dark)",
+            }}
+          >
+            <div className="mb-4 sm:mb-6">
+              <h2
+                className="text-xl sm:text-2xl font-light mb-2"
+                style={{ color: "var(--light)" }}
+              >
+                Pro
+              </h2>
+              <div className="flex items-baseline gap-2">
+                <span
+                  className="text-4xl sm:text-5xl font-light tracking-tight"
+                  style={{ color: "var(--light)" }}
+                >
+                  $60
+                </span>
+                <span
+                  className="text-sm sm:text-base font-light"
+                  style={{ color: "var(--light)", opacity: 0.7 }}
+                >
+                  /month
+                </span>
+              </div>
+            </div>
+
+            <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-grow">
+              {proFeatures.map((feature, index) => (
                 <li key={index} className="flex items-start gap-2 sm:gap-3">
                   <Check
                     className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5"

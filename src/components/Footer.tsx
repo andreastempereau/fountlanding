@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, MapPin } from "lucide-react";
+import { features } from "../config/features";
 
 export default function Footer() {
   return (
@@ -46,14 +47,16 @@ export default function Footer() {
                   Download
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/pricing"
-                  className="hover:text-white transition-colors"
-                >
-                  Pricing
-                </Link>
-              </li>
+              {features.pricingPage && (
+                <li>
+                  <Link
+                    to="/pricing"
+                    className="hover:text-white transition-colors"
+                  >
+                    Pricing
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link to="/blog" className="hover:text-white transition-colors">
                   Blog

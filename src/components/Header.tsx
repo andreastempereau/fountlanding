@@ -88,13 +88,15 @@ export default function Header({
             >
               Download
             </button>
-            <button
-              onClick={() => navigate("/pricing")}
-              className="text-base font-light transition-opacity hover:opacity-60"
-              style={{ color: "var(--dark)" }}
-            >
-              Pricing
-            </button>
+            {features.pricingPage && (
+              <button
+                onClick={() => navigate("/pricing")}
+                className="text-base font-light transition-opacity hover:opacity-60"
+                style={{ color: "var(--dark)" }}
+              >
+                Pricing
+              </button>
+            )}
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setLearnDropdownOpen(!learnDropdownOpen)}
@@ -186,13 +188,15 @@ export default function Header({
             >
               Download
             </button>
-            <button
-              onClick={() => navigate("/pricing")}
-              className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
-              style={{ color: "var(--dark)" }}
-            >
-              Pricing
-            </button>
+            {features.pricingPage && (
+              <button
+                onClick={() => navigate("/pricing")}
+                className="block w-full text-left text-base font-light transition-opacity hover:opacity-60"
+                style={{ color: "var(--dark)" }}
+              >
+                Pricing
+              </button>
+            )}
             <div>
               <button
                 onClick={() => setMobileLearnOpen(!mobileLearnOpen)}

@@ -79,7 +79,7 @@ export default function LandingPage() {
                 color: "var(--dark)",
               }}
             >
-              The personal AI workspace for your private thoughts
+              Your private AI workspace—context-aware, completely secure.
             </p>
             <button
               className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg transition-all hover:opacity-80"
@@ -111,14 +111,13 @@ export default function LandingPage() {
                     className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4"
                     style={{ color: "var(--dark)" }}
                   >
-                    Privacy First
+                    Your Data, Your Device
                   </h3>
                   <p
                     className="text-base sm:text-lg"
                     style={{ color: "var(--dark)" }}
                   >
-                    Your data stays on your device. No cloud storage, no
-                    tracking.
+                    Your workspace, files, and notes never leave your device.
                   </p>
                 </div>
 
@@ -129,14 +128,14 @@ export default function LandingPage() {
                     className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4"
                     style={{ color: "var(--dark)" }}
                   >
-                    Any Model, Your Choice
+                    Total Privacy Control
                   </h3>
                   <p
                     className="text-base sm:text-lg"
                     style={{ color: "var(--dark)" }}
                   >
-                    Switch between local, frontier, or verifiably private
-                    models.
+                    Choose proprietary models when you want power, private
+                    models when you need confidentiality.
                   </p>
                 </div>
 
@@ -147,14 +146,14 @@ export default function LandingPage() {
                     className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4"
                     style={{ color: "var(--dark)" }}
                   >
-                    Context That Matters
+                    Context-Aware Intelligence
                   </h3>
                   <p
                     className="text-base sm:text-lg"
                     style={{ color: "var(--dark)" }}
                   >
-                    Get context-aware answers from your documents with
-                    citations, persistent memory, and live web search.
+                    Reference any document, get cited answers, build on past
+                    conversations.
                   </p>
                 </div>
               </div>
