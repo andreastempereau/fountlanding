@@ -121,3 +121,43 @@ export async function createCustomerPortalSession(
 
   return response.json();
 }
+
+/**
+ * Update a Stripe subscription to a new plan
+ * @param subscriptionId - Stripe subscription ID
+ * @param newPriceId - New price ID to switch to
+ * @returns Promise with the updated subscription details
+ */
+export async function updateSubscription(
+  subscriptionId: string,
+  newPriceId: string
+): Promise<{ success: boolean; subscription: any }> {
+  console.log(
+    "updating subscription",
+    subscriptionId,
+    newPriceId,
+    stripeConfig.apiUrl
+  );
+
+  const response = await fetch(
+    joinUrlPath(stripeConfig.apiUrl, 'update-subscription'),
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        subscriptionId,
+        newPriceId,
+      }),
+    }
+  );
+  console.log("response", response);
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to update subscription");
+  }
+
+  return response.json();
+}

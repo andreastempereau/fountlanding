@@ -11,6 +11,7 @@ interface PlanTabProps {
   isCheckingOut: boolean;
   handleSubscribe: (tier: "plus" | "pro") => void;
   handleManageSubscription: () => void;
+  handleUpdateSubscription: (tier: "plus" | "pro") => void;
 }
 
 // Test state options
@@ -37,6 +38,7 @@ export default function PlanTab({
   isCheckingOut,
   handleSubscribe,
   handleManageSubscription,
+  handleUpdateSubscription,
 }: PlanTabProps) {
   const [testState, setTestState] = useState<TestState>("live");
 
@@ -199,6 +201,31 @@ export default function PlanTab({
 
   const testProps = getTestProps();
 
+  // Determine current subscription tier based on subscription_plan_id
+  const getCurrentTier = (): "plus" | "pro" | null => {
+    if (
+      testProps.userAccountData?.subscription_status !== "active" ||
+      !testProps.userAccountData?.subscription_plan_id
+    ) {
+      return null;
+    }
+
+    const planId = testProps.userAccountData.subscription_plan_id;
+
+    // Check if it's Plus plan
+    if (planId === "price_1SORQLCnVR8qOLc4qTCiLhEO") {
+      return "plus";
+    }
+    // Check if it's Pro plan
+    if (planId === "price_1SUWOVCnVR8qOLc4fufct1ZX") {
+      return "pro";
+    }
+
+    return null;
+  };
+
+  const currentTier = getCurrentTier();
+
   return (
     <div className="space-y-5 overflow-auto">
       {/* TEST MODE CONTROLS - Remove this section in production */}
@@ -316,13 +343,21 @@ export default function PlanTab({
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-                    {testProps.userAccountData.subscription_name || "Active Subscription"}
+                    {currentTier === "plus"
+                      ? "Plus Plan"
+                      : currentTier === "pro"
+                      ? "Pro Plan"
+                      : testProps.userAccountData.subscription_name || "Active Subscription"}
                     <span className="px-2 py-0.5 text-xs font-medium bg-green-500 text-white rounded-full">
                       Active
                     </span>
                   </h4>
                   <p className="text-slate-400 text-sm mt-1">
-                    {testProps.userAccountData.subscription_plan || "Monthly Subscription"}
+                    {currentTier === "plus"
+                      ? "$20/month"
+                      : currentTier === "pro"
+                      ? "$40/month"
+                      : testProps.userAccountData.subscription_plan || "Monthly Subscription"}
                   </p>
                 </div>
               </div>
@@ -405,16 +440,30 @@ export default function PlanTab({
             </li>
           </ul>
 
-          {/* Subscribe/Manage Button */}
+          {/* Subscribe/Upgrade/Downgrade/Manage Button */}
           <button
-            onClick={() =>
-              testProps.userAccountData?.subscription_status === "active"
-                ? handleManageSubscription()
-                : handleSubscribe("plus")
-            }
-            disabled={testProps.isCheckingOut}
+            onClick={() => {
+              if (currentTier === "plus") {
+                // User is on Plus, show manage
+                handleManageSubscription();
+              } else if (currentTier === "pro") {
+                // User is on Pro, allow downgrade to Plus
+                handleUpdateSubscription("plus");
+              } else if (testProps.userAccountData?.subscription_status === "active") {
+                // User has active subscription but unknown tier, show manage
+                handleManageSubscription();
+              } else {
+                // User doesn't have subscription, subscribe to Plus
+                handleSubscribe("plus");
+              }
+            }}
+            disabled={testProps.isCheckingOut || currentTier === "plus"}
             className={`w-full font-semibold py-2.5 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm ${
-              testProps.userAccountData?.subscription_status === "active"
+              currentTier === "plus"
+                ? "bg-green-600 text-white cursor-default"
+                : currentTier === "pro"
+                ? "bg-slate-600 hover:bg-slate-500 text-white"
+                : testProps.userAccountData?.subscription_status === "active"
                 ? "bg-slate-600 hover:bg-slate-500 text-white"
                 : "bg-blue-600 hover:bg-blue-700 text-white"
             }`}
@@ -424,7 +473,13 @@ export default function PlanTab({
             )}
             <span>
               {testProps.isCheckingOut
-                ? "Redirecting..."
+                ? currentTier === "pro"
+                  ? "Downgrading..."
+                  : "Processing..."
+                : currentTier === "plus"
+                ? "Current Plan"
+                : currentTier === "pro"
+                ? "Downgrade to Plus"
                 : testProps.userAccountData?.subscription_status === "active"
                 ? "Manage Subscription"
                 : "Subscribe to Plus"}
@@ -462,16 +517,30 @@ export default function PlanTab({
             </li>
           </ul>
 
-          {/* Subscribe/Manage Button */}
+          {/* Subscribe/Upgrade/Downgrade/Manage Button */}
           <button
-            onClick={() =>
-              testProps.userAccountData?.subscription_status === "active"
-                ? handleManageSubscription()
-                : handleSubscribe("pro")
-            }
-            disabled={testProps.isCheckingOut}
+            onClick={() => {
+              if (currentTier === "pro") {
+                // User is on Pro, show manage
+                handleManageSubscription();
+              } else if (currentTier === "plus") {
+                // User is on Plus, allow upgrade to Pro
+                handleUpdateSubscription("pro");
+              } else if (testProps.userAccountData?.subscription_status === "active") {
+                // User has active subscription but unknown tier, show manage
+                handleManageSubscription();
+              } else {
+                // User doesn't have subscription, subscribe to Pro
+                handleSubscribe("pro");
+              }
+            }}
+            disabled={testProps.isCheckingOut || currentTier === "pro"}
             className={`w-full font-semibold py-2.5 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm ${
-              testProps.userAccountData?.subscription_status === "active"
+              currentTier === "pro"
+                ? "bg-green-600 text-white cursor-default"
+                : currentTier === "plus"
+                ? "bg-blue-600 hover:bg-blue-700 text-white"
+                : testProps.userAccountData?.subscription_status === "active"
                 ? "bg-slate-600 hover:bg-slate-500 text-white"
                 : "bg-slate-700 hover:bg-slate-600 text-white"
             }`}
@@ -481,7 +550,13 @@ export default function PlanTab({
             )}
             <span>
               {testProps.isCheckingOut
-                ? "Redirecting..."
+                ? currentTier === "plus"
+                  ? "Upgrading..."
+                  : "Processing..."
+                : currentTier === "pro"
+                ? "Current Plan"
+                : currentTier === "plus"
+                ? "Upgrade to Pro"
                 : testProps.userAccountData?.subscription_status === "active"
                 ? "Manage Subscription"
                 : "Subscribe to Pro"}

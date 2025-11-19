@@ -12,6 +12,8 @@ import { getEmailFromToken, getUserSubFromToken } from "../utils/jwtDecoder";
 import {
   createCheckoutSession,
   createCustomerPortalSession,
+  updateSubscription,
+  stripeConfig,
 } from "../config/stripe";
 import { UserAccountData } from "../types/auth";
 import ProfileTab from "../components/ProfileTab";
@@ -271,6 +273,50 @@ export default function Dashboard() {
       setIsCheckingOut(false);
     }
   };
+
+  const handleUpdateSubscription = async (newTier: "plus" | "pro") => {
+    setIsCheckingOut(true);
+    setCheckoutError("");
+    setCheckoutSuccess("");
+
+    try {
+      if (!userAccountData?.stripe_subscription_id) {
+        throw new Error("No active subscription found");
+      }
+
+      const newPriceId =
+        newTier === "plus"
+          ? stripeConfig.priceIds.plus_monthly
+          : stripeConfig.priceIds.pro_monthly;
+
+      const result = await updateSubscription(
+        userAccountData.stripe_subscription_id,
+        newPriceId
+      );
+
+      if (result.success) {
+        setCheckoutSuccess(
+          `Successfully ${newTier === "plus" ? "downgraded to Plus" : "upgraded to Pro"}!`
+        );
+        // Refresh account data to show new subscription
+        setTimeout(() => {
+          fetchUserAccount();
+        }, 1000);
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setCheckoutSuccess("");
+        }, 5000);
+      }
+    } catch (error) {
+      setCheckoutError(
+        error instanceof Error
+          ? error.message
+          : "Failed to update subscription"
+      );
+    } finally {
+      setIsCheckingOut(false);
+    }
+  };
   useEffect(() => {
     // Add animation-ready class after component mounts
     // document.body.classList.add("animation-ready");
@@ -392,6 +438,7 @@ export default function Dashboard() {
               isCheckingOut={isCheckingOut}
               handleSubscribe={handleSubscribe}
               handleManageSubscription={handleManageSubscription}
+              handleUpdateSubscription={handleUpdateSubscription}
             />
           )}
         </div>
