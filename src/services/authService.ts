@@ -6,7 +6,6 @@ import {
   ConfirmForgotPasswordCommand,
   ChangePasswordCommand,
   GlobalSignOutCommand,
-  DeleteUserCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClient, cognitoConfig } from "../config/cognito";
 import {
@@ -374,11 +373,30 @@ export async function deleteAccount(): Promise<AuthResponse<void>> {
       };
     }
 
-    const command = new DeleteUserCommand({
-      AccessToken: accessToken,
+    const apiUrl = import.meta.env.VITE_ACCOUNT_DELETION_URL;
+
+    if (!apiUrl) {
+      return {
+        success: false,
+        error: "Account deletion API URL not configured.",
+      };
+    }
+
+    const response = await fetch(apiUrl, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
     });
 
-    await cognitoClient.send(command);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      return {
+        success: false,
+        error: errorData.message || "Account deletion failed",
+      };
+    }
 
     // Clear tokens after successful deletion
     clearTokens();

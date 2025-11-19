@@ -75,14 +75,23 @@ export interface AuthorizationCode {
  */
 export interface UserAccountData {
   userId: string;
-  email: string;
+  email?: string;
   stripe_customer_id?: string;
   stripe_subscription_id?: string;
   subscription_status?: string;
   subscription_plan?: string;
   subscription_plan_id?: string;
+  subscription_name?: string;
   subscription_created_at?: string;
   subscription_updated_at?: string;
+  subscription_billing_period_start?: string;
+  subscription_billing_period_end?: string;
   last_invoice_paid_at?: string;
-  last_invoice_failed_at?: string | null;
+  last_invoice_paid_id?: string;
+  last_invoice_failed_at?: string;
+  monthly_credits?: number;
+  credits_updated_at?: string;
+  openrouter_api_key?: string;
+  openrouter_key_expires_at?: string;
+  openrouter_key_limit?: number;
 }

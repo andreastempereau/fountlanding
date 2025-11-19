@@ -3,6 +3,15 @@
  * Configuration for Stripe checkout and subscription management
  */
 
+/**
+ * Safely joins URL paths, handling trailing/leading slashes
+ */
+function joinUrlPath(base: string, path: string): string {
+  const normalizedBase = base.replace(/\/+$/, ''); // Remove trailing slashes
+  const normalizedPath = path.replace(/^\/+/, ''); // Remove leading slashes
+  return `${normalizedBase}/${normalizedPath}`;
+}
+
 export const stripeConfig = {
   // Stripe publishable key (test mode)
   // TODO: Replace with production key when going live
@@ -15,32 +24,19 @@ export const stripeConfig = {
 
   // Price IDs for subscription plans
   priceIds: {
-    monthly: "price_1SORQLCnVR8qOLc4qTCiLhEO", // $20/month subscription (legacy)
-    yearly: "price_1SOiqWCnVR8qOLc4784hAQ3q", // $192/year subscription (legacy)
     plus_monthly: "price_1SORQLCnVR8qOLc4qTCiLhEO", // $20/month Plus subscription
-    pro_monthly: "price_PLACEHOLDER_PRO_MONTHLY", // $60/month Pro subscription - TODO: Replace with actual price ID
+    pro_monthly: "price_1SUWOVCnVR8qOLc4fufct1ZX", // $40/month Pro subscription - TODO: Replace with actual price ID
   },
 
   // Plan pricing for display
   pricing: {
-    monthly: {
-      amount: 20,
-      currency: "USD",
-      interval: "month",
-    },
-    yearly: {
-      amount: 192,
-      monthlyEquivalent: 16,
-      currency: "USD",
-      interval: "year",
-    },
     plus_monthly: {
       amount: 20,
       currency: "USD",
       interval: "month",
     },
     pro_monthly: {
-      amount: 60,
+      amount: 40,
       currency: "USD",
       interval: "month",
     },
@@ -67,7 +63,7 @@ export async function createCheckoutSession(
     stripeConfig.apiUrl
   );
   const response = await fetch(
-    `${stripeConfig.apiUrl}/create-checkout-session`,
+    joinUrlPath(stripeConfig.apiUrl, 'create-checkout-session'),
     {
       method: "POST",
       headers: {
@@ -98,10 +94,14 @@ export async function createCheckoutSession(
 export async function createCustomerPortalSession(
   customerId: string
 ): Promise<{ url: string }> {
-  console.log("creating customer portal session", customerId, stripeConfig.apiUrl);
-  
+  console.log(
+    "creating customer portal session",
+    customerId,
+    stripeConfig.apiUrl
+  );
+
   const response = await fetch(
-    `${stripeConfig.apiUrl}/create-customer-portal-session`,
+    joinUrlPath(stripeConfig.apiUrl, 'create-customer-portal-session'),
     {
       method: "POST",
       headers: {

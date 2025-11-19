@@ -316,13 +316,13 @@ export default function PlanTab({
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-                    Active Subscription
+                    {testProps.userAccountData.subscription_name || "Active Subscription"}
                     <span className="px-2 py-0.5 text-xs font-medium bg-green-500 text-white rounded-full">
                       Active
                     </span>
                   </h4>
                   <p className="text-slate-400 text-sm mt-1">
-                    Monthly Subscription
+                    {testProps.userAccountData.subscription_plan || "Monthly Subscription"}
                   </p>
                 </div>
               </div>
@@ -437,7 +437,7 @@ export default function PlanTab({
           <div className="mb-4">
             <h3 className="text-xl font-semibold text-white mb-2">Pro Plan</h3>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-bold text-white">$60</span>
+              <span className="text-3xl font-bold text-white">$40</span>
               <span className="text-slate-400 text-sm">/month</span>
             </div>
           </div>

@@ -21,23 +21,18 @@ export default function PricingPage() {
 
   const freFeatures = [
     "Bring Your Own API Key",
-    "All core features included",
+    "Core features included",
     "Community support",
   ];
 
   const plusFeatures = [
-    "No API key setup required",
-    "Priority support",
-    "Advanced features",
-    "Automatic updates",
+    "MLX support for blazing fast workspace indexing",
+    "Memory engine",
+    "Provisioned access to top cloud models",
+    "Provisioned access to privacy-preserving models",
   ];
 
-  const proFeatures = [
-    "Higher message limit",
-    "All Plus features included",
-    "Premium support",
-    "Early access to new features",
-  ];
+  const proFeatures = ["Everything in Plus", "Expanded usage"];
 
   return (
     <div className="min-h-screen">
@@ -80,7 +75,10 @@ export default function PricingPage() {
           >
             Simple, Transparent Pricing
           </h1>
-          <p className="text-lg sm:text-xl font-light" style={{ color: "var(--dark)" }}>
+          <p
+            className="text-lg sm:text-xl font-light"
+            style={{ color: "var(--dark)" }}
+          >
             Choose the plan that works best for you
           </p>
         </div>
@@ -96,14 +94,18 @@ export default function PricingPage() {
             }}
           >
             <div className="mb-4 sm:mb-6">
-              <h2 className="text-xl sm:text-2xl font-light mb-2">Free (BYOK)</h2>
+              <h2 className="text-xl sm:text-2xl font-light mb-2">
+                Free (BYOK)
+              </h2>
             </div>
 
             <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-grow">
               {freFeatures.map((feature, index) => (
                 <li key={index} className="flex items-start gap-2 sm:gap-3">
                   <Check className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm sm:text-base font-light">{feature}</span>
+                  <span className="text-sm sm:text-base font-light">
+                    {feature}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -224,7 +226,7 @@ export default function PricingPage() {
                   className="text-4xl sm:text-5xl font-light tracking-tight"
                   style={{ color: "var(--light)" }}
                 >
-                  $60
+                  $40
                 </span>
                 <span
                   className="text-sm sm:text-base font-light"
@@ -280,7 +282,10 @@ export default function PricingPage() {
 
         {/* Additional info section */}
         <div className="max-w-3xl mx-auto mt-12 sm:mt-16 text-center px-4">
-          <p className="text-sm sm:text-base font-light" style={{ color: "var(--dark)" }}>
+          <p
+            className="text-sm sm:text-base font-light"
+            style={{ color: "var(--dark)" }}
+          >
             All plans include access to our AI workspace platform.{" "}
             <br className="hidden md:block" />
             Upgrade, downgrade, or cancel anytime.

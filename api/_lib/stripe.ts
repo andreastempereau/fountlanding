@@ -15,6 +15,6 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 // Price IDs for subscription plans
 export const PRICE_IDS = {
-  monthly: "price_1SORQLCnVR8qOLc4qTCiLhEO", // $20/month subscription
-  yearly: "price_1SOiqWCnVR8qOLc4784hAQ3q", // $192/year subscription
+  plus_monthly: "price_1SORQLCnVR8qOLc4qTCiLhEO", // $20/month Plus subscription
+  pro_monthly: "price_1SUWOVCnVR8qOLc4fufct1ZX", // $40/month Pro subscription
 };
