@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
 import { signIn, signUp, confirmSignUp } from "../services/authService";
-import { completeOAuth2Flow } from "../services/oauth2Service";
+import { completeOAuth2Flow, validateOAuth2Session } from "../services/oauth2Service";
+import { cognitoConfig } from "../config/cognito";
 
 export default function OAuth2LoginPage() {
   const [searchParams] = useSearchParams();
@@ -76,8 +77,8 @@ export default function OAuth2LoginPage() {
     setIsLoading(true);
 
     try {
-      // Step 1: Authenticate user with Cognito
-      const signInResult = await signIn(email, password);
+      // Step 1: Authenticate user with Cognito using desktop client ID
+      const signInResult = await signIn(email, password, cognitoConfig.userPoolDesktopClientId);
 
       if (!signInResult.success || !signInResult.data) {
         setError(signInResult.error || "Authentication failed");
@@ -86,6 +87,22 @@ export default function OAuth2LoginPage() {
       }
 
       const { tokens } = signInResult.data;
+
+      // Step 2: Validate OAuth2 session and check client ID
+      const sessionResult = await validateOAuth2Session(sessionId, tokens.idToken);
+
+      if (!sessionResult.success || !sessionResult.data) {
+        setError(sessionResult.error || "Invalid OAuth2 session");
+        setIsLoading(false);
+        return;
+      }
+
+      // Step 3: Validate that the session's client ID matches the desktop client ID
+      if (sessionResult.data.clientId !== cognitoConfig.userPoolDesktopClientId) {
+        setError("Invalid client ID. Please ensure you're using the desktop application.");
+        setIsLoading(false);
+        return;
+      }
 
       // Complete OAuth2 flow and redirect
       setIsLoading(false);
@@ -144,13 +161,29 @@ export default function OAuth2LoginPage() {
       const confirmResult = await confirmSignUp(pendingEmail, confirmationCode);
 
       if (confirmResult.success) {
-        // Auto sign-in after successful confirmation
-        const signInResult = await signIn(pendingEmail, pendingPassword);
+        // Auto sign-in after successful confirmation using desktop client ID
+        const signInResult = await signIn(pendingEmail, pendingPassword, cognitoConfig.userPoolDesktopClientId);
 
         if (signInResult.success && signInResult.data) {
           // Clear sensitive data
           setPendingPassword("");
           const { tokens } = signInResult.data;
+
+          // Validate OAuth2 session and check client ID
+          const sessionResult = await validateOAuth2Session(sessionId!, tokens.idToken);
+
+          if (!sessionResult.success || !sessionResult.data) {
+            setError(sessionResult.error || "Invalid OAuth2 session");
+            setIsLoading(false);
+            return;
+          }
+
+          // Validate that the session's client ID matches the desktop client ID
+          if (sessionResult.data.clientId !== cognitoConfig.userPoolDesktopClientId) {
+            setError("Invalid client ID. Please ensure you're using the desktop application.");
+            setIsLoading(false);
+            return;
+          }
 
           // Complete OAuth2 flow and redirect
           setIsLoading(false);

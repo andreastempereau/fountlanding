@@ -9,6 +9,7 @@ export const cognitoConfig = {
   region: import.meta.env.VITE_COGNITO_REGION || "us-east-1",
   userPoolId: import.meta.env.VITE_COGNITO_USER_POOL_ID || "",
   userPoolWebClientId: import.meta.env.VITE_COGNITO_CLIENT_ID || "",
+  userPoolDesktopClientId: import.meta.env.VITE_COGNITO_DESKTOP_CLIENT_ID || "",
   identityPoolId: import.meta.env.VITE_IDENTITY_POOL_ID || "",
 };
 
@@ -35,11 +36,12 @@ if (!cognitoConfig.userPoolId || !cognitoConfig.userPoolWebClientId) {
 }
 
 // Validate OAuth2 configuration for desktop authentication
-if (!cognitoConfig.identityPoolId) {
+if (!cognitoConfig.identityPoolId || !cognitoConfig.userPoolDesktopClientId) {
   console.warn(
     "⚠️ OAuth2 configuration is incomplete. Desktop authentication will not work.\n" +
       "Please set:\n" +
       "  - VITE_IDENTITY_POOL_ID\n" +
+      "  - VITE_COGNITO_DESKTOP_CLIENT_ID\n" +
       "  - VITE_OAUTH2_SESSIONS_TABLE (optional)\n" +
       "  - VITE_AUTH_CODES_TABLE (optional)\n\n" +
       "See .env.example for details."

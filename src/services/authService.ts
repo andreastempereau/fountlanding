@@ -107,15 +107,17 @@ export async function confirmSignUp(
  * Sign in a user
  * @param email - User's email address
  * @param password - User's password
+ * @param clientId - Optional Cognito client ID (defaults to web client ID)
  * @returns AuthResponse with authentication tokens
  */
 export async function signIn(
   email: string,
-  password: string
+  password: string,
+  clientId?: string
 ): Promise<AuthResponse<SignInResponse>> {
   try {
     const command = new InitiateAuthCommand({
-      ClientId: cognitoConfig.userPoolWebClientId,
+      ClientId: clientId || cognitoConfig.userPoolWebClientId,
       AuthFlow: "USER_PASSWORD_AUTH",
       AuthParameters: {
         USERNAME: email,
