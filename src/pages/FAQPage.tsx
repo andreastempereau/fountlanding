@@ -25,7 +25,7 @@ export default function FAQPage() {
     {
       question: "Is Fount free to use?",
       answer:
-        "Yes! Users can download the application and use their own api keys.",
+        "Yes! Users can download the application and use their own API keys.",
     },
   ];
 
@@ -92,9 +92,8 @@ export default function FAQPage() {
                 >
                   <h3 className="text-lg sm:text-xl lg:text-2xl font-medium pr-4 sm:pr-8">{faq.question}</h3>
                   <svg
-                    className={`w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 transition-transform duration-300 ${
-                      openQuestionIndex === index ? "rotate-180" : ""
-                    }`}
+                    className={`w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 transition-transform duration-300 ${openQuestionIndex === index ? "rotate-180" : ""
+                      }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -108,11 +107,10 @@ export default function FAQPage() {
                   </svg>
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    openQuestionIndex === index
+                  className={`overflow-hidden transition-all duration-300 ${openQuestionIndex === index
                       ? "max-h-96 opacity-100"
                       : "max-h-0 opacity-0"
-                  }`}
+                    }`}
                 >
                   <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6">
                     <p className="text-base sm:text-lg text-white leading-relaxed">

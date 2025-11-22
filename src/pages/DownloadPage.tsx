@@ -270,7 +270,7 @@ export default function DownloadPage() {
             {platform === "mac" ? (
               <>
                 <a
-                  href="https://github.com/fount-labs/fount/releases/download/v0.0.1/Fount_0.0.1_aarch64.dmg"
+                  href="https://github.com/fount-labs/fount/releases/download/v0.0.3/Fount_0.0.3_aarch64.dmg"
                   className="inline-block px-12 py-5 text-lg font-semibold rounded-xl transition-all hover:opacity-80 shadow-lg"
                   style={{
                     backgroundColor: "var(--dark)",
@@ -280,10 +280,10 @@ export default function DownloadPage() {
                   Download for Mac
                 </a>
                 <p className="text-sm text-gray-500 mt-4">
-                  Version 0.0.1 • Apple Silicon • macOS 14.1+
+                  Version 0.0.2 • Apple Silicon • macOS 14.1+
                 </p>
                 <a
-                  href="https://github.com/fount-labs/fount/releases/download/v0.0.1/Fount_0.0.1_x64_en-US_windows.msi"
+                  href="https://github.com/fount-labs/fount/releases/download/v0.0.3/Fount_0.0.3_x64_en-US_windows.msi"
                   className="text-sm text-gray-600 hover:text-gray-800 mt-3 inline-block underline"
                 >
                   Download for Windows instead
@@ -292,7 +292,7 @@ export default function DownloadPage() {
             ) : platform === "windows" ? (
               <>
                 <a
-                  href="https://github.com/fount-labs/fount/releases/download/v0.0.1/Fount_0.0.1_x64_en-US_windows.msi"
+                  href="https://github.com/fount-labs/fount/releases/download/v0.0.3/Fount_0.0.3_x64_en-US_windows.msi"
                   className="inline-block px-12 py-5 text-lg font-semibold rounded-xl transition-all hover:opacity-80 shadow-lg"
                   style={{
                     backgroundColor: "var(--dark)",
@@ -302,10 +302,10 @@ export default function DownloadPage() {
                   Download for Windows
                 </a>
                 <p className="text-sm text-gray-500 mt-4">
-                  Version 0.0.1 • Windows 10+
+                  Version 0.0.2 • Windows 10+
                 </p>
                 <a
-                  href="https://github.com/fount-labs/fount/releases/download/v0.0.1/Fount_0.0.1_aarch64.dmg"
+                  href="https://github.com/fount-labs/fount/releases/download/v0.0.3/Fount_0.0.3_aarch64.dmg"
                   className="text-sm text-gray-600 hover:text-gray-800 mt-3 inline-block underline"
                 >
                   Download for Mac instead
@@ -314,7 +314,7 @@ export default function DownloadPage() {
             ) : (
               <div className="space-y-4">
                 <a
-                  href="https://github.com/fount-labs/fount/releases/download/v0.0.1/Fount_0.0.1_aarch64.dmg"
+                  href="https://github.com/fount-labs/fount/releases/download/v0.0.3/Fount_0.0.3_aarch64.dmg"
                   className="inline-block px-12 py-5 text-lg font-semibold rounded-xl transition-all hover:opacity-80 shadow-lg mb-4"
                   style={{
                     backgroundColor: "var(--dark)",
@@ -325,7 +325,7 @@ export default function DownloadPage() {
                 </a>
                 <br />
                 <a
-                  href="https://github.com/fount-labs/fount/releases/download/v0.0.1/Fount_0.0.1_x64_en-US_windows.msi"
+                  href="https://github.com/fount-labs/fount/releases/download/v0.0.3/Fount_0.0.3_x64_en-US_windows.msi"
                   className="inline-block px-12 py-5 text-lg font-semibold rounded-xl transition-all hover:opacity-80 shadow-lg"
                   style={{
                     backgroundColor: "var(--dark)",
