@@ -26,6 +26,26 @@ body {
   --dawn: #16132b;
   --morning: #9fb3bf;
 
+  /* Pricing card colors - twilight theme */
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-bg-hover: rgba(255, 255, 255, 0.1);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-border-hover: rgba(255, 255, 255, 0.24);
+  --card-featured-bg: rgba(252, 204, 131, 0.08);
+  --card-featured-border: var(--evening);
+  
+  /* Button colors */
+  --btn-primary-bg: var(--evening);
+  --btn-primary-text: var(--dawn);
+  --btn-primary-hover: #ffd699;
+  --btn-outline-border: rgba(255, 255, 255, 0.4);
+  --btn-outline-hover-bg: rgba(255, 255, 255, 0.1);
+  
+  /* Accent colors */
+  --accent-gold: var(--evening);
+  --accent-gold-soft: rgba(252, 204, 131, 0.2);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --check-color: var(--evening);
 
   --light: var(--day);
   --dark: var(--night);

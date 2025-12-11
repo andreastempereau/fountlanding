@@ -4,7 +4,10 @@ import { features } from "../config/features";
 
 export default function Footer() {
   return (
-    <footer className="relative">
+    <footer
+      className="relative"
+      style={{ borderTop: "1px solid var(--card-border)" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-4 gap-8">
           <div className="lg:col-span-2">
@@ -14,12 +17,20 @@ export default function Footer() {
                 alt="Fount"
                 className="w-10 h-10"
               />
-              <span className="text-xl font-bold text-white">Fount</span>
+              <span
+                className="text-xl font-bold"
+                style={{ color: "var(--dark)" }}
+              >
+                Fount
+              </span>
             </div>
-            <p className="text-slate-300 max-w-lg mb-6">
+            <p className="max-w-lg mb-6" style={{ color: "var(--text-muted)" }}>
               The personal AI workspace for your private thoughts.
             </p>
-            <div className="flex items-center space-x-6 text-slate-400">
+            <div
+              className="flex items-center space-x-6"
+              style={{ color: "var(--text-muted)" }}
+            >
               <div className="flex items-center space-x-2">
                 <MapPin className="w-4 h-4" />
                 <span>Los Angeles</span>
@@ -32,17 +43,36 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">Pages</h4>
-            <ul className="space-y-2 text-slate-400">
+            <h4 className="font-semibold mb-4" style={{ color: "var(--dark)" }}>
+              Pages
+            </h4>
+            <ul className="space-y-2" style={{ color: "var(--text-muted)" }}>
               <li>
-                <Link to="/" className="hover:text-white transition-colors">
+                <Link
+                  to="/"
+                  className="transition-colors hover:opacity-100"
+                  style={{ color: "var(--text-muted)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--accent-gold)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-muted)")
+                  }
+                >
                   Home
                 </Link>
               </li>
               <li>
                 <Link
                   to="/download"
-                  className="hover:text-white transition-colors"
+                  className="transition-colors"
+                  style={{ color: "var(--text-muted)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--accent-gold)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-muted)")
+                  }
                 >
                   Download
                 </Link>
@@ -51,24 +81,61 @@ export default function Footer() {
                 <li>
                   <Link
                     to="/pricing"
-                    className="hover:text-white transition-colors"
+                    className="transition-colors"
+                    style={{ color: "var(--text-muted)" }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.color = "var(--accent-gold)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = "var(--text-muted)")
+                    }
                   >
                     Pricing
                   </Link>
                 </li>
               )}
               <li>
-                <Link to="/blog" className="hover:text-white transition-colors">
+                <Link
+                  to="/blog"
+                  className="transition-colors"
+                  style={{ color: "var(--text-muted)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--accent-gold)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-muted)")
+                  }
+                >
                   Blog
                 </Link>
               </li>
               <li>
-                <Link to="/roadmap" className="hover:text-white transition-colors">
+                <Link
+                  to="/roadmap"
+                  className="transition-colors"
+                  style={{ color: "var(--text-muted)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--accent-gold)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-muted)")
+                  }
+                >
                   Roadmap
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="hover:text-white transition-colors">
+                <Link
+                  to="/faq"
+                  className="transition-colors"
+                  style={{ color: "var(--text-muted)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--accent-gold)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-muted)")
+                  }
+                >
                   FAQ
                 </Link>
               </li>
@@ -76,12 +143,21 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">Legal</h4>
-            <ul className="space-y-2 text-slate-400">
+            <h4 className="font-semibold mb-4" style={{ color: "var(--dark)" }}>
+              Legal
+            </h4>
+            <ul className="space-y-2">
               <li>
                 <Link
                   to="/terms"
-                  className="hover:text-white transition-colors"
+                  className="transition-colors"
+                  style={{ color: "var(--text-muted)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--accent-gold)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-muted)")
+                  }
                 >
                   Terms of Service
                 </Link>
@@ -89,7 +165,14 @@ export default function Footer() {
               <li>
                 <Link
                   to="/privacy"
-                  className="hover:text-white transition-colors"
+                  className="transition-colors"
+                  style={{ color: "var(--text-muted)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--accent-gold)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-muted)")
+                  }
                 >
                   Privacy Policy
                 </Link>

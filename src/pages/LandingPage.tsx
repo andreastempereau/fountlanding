@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import Hero from "../components/Hero";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { getPlatform, getPlatformDisplayName } from "../utils/platform";
+import AppleIcon from "../components/AppleIcon";
+import WindowsIcon from "../components/WindowsIcon";
 // import { AnthropicIcon } from "../svgs/AnthropicIcon";
 // import { OpenAiIcon } from "../svgs/OpenAiIcon";
 // import { XAIIcon } from "../svgs/XAIIcon";
@@ -45,7 +46,7 @@ export default function LandingPage() {
         <div className="perspective">
           <div id="blinds">
             <div className="shutters">
-              {Array.from({ length: 10 }).map((_, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <div key={i} className="shutter"></div>
               ))}
             </div>
@@ -62,11 +63,24 @@ export default function LandingPage() {
           <div></div>
         </div>
       </div>
-      <Header mobileMenuOpen={false} setMobileMenuOpen={() => {}} />
+      {/* <Header mobileMenuOpen={false} setMobileMenuOpen={() => {}} /> */}
       <div className="w-full relative">
         {/* Content */}
         <div className="mx-auto relative z-10 flex flex-col items-start min-h-screen pt-[10vh]">
           <div className="flex flex-col items-start mb-4 px-4 sm:px-8 lg:px-24">
+            <div className="flex items-center gap-3 mb-2 sm:mb-3">
+              <img
+                src="/app-logo-bg-transparent.svg"
+                alt="Fount Logo"
+                className="w-10 h-10 sm:w-12 sm:h-12"
+              />
+              <span
+                className="text-2xl sm:text-3xl font-semibold"
+                style={{ color: "var(--dark)" }}
+              >
+                Fount
+              </span>
+            </div>
             <h1
               className="text-4xl sm:text-6xl lg:text-8xl italic text-[var(--dark)]"
               style={{ lineHeight: "1.2" }}
@@ -75,22 +89,76 @@ export default function LandingPage() {
             </h1>
             <p
               className="text-base sm:text-lg lg:text-xl mt-4 sm:mt-6"
-              style={{
-                color: "var(--dark)",
-              }}
+              style={{ color: "var(--text-muted)" }}
             >
               Your private AI workspace—context-aware, completely secure.
             </p>
-            <button
-              className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg transition-all hover:opacity-80"
-              style={{
-                backgroundColor: "var(--dark)",
-                color: "var(--light)",
-              }}
-              onClick={() => navigate("/download")}
-            >
-              Get Fount for {platform}
-            </button>
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3">
+              {/* Mac Button */}
+              <a
+                href="https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_aarch64.dmg"
+                className="flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg transition-all duration-200"
+                style={{
+                  backgroundColor:
+                    platform === "MacOS"
+                      ? "var(--btn-primary-bg)"
+                      : "var(--dark)",
+                  color:
+                    platform === "MacOS"
+                      ? "var(--btn-primary-text)"
+                      : "var(--dawn)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    platform === "MacOS"
+                      ? "var(--btn-primary-hover)"
+                      : "var(--text-muted)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    platform === "MacOS"
+                      ? "var(--btn-primary-bg)"
+                      : "var(--dark)";
+                }}
+              >
+                <AppleIcon color="currentColor" size="20" />
+                Download for Mac
+              </a>
+
+              {/* Windows Button */}
+              <a
+                href="https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_x64_en-US_windows.msi"
+                className="flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg transition-all duration-200"
+                style={{
+                  backgroundColor:
+                    platform === "Windows"
+                      ? "var(--btn-primary-bg)"
+                      : "var(--dark)",
+                  color:
+                    platform === "Windows"
+                      ? "var(--btn-primary-text)"
+                      : "var(--dawn)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    platform === "Windows"
+                      ? "var(--btn-primary-hover)"
+                      : "var(--text-muted)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    platform === "Windows"
+                      ? "var(--btn-primary-bg)"
+                      : "var(--dark)";
+                }}
+              >
+                <WindowsIcon color="currentColor" size="20" />
+                Download for Windows
+              </a>
+            </div>
+            <p className="mt-3 text-sm" style={{ color: "var(--text-muted)" }}>
+              Requires macOS 14+ (Apple Silicon) or Windows 10+
+            </p>
           </div>
 
           <div className="flex-shrink-0 w-full">
@@ -102,65 +170,403 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16">
           <div className="mx-auto">
             <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-8 lg:gap-0">
-              <div className="flex flex-col flex-1 w-full">
-                <div className="text-left">
-                  <h3
-                    className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4"
-                    style={{ color: "var(--dark)" }}
-                  >
-                    Your Data, Your Device
-                  </h3>
-                  <p
-                    className="text-base sm:text-lg"
-                    style={{ color: "var(--dark)" }}
-                  >
-                    Your workspace, files, and notes never leave your device.
-                  </p>
-                </div>
-
-                <hr className="my-6 sm:my-8 border-t border-[color:var(--dark)]/20 w-4/5 self-start" />
-
-                <div className="text-left">
-                  <h3
-                    className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4"
-                    style={{ color: "var(--dark)" }}
-                  >
-                    Total Privacy Control
-                  </h3>
-                  <p
-                    className="text-base sm:text-lg"
-                    style={{ color: "var(--dark)" }}
-                  >
-                    Choose proprietary models when you want power, private
-                    models when you need confidentiality.
-                  </p>
-                </div>
-
-                <hr className="my-6 sm:my-8 border-t border-[color:var(--dark)]/20 w-4/5 self-start" />
-
-                <div className="text-left">
-                  <h3
-                    className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4"
-                    style={{ color: "var(--dark)" }}
-                  >
-                    Context-Aware Intelligence
-                  </h3>
-                  <p
-                    className="text-base sm:text-lg"
-                    style={{ color: "var(--dark)" }}
-                  >
-                    Reference any document, get cited answers, build on past
-                    conversations.
-                  </p>
-                </div>
+              <div className="flex flex-col flex-1 w-full gap-8">
+                {[
+                  {
+                    title: "Your Data, Your Device",
+                    description:
+                      "Your workspace, files, and notes never leave your device.",
+                  },
+                  {
+                    title: "Total Privacy Control",
+                    description:
+                      "Choose proprietary models when you want power, private models when you need confidentiality.",
+                  },
+                  {
+                    title: "Context-Aware Intelligence",
+                    description:
+                      "Reference any document, get cited answers, build on past conversations.",
+                  },
+                ].map((principle, i) => (
+                  <div key={i} className="text-left">
+                    <h3
+                      className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4 flex items-center gap-3"
+                      style={{ color: "var(--dark)" }}
+                    >
+                      <span
+                        className="w-2 h-2 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: "var(--accent-gold)" }}
+                      />
+                      {principle.title}
+                    </h3>
+                    <p
+                      className="text-base sm:text-lg pl-5"
+                      style={{ color: "var(--text-muted)" }}
+                    >
+                      {principle.description}
+                    </p>
+                  </div>
+                ))}
               </div>
-              <div className="hidden lg:flex flex-shrink-0 lg:ml-12 w-full sm:w-auto justify-center lg:justify-end">
+              <div className="hidden lg:flex flex-col items-center flex-shrink-0 lg:ml-12 w-full sm:w-auto justify-center lg:justify-end">
                 <img
                   src="/app-logo-5.svg"
                   alt="Fount"
                   className="w-full max-w-[250px] sm:max-w-[350px] h-auto"
                 />
+                <span
+                  className="text-2xl font-semibold mt-4"
+                  style={{ color: "var(--dark)" }}
+                >
+                  Fount
+                </span>
+                <a
+                  href={
+                    platform === "Windows"
+                      ? "https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_x64_en-US_windows.msi"
+                      : "https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_aarch64.dmg"
+                  }
+                  className="mt-3 px-6 py-2 text-base font-medium rounded-lg transition-all duration-200 inline-block"
+                  style={{
+                    backgroundColor: "var(--btn-primary-bg)",
+                    color: "var(--btn-primary-text)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "var(--btn-primary-hover)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "var(--btn-primary-bg)";
+                  }}
+                >
+                  Download Now
+                </a>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Pricing Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16 sm:py-24">
+          <h2
+            className="text-3xl sm:text-4xl lg:text-5xl font-medium text-center mb-4"
+            style={{ color: "var(--dark)" }}
+          >
+            Choose Your Plan
+          </h2>
+          <p
+            className="text-base sm:text-lg text-center mb-12 sm:mb-16 max-w-2xl mx-auto"
+            style={{ color: "var(--text-muted)" }}
+          >
+            Own your AI workspace forever, or unlock cloud-powered capabilities
+            with a subscription.
+          </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+            {/* Perpetual License */}
+            <div
+              className="flex flex-col p-6 sm:p-8 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                backgroundColor: "var(--card-bg)",
+                border: "1px solid var(--card-border)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--card-bg-hover)";
+                e.currentTarget.style.borderColor = "var(--card-border-hover)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--card-bg)";
+                e.currentTarget.style.borderColor = "var(--card-border)";
+              }}
+            >
+              <div className="mb-6">
+                <h3
+                  className="text-xl sm:text-2xl font-semibold mb-2"
+                  style={{ color: "var(--dark)" }}
+                >
+                  Perpetual License
+                </h3>
+                <p
+                  className="text-sm uppercase tracking-wide font-medium"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Bring Your Own Keys
+                </p>
+              </div>
+
+              <div className="mb-6">
+                <span
+                  className="text-4xl sm:text-5xl font-bold"
+                  style={{ color: "var(--dark)" }}
+                >
+                  $50
+                </span>
+                <span
+                  className="text-base ml-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  one-time
+                </span>
+              </div>
+
+              <ul className="flex-1 space-y-4 mb-8">
+                {[
+                  "Full feature access with your own API keys",
+                  "Lifetime access to latest features & updates",
+                  "Grounded LLM responses with citations",
+                  "Local workspace indexing for semantic search",
+                  "Latest open-source embedding models + MLX support",
+                ].map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <svg
+                      className="w-5 h-5 mt-0.5 flex-shrink-0"
+                      style={{ color: "var(--check-color)" }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <span
+                      className="text-sm sm:text-base"
+                      style={{ color: "var(--dark)" }}
+                    >
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                className="w-full py-3 sm:py-4 px-6 text-base font-semibold rounded-lg transition-all duration-200"
+                style={{
+                  border: "1px solid var(--btn-outline-border)",
+                  color: "var(--dark)",
+                  backgroundColor: "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "var(--btn-outline-hover-bg)";
+                  e.currentTarget.style.borderColor = "var(--dark)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.borderColor =
+                    "var(--btn-outline-border)";
+                }}
+                onClick={() => navigate("/download")}
+              >
+                Get Perpetual License
+              </button>
+            </div>
+
+            {/* Plus Subscription - Featured */}
+            <div
+              className="flex flex-col p-6 sm:p-8 rounded-2xl backdrop-blur-sm relative transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                backgroundColor: "var(--card-featured-bg)",
+                border: "2px solid var(--card-featured-border)",
+              }}
+            >
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span
+                  className="px-4 py-1 text-xs font-semibold uppercase tracking-wide rounded-full"
+                  style={{
+                    backgroundColor: "var(--accent-gold)",
+                    color: "var(--dawn)",
+                  }}
+                >
+                  Popular
+                </span>
+              </div>
+
+              <div className="mb-6">
+                <h3
+                  className="text-xl sm:text-2xl font-semibold mb-2"
+                  style={{ color: "var(--dark)" }}
+                >
+                  Plus
+                </h3>
+                <p
+                  className="text-sm uppercase tracking-wide font-medium"
+                  style={{ color: "var(--accent-gold)" }}
+                >
+                  Cloud-Enhanced
+                </p>
+              </div>
+
+              <div className="mb-6">
+                <span
+                  className="text-4xl sm:text-5xl font-bold"
+                  style={{ color: "var(--dark)" }}
+                >
+                  $20
+                </span>
+                <span
+                  className="text-base ml-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  /month
+                </span>
+              </div>
+
+              <ul className="flex-1 space-y-4 mb-8">
+                {[
+                  "Everything in Perpetual License",
+                  "Provisioned API access to TEE models",
+                  "Access to premium cloud models",
+                  "No API key management required",
+                ].map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <svg
+                      className="w-5 h-5 mt-0.5 flex-shrink-0"
+                      style={{ color: "var(--accent-gold)" }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <span
+                      className="text-sm sm:text-base"
+                      style={{ color: "var(--dark)" }}
+                    >
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                className="w-full py-3 sm:py-4 px-6 text-base font-semibold rounded-lg transition-all duration-200"
+                style={{
+                  backgroundColor: "var(--btn-primary-bg)",
+                  color: "var(--btn-primary-text)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "var(--btn-primary-hover)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "var(--btn-primary-bg)";
+                }}
+                onClick={() => navigate("/download")}
+              >
+                Subscribe to Plus
+              </button>
+            </div>
+
+            {/* Pro Subscription */}
+            <div
+              className="flex flex-col p-6 sm:p-8 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                backgroundColor: "var(--card-bg)",
+                border: "1px solid var(--card-border)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--card-bg-hover)";
+                e.currentTarget.style.borderColor = "var(--card-border-hover)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--card-bg)";
+                e.currentTarget.style.borderColor = "var(--card-border)";
+              }}
+            >
+              <div className="mb-6">
+                <h3
+                  className="text-xl sm:text-2xl font-semibold mb-2"
+                  style={{ color: "var(--dark)" }}
+                >
+                  Pro
+                </h3>
+                <p
+                  className="text-sm uppercase tracking-wide font-medium"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Power User
+                </p>
+              </div>
+
+              <div className="mb-6">
+                <span
+                  className="text-4xl sm:text-5xl font-bold"
+                  style={{ color: "var(--dark)" }}
+                >
+                  $40
+                </span>
+                <span
+                  className="text-base ml-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  /month
+                </span>
+              </div>
+
+              <ul className="flex-1 space-y-4 mb-8">
+                {[
+                  "Everything in Plus",
+                  "Expanded API usage limits",
+                  "Priority access to new features",
+                  "Best for heavy daily usage",
+                ].map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <svg
+                      className="w-5 h-5 mt-0.5 flex-shrink-0"
+                      style={{ color: "var(--check-color)" }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <span
+                      className="text-sm sm:text-base"
+                      style={{ color: "var(--dark)" }}
+                    >
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                className="w-full py-3 sm:py-4 px-6 text-base font-semibold rounded-lg transition-all duration-200"
+                style={{
+                  border: "1px solid var(--btn-outline-border)",
+                  color: "var(--dark)",
+                  backgroundColor: "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "var(--btn-outline-hover-bg)";
+                  e.currentTarget.style.borderColor = "var(--dark)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.borderColor =
+                    "var(--btn-outline-border)";
+                }}
+                onClick={() => navigate("/download")}
+              >
+                Subscribe to Pro
+              </button>
             </div>
           </div>
         </div>

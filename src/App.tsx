@@ -62,22 +62,22 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/download" element={<DownloadPage />} />
-        <Route path="/pricing" element={<PricingPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/roadmap" element={<RoadmapPage />} />
-        <Route path="/faq" element={<FAQPage />} />
+        {/* <Route path="/download" element={<DownloadPage />} /> */}
+        {/* <Route path="/pricing" element={<PricingPage />} /> */}
+        {/* <Route path="/blog" element={<BlogPage />} /> */}
+        {/* <Route path="/roadmap" element={<RoadmapPage />} /> */}
+        {/* <Route path="/faq" element={<FAQPage />} /> */}
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         {/* Auth routes - conditionally enabled via feature flags */}
-        {features.auth && (
+        {/* {features.auth && (
           <>
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/auth/login" element={<OAuth2LoginPage />} />
           </>
-        )}
+        )} */}
         {/* Dashboard route - conditionally enabled via feature flags */}
-        {features.dashboard && (
+        {/* {features.dashboard && (
           <Route
             path="/dashboard"
             element={
@@ -86,7 +86,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-        )}
+        )} */}
         {/* Redirect any unknown routes to landing page */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
