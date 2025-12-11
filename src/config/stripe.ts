@@ -7,8 +7,8 @@
  * Safely joins URL paths, handling trailing/leading slashes
  */
 function joinUrlPath(base: string, path: string): string {
-  const normalizedBase = base.replace(/\/+$/, ''); // Remove trailing slashes
-  const normalizedPath = path.replace(/^\/+/, ''); // Remove leading slashes
+  const normalizedBase = base.replace(/\/+$/, ""); // Remove trailing slashes
+  const normalizedPath = path.replace(/^\/+/, ""); // Remove leading slashes
   return `${normalizedBase}/${normalizedPath}`;
 }
 
@@ -25,7 +25,8 @@ export const stripeConfig = {
   // Price IDs for subscription plans
   priceIds: {
     plus_monthly: "price_1SORQLCnVR8qOLc4qTCiLhEO", // $20/month Plus subscription
-    pro_monthly: "price_1SUWOVCnVR8qOLc4fufct1ZX", // $40/month Pro subscription - TODO: Replace with actual price ID
+    pro_monthly: "price_1SUWOVCnVR8qOLc4fufct1ZX", // $40/month Pro subscription
+    lifetime: "price_1SckvlCnVR8qOLc4wqMAKi8I", // $50/lifetime license
   },
 
   // Plan pricing for display
@@ -39,6 +40,11 @@ export const stripeConfig = {
       amount: 40,
       currency: "USD",
       interval: "month",
+    },
+    lifetime: {
+      amount: 50,
+      currency: "USD",
+      interval: "lifetime",
     },
   },
 };
@@ -63,7 +69,7 @@ export async function createCheckoutSession(
     stripeConfig.apiUrl
   );
   const response = await fetch(
-    joinUrlPath(stripeConfig.apiUrl, 'create-checkout-session'),
+    joinUrlPath(stripeConfig.apiUrl, "create-checkout-session"),
     {
       method: "POST",
       headers: {
@@ -101,7 +107,7 @@ export async function createCustomerPortalSession(
   );
 
   const response = await fetch(
-    joinUrlPath(stripeConfig.apiUrl, 'create-customer-portal-session'),
+    joinUrlPath(stripeConfig.apiUrl, "create-customer-portal-session"),
     {
       method: "POST",
       headers: {
@@ -140,7 +146,7 @@ export async function updateSubscription(
   );
 
   const response = await fetch(
-    joinUrlPath(stripeConfig.apiUrl, 'update-subscription'),
+    joinUrlPath(stripeConfig.apiUrl, "update-subscription"),
     {
       method: "POST",
       headers: {

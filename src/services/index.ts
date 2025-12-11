@@ -3,18 +3,6 @@
  * Central export point for all authentication functionality
  */
 
-// Export all auth service functions
-export {
-  signUp,
-  confirmSignUp,
-  signIn,
-  forgotPassword,
-  confirmForgotPassword,
-  changePassword,
-  refreshTokens,
-  signOut,
-} from "./authService";
-
 // Export user service functions
 export { getUserAccount } from "./userService";
 
@@ -48,6 +36,3 @@ export type {
   RefreshTokensResponse,
   UserAccountData,
 } from "../types/auth";
-
-// Export config (useful for debugging or advanced usage)
-export { cognitoConfig, cognitoClient } from "../config/cognito";

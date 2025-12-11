@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 // import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import { getPlatform, getPlatformDisplayName } from "../utils/platform";
@@ -17,9 +16,24 @@ import WindowsIcon from "../components/WindowsIcon";
 // import EarlyAccessSection from "../components/EarlyAccessSection";
 // import ProductShowcase from "../components/ProductShowcase";
 
+// Placeholder values - replace with actual values
+const LAMBDA_URL =
+  "https://5ic50jshfh.execute-api.us-east-1.amazonaws.com/prod/checkout/create-session";
+const PRICE_IDS = {
+  PERPETUAL: "price_1SckvlCnVR8qOLc4wqMAKi8I",
+  PLUS: "price_1SORQLCnVR8qOLc4qTCiLhEO",
+  PRO: "price_1Sd5ldCnVR8qOLc4OpCpJqLI",
+};
+
+interface CreateCheckoutSessionRequest {
+  price_id: string;
+  success_url: string;
+  cancel_url: string;
+}
+
 export default function LandingPage() {
   const [platform, setPlatform] = useState<string>("MacOS");
-  const navigate = useNavigate();
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
   useEffect(() => {
     // Add animation-ready class after component mounts
@@ -36,6 +50,45 @@ export default function LandingPage() {
       document.body.classList.remove("twilight");
     };
   }, []);
+
+  const handleCheckout = async (priceId: string) => {
+    if (isCheckoutLoading) return;
+
+    setIsCheckoutLoading(true);
+    try {
+      const baseUrl = window.location.origin;
+      const requestBody: CreateCheckoutSessionRequest = {
+        price_id: priceId,
+        success_url: baseUrl,
+        cancel_url: baseUrl,
+      };
+
+      const response = await fetch(LAMBDA_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create checkout session");
+      }
+
+      const data = await response.json();
+
+      // Redirect to the Stripe checkout session URL
+      if (data.session_url) {
+        window.location.href = data.session_url;
+      } else {
+        throw new Error("No session URL returned");
+      }
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+      alert("Failed to start checkout. Please try again.");
+      setIsCheckoutLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -360,9 +413,10 @@ export default function LandingPage() {
                   e.currentTarget.style.borderColor =
                     "var(--btn-outline-border)";
                 }}
-                onClick={() => navigate("/download")}
+                onClick={() => handleCheckout(PRICE_IDS.PERPETUAL)}
+                disabled={isCheckoutLoading}
               >
-                Get Perpetual License
+                {isCheckoutLoading ? "Loading..." : "Get Perpetual License"}
               </button>
             </div>
 
@@ -462,9 +516,10 @@ export default function LandingPage() {
                   e.currentTarget.style.backgroundColor =
                     "var(--btn-primary-bg)";
                 }}
-                onClick={() => navigate("/download")}
+                onClick={() => handleCheckout(PRICE_IDS.PLUS)}
+                disabled={isCheckoutLoading}
               >
-                Subscribe to Plus
+                {isCheckoutLoading ? "Loading..." : "Subscribe to Plus"}
               </button>
             </div>
 
@@ -563,9 +618,10 @@ export default function LandingPage() {
                   e.currentTarget.style.borderColor =
                     "var(--btn-outline-border)";
                 }}
-                onClick={() => navigate("/download")}
+                onClick={() => handleCheckout(PRICE_IDS.PRO)}
+                disabled={isCheckoutLoading}
               >
-                Subscribe to Pro
+                {isCheckoutLoading ? "Loading..." : "Subscribe to Pro"}
               </button>
             </div>
           </div>
