@@ -105,9 +105,8 @@ export default function Header({
               >
                 <span>Learn</span>
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform ${
-                    learnDropdownOpen ? "rotate-180" : ""
-                  }`}
+                  className={`w-4 h-4 transition-transform ${learnDropdownOpen ? "rotate-180" : ""
+                    }`}
                 />
               </button>
               {learnDropdownOpen && (
@@ -143,7 +142,7 @@ export default function Header({
               FAQ
             </button>
             <a
-              href="https://discord.gg/h6JY84yZvU"
+              href="https://discord.gg/UmWDZbB6"
               target="_blank"
               rel="noopener noreferrer"
               className="text-base font-light transition-opacity hover:opacity-60"
@@ -205,9 +204,8 @@ export default function Header({
               >
                 <span>Learn</span>
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform ${
-                    mobileLearnOpen ? "rotate-180" : ""
-                  }`}
+                  className={`w-4 h-4 transition-transform ${mobileLearnOpen ? "rotate-180" : ""
+                    }`}
                 />
               </button>
               {mobileLearnOpen && (

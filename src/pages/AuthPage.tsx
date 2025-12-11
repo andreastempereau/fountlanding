@@ -435,10 +435,13 @@ export default function AuthPage() {
                     minLength={8}
                   />
                 </div>
-                <p className="mt-1 text-xs text-gray-500">
-                  Minimum 8 characters
-                </p>
+                <div className="mt-2 text-xs text-gray-500 space-y-1">
+                  <ul className="list-disc list-inside space-y-0.5 ml-1">
+                    <li>Must be at least 8 characters</li>
+                  </ul>
+                </div>
               </div>
+
               <div>
                 <label
                   htmlFor="signup-confirm-password"
@@ -566,10 +569,12 @@ export default function AuthPage() {
                     required
                     minLength={8}
                   />
+                  <div className="mt-2 text-xs text-gray-500 space-y-1">
+                    <ul className="list-disc list-inside space-y-0.5 ml-1">
+                      <li>Must be at least 8 characters</li>
+                    </ul>
+                  </div>
                 </div>
-                <p className="mt-1 text-xs text-gray-500">
-                  Minimum 8 characters
-                </p>
               </div>
               <button
                 type="submit"
