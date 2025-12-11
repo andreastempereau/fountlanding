@@ -34,19 +34,23 @@ interface CreateCheckoutSessionRequest {
 export default function LandingPage() {
   const [platform, setPlatform] = useState<string>("MacOS");
   const [loadingPriceId, setLoadingPriceId] = useState<string | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     // Add animation-ready class after component mounts
-    // document.body.classList.add("animation-ready");
     document.body.classList.add("twilight");
 
     // Detect platform
     const detectedPlatform = getPlatform();
     setPlatform(getPlatformDisplayName(detectedPlatform));
 
+    // Trigger animations after a short delay
+    requestAnimationFrame(() => {
+      setIsLoaded(true);
+    });
+
     // Cleanup on unmount
     return () => {
-      // document.body.classList.remove("animation-ready");
       document.body.classList.remove("twilight");
     };
   }, []);
@@ -146,7 +150,12 @@ export default function LandingPage() {
           id="download"
           className="mx-auto relative z-10 flex flex-col items-start min-h-screen pt-[10vh]"
         >
-          <div className="flex flex-col items-start mb-4 px-4 sm:px-8 lg:px-24">
+          <div
+            className={`flex flex-col items-start mb-4 px-4 sm:px-8 lg:px-24 transition-all duration-700 ${
+              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+            style={{ transitionDelay: "100ms" }}
+          >
             <div className="flex items-center gap-3 mb-2 sm:mb-3">
               <img
                 src="/app-logo-bg-transparent.svg"
@@ -240,7 +249,12 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="flex-shrink-0 w-full">
+          <div
+            className={`flex-shrink-0 w-full transition-all duration-700 ${
+              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+            style={{ transitionDelay: "100ms" }}
+          >
             <img src="/hero2.svg" alt="Fount" className="w-full px-6 h-auto" />
           </div>
         </div>
@@ -248,7 +262,10 @@ export default function LandingPage() {
         {/* Principles Section */}
         <div
           id="features"
-          className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16"
+          className={`max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16 transition-all duration-700 ${
+            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+          style={{ transitionDelay: "500ms" }}
         >
           <div className="mx-auto">
             <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-8 lg:gap-0">
@@ -332,7 +349,10 @@ export default function LandingPage() {
         {/* Pricing Section */}
         <div
           id="pricing"
-          className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16"
+          className={`max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16 transition-all duration-700 ${
+            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+          style={{ transitionDelay: "700ms" }}
         >
           {/* <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-medium text-center mb-4"
@@ -685,7 +705,14 @@ export default function LandingPage() {
         </div>
       </div>
 
-      <Footer />
+      <div
+        className={`transition-all duration-700 ${
+          isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+        style={{ transitionDelay: "900ms" }}
+      >
+        <Footer />
+      </div>
     </div>
   );
 }
