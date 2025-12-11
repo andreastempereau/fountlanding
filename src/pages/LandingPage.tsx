@@ -33,7 +33,7 @@ interface CreateCheckoutSessionRequest {
 
 export default function LandingPage() {
   const [platform, setPlatform] = useState<string>("MacOS");
-  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+  const [loadingPriceId, setLoadingPriceId] = useState<string | null>(null);
 
   useEffect(() => {
     // Add animation-ready class after component mounts
@@ -52,9 +52,9 @@ export default function LandingPage() {
   }, []);
 
   const handleCheckout = async (priceId: string) => {
-    if (isCheckoutLoading) return;
+    if (loadingPriceId) return;
 
-    setIsCheckoutLoading(true);
+    setLoadingPriceId(priceId);
     try {
       const baseUrl = window.location.origin;
       const requestBody: CreateCheckoutSessionRequest = {
@@ -78,20 +78,43 @@ export default function LandingPage() {
       const data = await response.json();
 
       // Redirect to the Stripe checkout session URL
-      if (data.session_url) {
-        window.location.href = data.session_url;
+      if (data.url) {
+        window.location.href = data.url;
       } else {
         throw new Error("No session URL returned");
       }
     } catch (error) {
       console.error("Error creating checkout session:", error);
       alert("Failed to start checkout. Please try again.");
-      setIsCheckoutLoading(false);
+      setLoadingPriceId(null);
     }
   };
 
+  const Spinner = () => (
+    <svg
+      className="animate-spin h-5 w-5"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      ></circle>
+      <path
+        className="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+      ></path>
+    </svg>
+  );
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen scroll-smooth">
       {/* Simplified background - removed CPU-intensive animations */}
       <div id="dappled-light">
         <div id="glow"></div>
@@ -117,9 +140,12 @@ export default function LandingPage() {
         </div>
       </div>
       {/* <Header mobileMenuOpen={false} setMobileMenuOpen={() => {}} /> */}
-      <div className="w-full relative">
+      <div className="w-full relative flex flex-col items-center ">
         {/* Content */}
-        <div className="mx-auto relative z-10 flex flex-col items-start min-h-screen pt-[10vh]">
+        <div
+          id="download"
+          className="mx-auto relative z-10 flex flex-col items-start min-h-screen pt-[10vh]"
+        >
           <div className="flex flex-col items-start mb-4 px-4 sm:px-8 lg:px-24">
             <div className="flex items-center gap-3 mb-2 sm:mb-3">
               <img
@@ -220,7 +246,10 @@ export default function LandingPage() {
         </div>
 
         {/* Principles Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16">
+        <div
+          id="features"
+          className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16"
+        >
           <div className="mx-auto">
             <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-8 lg:gap-0">
               <div className="flex flex-col flex-1 w-full gap-8">
@@ -301,8 +330,11 @@ export default function LandingPage() {
         </div>
 
         {/* Pricing Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16 sm:py-24">
-          <h2
+        <div
+          id="pricing"
+          className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 relative z-10 py-16"
+        >
+          {/* <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-medium text-center mb-4"
             style={{ color: "var(--dark)" }}
           >
@@ -314,7 +346,7 @@ export default function LandingPage() {
           >
             Own your AI workspace forever, or unlock cloud-powered capabilities
             with a subscription.
-          </p>
+          </p> */}
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Perpetual License */}
@@ -397,16 +429,22 @@ export default function LandingPage() {
               </ul>
 
               <button
-                className="w-full py-3 sm:py-4 px-6 text-base font-semibold rounded-lg transition-all duration-200"
+                className="w-full py-3 sm:py-4 px-6 text-base font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
                 style={{
                   border: "1px solid var(--btn-outline-border)",
                   color: "var(--dark)",
                   backgroundColor: "transparent",
+                  opacity:
+                    loadingPriceId && loadingPriceId !== PRICE_IDS.PERPETUAL
+                      ? 0.5
+                      : 1,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "var(--btn-outline-hover-bg)";
-                  e.currentTarget.style.borderColor = "var(--dark)";
+                  if (!loadingPriceId) {
+                    e.currentTarget.style.backgroundColor =
+                      "var(--btn-outline-hover-bg)";
+                    e.currentTarget.style.borderColor = "var(--dark)";
+                  }
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = "transparent";
@@ -414,9 +452,12 @@ export default function LandingPage() {
                     "var(--btn-outline-border)";
                 }}
                 onClick={() => handleCheckout(PRICE_IDS.PERPETUAL)}
-                disabled={isCheckoutLoading}
+                disabled={loadingPriceId !== null}
               >
-                {isCheckoutLoading ? "Loading..." : "Get Perpetual License"}
+                {loadingPriceId === PRICE_IDS.PERPETUAL && <Spinner />}
+                {loadingPriceId === PRICE_IDS.PERPETUAL
+                  ? "Processing..."
+                  : "Get Perpetual License"}
               </button>
             </div>
 
@@ -503,23 +544,32 @@ export default function LandingPage() {
               </ul>
 
               <button
-                className="w-full py-3 sm:py-4 px-6 text-base font-semibold rounded-lg transition-all duration-200"
+                className="w-full py-3 sm:py-4 px-6 text-base font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
                 style={{
                   backgroundColor: "var(--btn-primary-bg)",
                   color: "var(--btn-primary-text)",
+                  opacity:
+                    loadingPriceId && loadingPriceId !== PRICE_IDS.PLUS
+                      ? 0.5
+                      : 1,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "var(--btn-primary-hover)";
+                  if (!loadingPriceId) {
+                    e.currentTarget.style.backgroundColor =
+                      "var(--btn-primary-hover)";
+                  }
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor =
                     "var(--btn-primary-bg)";
                 }}
                 onClick={() => handleCheckout(PRICE_IDS.PLUS)}
-                disabled={isCheckoutLoading}
+                disabled={loadingPriceId !== null}
               >
-                {isCheckoutLoading ? "Loading..." : "Subscribe to Plus"}
+                {loadingPriceId === PRICE_IDS.PLUS && <Spinner />}
+                {loadingPriceId === PRICE_IDS.PLUS
+                  ? "Processing..."
+                  : "Get Plus"}
               </button>
             </div>
 
@@ -602,16 +652,22 @@ export default function LandingPage() {
               </ul>
 
               <button
-                className="w-full py-3 sm:py-4 px-6 text-base font-semibold rounded-lg transition-all duration-200"
+                className="w-full py-3 sm:py-4 px-6 text-base font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
                 style={{
                   border: "1px solid var(--btn-outline-border)",
                   color: "var(--dark)",
                   backgroundColor: "transparent",
+                  opacity:
+                    loadingPriceId && loadingPriceId !== PRICE_IDS.PRO
+                      ? 0.5
+                      : 1,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "var(--btn-outline-hover-bg)";
-                  e.currentTarget.style.borderColor = "var(--dark)";
+                  if (!loadingPriceId) {
+                    e.currentTarget.style.backgroundColor =
+                      "var(--btn-outline-hover-bg)";
+                    e.currentTarget.style.borderColor = "var(--dark)";
+                  }
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = "transparent";
@@ -619,9 +675,10 @@ export default function LandingPage() {
                     "var(--btn-outline-border)";
                 }}
                 onClick={() => handleCheckout(PRICE_IDS.PRO)}
-                disabled={isCheckoutLoading}
+                disabled={loadingPriceId !== null}
               >
-                {isCheckoutLoading ? "Loading..." : "Subscribe to Pro"}
+                {loadingPriceId === PRICE_IDS.PRO && <Spinner />}
+                {loadingPriceId === PRICE_IDS.PRO ? "Processing..." : "Get Pro"}
               </button>
             </div>
           </div>
