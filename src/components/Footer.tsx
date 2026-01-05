@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
               <img
@@ -37,106 +37,6 @@ export default function Footer() {
                 <span>support@fount.sh</span>
               </div>
             </div>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4" style={{ color: "var(--dark)" }}>
-              Pages
-            </h4>
-            <ul className="space-y-2" style={{ color: "var(--text-muted)" }}>
-              <li>
-                <Link
-                  to="/"
-                  className="transition-colors hover:opacity-100"
-                  style={{ color: "var(--text-muted)" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--accent-gold)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--text-muted)")
-                  }
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/download"
-                  className="transition-colors"
-                  style={{ color: "var(--text-muted)" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--accent-gold)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--text-muted)")
-                  }
-                >
-                  Download
-                </Link>
-              </li>
-              {features.pricingPage && (
-                <li>
-                  <Link
-                    to="/pricing"
-                    className="transition-colors"
-                    style={{ color: "var(--text-muted)" }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.color = "var(--accent-gold)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.color = "var(--text-muted)")
-                    }
-                  >
-                    Pricing
-                  </Link>
-                </li>
-              )}
-              <li>
-                <Link
-                  to="/blog"
-                  className="transition-colors"
-                  style={{ color: "var(--text-muted)" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--accent-gold)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--text-muted)")
-                  }
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/roadmap"
-                  className="transition-colors"
-                  style={{ color: "var(--text-muted)" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--accent-gold)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--text-muted)")
-                  }
-                >
-                  Roadmap
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/faq"
-                  className="transition-colors"
-                  style={{ color: "var(--text-muted)" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--accent-gold)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--text-muted)")
-                  }
-                >
-                  FAQ
-                </Link>
-              </li>
-            </ul>
           </div>
 
           <div>

@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { getPlatform, getPlatformDisplayName } from "../utils/platform";
 import AppleIcon from "../components/AppleIcon";
 import WindowsIcon from "../components/WindowsIcon";
+import { ArrowRight } from "lucide-react";
 // import { AnthropicIcon } from "../svgs/AnthropicIcon";
 // import { OpenAiIcon } from "../svgs/OpenAiIcon";
 // import { XAIIcon } from "../svgs/XAIIcon";
@@ -29,12 +30,18 @@ interface CreateCheckoutSessionRequest {
   price_id: string;
   success_url: string;
   cancel_url: string;
+  allow_promotion_codes: boolean;
+  customer_email: string;
 }
 
 export default function LandingPage() {
   const [platform, setPlatform] = useState<string>("MacOS");
   const [loadingPriceId, setLoadingPriceId] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showEmailDialog, setShowEmailDialog] = useState(false);
+  const [selectedPriceId, setSelectedPriceId] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   useEffect(() => {
     // Add animation-ready class after component mounts
@@ -55,16 +62,43 @@ export default function LandingPage() {
     };
   }, []);
 
-  const handleCheckout = async (priceId: string) => {
+  const handleCheckout = (priceId: string) => {
     if (loadingPriceId) return;
+    setSelectedPriceId(priceId);
+    setShowEmailDialog(true);
+    setEmail("");
+    setEmailError("");
+  };
 
-    setLoadingPriceId(priceId);
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailSubmit = async () => {
+    if (!email.trim()) {
+      setEmailError("Email is required");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+
+    if (!selectedPriceId) return;
+
+    setLoadingPriceId(selectedPriceId);
+    setEmailError("");
+
     try {
       const baseUrl = window.location.origin;
       const requestBody: CreateCheckoutSessionRequest = {
-        price_id: priceId,
-        success_url: baseUrl,
+        price_id: selectedPriceId,
+        success_url: `${baseUrl}/success`,
         cancel_url: baseUrl,
+        allow_promotion_codes: true,
+        customer_email: email,
       };
 
       const response = await fetch(LAMBDA_URL, {
@@ -74,6 +108,8 @@ export default function LandingPage() {
         },
         body: JSON.stringify(requestBody),
       });
+
+      console.log("response", response);
 
       if (!response.ok) {
         throw new Error("Failed to create checkout session");
@@ -250,12 +286,20 @@ export default function LandingPage() {
           </div>
 
           <div
-            className={`flex-shrink-0 w-full transition-all duration-700 ${
+            className={`flex-shrink-0 w-full px-6 transition-all duration-700 ${
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
             style={{ transitionDelay: "100ms" }}
           >
-            <img src="/hero2.svg" alt="Fount" className="w-full px-6 h-auto" />
+            <div className="w-full" style={{ aspectRatio: "1352/843" }}>
+              <img
+                src="/hero2.png"
+                alt="Fount"
+                className="w-full h-full object-contain"
+                width="1352"
+                height="843"
+              />
+            </div>
           </div>
         </div>
 
@@ -713,6 +757,100 @@ export default function LandingPage() {
       >
         <Footer />
       </div>
+
+      {/* Email Dialog Modal */}
+      {showEmailDialog && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          onClick={() => {
+            if (!loadingPriceId) {
+              setShowEmailDialog(false);
+            }
+          }}
+        >
+          <div
+            className="w-full max-w-md p-6 sm:p-8 rounded-2xl"
+            style={{
+              backgroundColor: "var(--dawn)",
+              border: "2px solid var(--card-border)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3
+              className="text-xl sm:text-2xl font-semibold mb-2"
+              style={{ color: "var(--dark)" }}
+            >
+              Enter your email
+            </h3>
+            <p className="text-sm mb-6" style={{ color: "var(--text-muted)" }}>
+              We'll send your license key and receipt to this address.
+            </p>
+
+            <div className="flex items-stretch gap-2">
+              <div className="flex-1">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setEmailError("");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !loadingPriceId) {
+                      handleEmailSubmit();
+                    }
+                  }}
+                  placeholder="your@email.com"
+                  disabled={loadingPriceId !== null}
+                  className="w-full px-4 py-3 rounded-lg text-base transition-all duration-200 outline-none"
+                  style={{
+                    backgroundColor: "var(--dawn)",
+                    border: `1px solid ${
+                      emailError ? "#ef4444" : "var(--card-border)"
+                    }`,
+                    color: "var(--dark)",
+                  }}
+                  autoFocus
+                />
+                {emailError && (
+                  <p className="text-sm mt-2" style={{ color: "#ef4444" }}>
+                    {emailError}
+                  </p>
+                )}
+              </div>
+
+              <button
+                onClick={handleEmailSubmit}
+                disabled={loadingPriceId !== null}
+                className="px-4 py-3 rounded-lg text-lg font-semibold transition-all duration-200 flex items-center justify-center"
+                style={{
+                  backgroundColor: "var(--btn-primary-bg)",
+                  color: "var(--btn-primary-text)",
+                  minWidth: "56px",
+                  opacity: loadingPriceId ? 0.5 : 1,
+                }}
+                onMouseEnter={(e) => {
+                  if (!loadingPriceId) {
+                    e.currentTarget.style.backgroundColor =
+                      "var(--btn-primary-hover)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "var(--btn-primary-bg)";
+                }}
+              >
+                {loadingPriceId ? (
+                  <Spinner />
+                ) : (
+                  <ArrowRight className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
