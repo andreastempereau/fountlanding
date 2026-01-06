@@ -42,6 +42,12 @@ export default function LandingPage() {
   const [selectedPriceId, setSelectedPriceId] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [showAccessCodeDialog, setShowAccessCodeDialog] = useState(false);
+  const [accessCode, setAccessCode] = useState("");
+  const [accessCodeError, setAccessCodeError] = useState("");
+  const [pendingDownloadUrl, setPendingDownloadUrl] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     // Add animation-ready class after component mounts
@@ -68,6 +74,34 @@ export default function LandingPage() {
     setShowEmailDialog(true);
     setEmail("");
     setEmailError("");
+  };
+
+  const handleDownloadClick = (downloadUrl: string) => {
+    setPendingDownloadUrl(downloadUrl);
+    setShowAccessCodeDialog(true);
+    setAccessCode("");
+    setAccessCodeError("");
+  };
+
+  const handleAccessCodeSubmit = () => {
+    if (!accessCode.trim()) {
+      setAccessCodeError("Access code is required");
+      return;
+    }
+
+    if (accessCode !== "FOUNT_2025") {
+      setAccessCodeError("Invalid access code");
+      return;
+    }
+
+    // Access code is valid, trigger download
+    if (pendingDownloadUrl) {
+      window.location.href = pendingDownloadUrl;
+      setShowAccessCodeDialog(false);
+      setAccessCode("");
+      setAccessCodeError("");
+      setPendingDownloadUrl(null);
+    }
   };
 
   const validateEmail = (email: string): boolean => {
@@ -204,6 +238,15 @@ export default function LandingPage() {
               >
                 Fount
               </span>
+              <span
+                className="px-2 py-0.5 text-xs font-semibold uppercase tracking-wide rounded-full"
+                style={{
+                  backgroundColor: "var(--accent-gold)",
+                  color: "var(--dawn)",
+                }}
+              >
+                Beta
+              </span>
             </div>
             <h1
               className="text-4xl sm:text-6xl lg:text-8xl italic text-[var(--dark)]"
@@ -215,12 +258,16 @@ export default function LandingPage() {
               className="text-base sm:text-lg lg:text-xl mt-4 sm:mt-6"
               style={{ color: "var(--text-muted)" }}
             >
-              Your private AI workspace—context-aware, completely secure.
+              Your private research workspace—intelligent, endlessly capable.
             </p>
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3">
               {/* Mac Button */}
-              <a
-                href="https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_aarch64.dmg"
+              <button
+                onClick={() =>
+                  handleDownloadClick(
+                    "https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_aarch64.dmg"
+                  )
+                }
                 className="flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg transition-all duration-200"
                 style={{
                   backgroundColor:
@@ -247,11 +294,15 @@ export default function LandingPage() {
               >
                 <AppleIcon color="currentColor" size="20" />
                 Download for Mac
-              </a>
+              </button>
 
               {/* Windows Button */}
-              <a
-                href="https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_x64_en-US_windows.msi"
+              <button
+                onClick={() =>
+                  handleDownloadClick(
+                    "https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_x64_en-US_windows.msi"
+                  )
+                }
                 className="flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg transition-all duration-200"
                 style={{
                   backgroundColor:
@@ -278,7 +329,7 @@ export default function LandingPage() {
               >
                 <WindowsIcon color="currentColor" size="20" />
                 Download for Windows
-              </a>
+              </button>
             </div>
             <p className="mt-3 text-sm" style={{ color: "var(--text-muted)" }}>
               Requires macOS 14+ (Apple Silicon) or Windows 10+
@@ -363,11 +414,13 @@ export default function LandingPage() {
                 >
                   Fount
                 </span>
-                <a
-                  href={
-                    platform === "Windows"
-                      ? "https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_x64_en-US_windows.msi"
-                      : "https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_aarch64.dmg"
+                <button
+                  onClick={() =>
+                    handleDownloadClick(
+                      platform === "Windows"
+                        ? "https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_x64_en-US_windows.msi"
+                        : "https://github.com/fount-labs/fount/releases/download/v0.0.4/Fount_0.0.4_aarch64.dmg"
+                    )
                   }
                   className="mt-3 px-6 py-2 text-base font-medium rounded-lg transition-all duration-200 inline-block"
                   style={{
@@ -384,7 +437,7 @@ export default function LandingPage() {
                   }}
                 >
                   Download Now
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -846,6 +899,89 @@ export default function LandingPage() {
                 ) : (
                   <ArrowRight className="w-5 h-5" />
                 )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Access Code Dialog Modal */}
+      {showAccessCodeDialog && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          onClick={() => {
+            setShowAccessCodeDialog(false);
+          }}
+        >
+          <div
+            className="w-full max-w-md p-6 sm:p-8 rounded-2xl"
+            style={{
+              backgroundColor: "var(--dawn)",
+              border: "2px solid var(--card-border)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3
+              className="text-xl sm:text-2xl font-semibold mb-2"
+              style={{ color: "var(--dark)" }}
+            >
+              Enter Access Code
+            </h3>
+            <p className="text-sm mb-6" style={{ color: "var(--text-muted)" }}>
+              Please enter your access code to download Fount.
+            </p>
+
+            <div className="flex items-stretch gap-2">
+              <div className="flex-1">
+                <input
+                  type="text"
+                  value={accessCode}
+                  onChange={(e) => {
+                    setAccessCode(e.target.value);
+                    setAccessCodeError("");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleAccessCodeSubmit();
+                    }
+                  }}
+                  placeholder="Enter access code"
+                  className="w-full px-4 py-3 rounded-lg text-base transition-all duration-200 outline-none"
+                  style={{
+                    backgroundColor: "var(--dawn)",
+                    border: `1px solid ${
+                      accessCodeError ? "#ef4444" : "var(--card-border)"
+                    }`,
+                    color: "var(--dark)",
+                  }}
+                  autoFocus
+                />
+                {accessCodeError && (
+                  <p className="text-sm mt-2" style={{ color: "#ef4444" }}>
+                    {accessCodeError}
+                  </p>
+                )}
+              </div>
+
+              <button
+                onClick={handleAccessCodeSubmit}
+                className="px-4 py-3 rounded-lg text-lg font-semibold transition-all duration-200 flex items-center justify-center"
+                style={{
+                  backgroundColor: "var(--btn-primary-bg)",
+                  color: "var(--btn-primary-text)",
+                  minWidth: "56px",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "var(--btn-primary-hover)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "var(--btn-primary-bg)";
+                }}
+              >
+                <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           </div>

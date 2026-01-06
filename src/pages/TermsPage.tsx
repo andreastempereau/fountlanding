@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import Header from "../components/Header";
+import { useEffect } from "react";
 import Footer from "../components/Footer";
 
 export default function TermsPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     document.body.classList.add("twilight");
@@ -40,11 +38,6 @@ export default function TermsPage() {
         </div>
       </div>
 
-      <Header
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
-      />
-
       <div className="w-full relative">
         {/* Terms Content */}
         <div className="max-w-[1000px] mx-auto relative z-10 px-24 py-16">
@@ -67,12 +60,12 @@ export default function TermsPage() {
                   1. Introduction
                 </h2>
                 <p className="text-white leading-relaxed">
-                  Welcome to Fount! This document (“Agreement”) governs your use
+                  Welcome to Fount! This document ("Agreement") governs your use
                   of our software and related services. By downloading,
-                  installing, or using Fount (the “Software”), you agree to
+                  installing, or using Fount (the "Software"), you agree to
                   these terms. If you do not agree, do not install or use the
-                  Software. Zekiel Dee, operating as a sole proprietorship based
-                  in CA, owns and provides this Software.
+                  Software. FOUNT LABS LLC, based in CA, owns and provides this
+                  Software.
                 </p>
               </section>
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
@@ -87,22 +80,7 @@ export default function TermsPage() {
                   Software. Share, sublicense, or redistribute the Software
                   without written permission. Circumvent license or subscription
                   mechanisms. All rights not expressly granted are reserved by
-                  Zekiel Dee.{" "}
-                </p>
-              </section>
-              <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
-                <h2 className="text-3xl font-semibold text-[var(--dark)] mb-4">
-                  2. License Grant
-                </h2>
-                <p className="text-white leading-relaxed mb-4">
-                  You are granted a limited, non-exclusive, non-transferable,
-                  revocable license to install and use one copy of the Software
-                  on your personal computer for your own use. You may not:
-                  Modify, reverse engineer, decompile, or disassemble the
-                  Software. Share, sublicense, or redistribute the Software
-                  without written permission. Circumvent license or subscription
-                  mechanisms. All rights not expressly granted are reserved by
-                  Zekiel Dee.{" "}
+                  FOUNT LABS LLC.{" "}
                 </p>
               </section>
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
@@ -153,7 +131,7 @@ export default function TermsPage() {
                 </h2>
                 <p className="text-white leading-relaxed mb-4">
                   The Software, including all content, design, and code, is
-                  owned by Zekiel Dee. This Agreement does not transfer
+                  owned by FOUNT LABS LLC. This Agreement does not transfer
                   ownership. All trademarks, logos, and third-party libraries
                   remain the property of their respective owners.
                 </p>
@@ -184,8 +162,8 @@ export default function TermsPage() {
                   9. Disclaimer of Warranties
                 </h2>
                 <p className="text-white leading-relaxed mb-4">
-                  The Software is provided “as is” and “as available.” To the
-                  maximum extent permitted by law, Zekiel Dee disclaims all
+                  The Software is provided "as is" and "as available." To the
+                  maximum extent permitted by law, FOUNT LABS LLC disclaims all
                   warranties, express or implied, including but not limited to
                   warranties of merchantability, fitness for a particular
                   purpose, or non-infringement. We make no guarantee that the
@@ -198,11 +176,11 @@ export default function TermsPage() {
                   10. Limitation of Liability
                 </h2>
                 <p className="text-white leading-relaxed mb-4">
-                  To the fullest extent permitted by law, Zekiel Dee will not be
-                  liable for any indirect, incidental, or consequential damages,
-                  including lost profits, data loss, or business interruption.
-                  In no event shall our total liability exceed the amount you
-                  paid to us in the past twelve (12) months.
+                  To the fullest extent permitted by law, FOUNT LABS LLC will not
+                  be liable for any indirect, incidental, or consequential
+                  damages, including lost profits, data loss, or business
+                  interruption. In no event shall our total liability exceed the
+                  amount you paid to us in the past twelve (12) months.
                 </p>
               </section>
               <section className="rounded-lg backdrop-blur-sm bg-slate-900 border border-slate-600 p-8">
@@ -233,7 +211,8 @@ export default function TermsPage() {
                   13. Contact Information{" "}
                 </h2>
                 <p className="text-white leading-relaxed mb-4">
-                  For questions, legal notices, or support, contact: Zekiel Dee
+                  For questions, legal notices, or support, contact: FOUNT LABS
+                  LLC
                   <br />
                   Email: support@fount.sh
                   <br />

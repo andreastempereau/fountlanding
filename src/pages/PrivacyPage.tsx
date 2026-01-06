@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import Header from "../components/Header";
+import { useEffect } from "react";
 import Footer from "../components/Footer";
 
 export default function PrivacyPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     document.body.classList.add("twilight");
@@ -40,11 +38,6 @@ export default function PrivacyPage() {
         </div>
       </div>
 
-      <Header
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
-      />
-
       <div className="w-full relative">
         {/* Privacy Content */}
         <div className="max-w-[1000px] mx-auto relative z-10 px-24 py-16">
@@ -67,8 +60,8 @@ export default function PrivacyPage() {
                   1. Introduction
                 </h2>
                 <p className="text-white leading-relaxed">
-                  Zekiel Dee (“we,” “us,” or “our”) operates Fount and its
-                  related website (collectively, the “Service”). This Privacy
+                  FOUNT LABS LLC ("we," "us," or "our") operates Fount and its
+                  related website (collectively, the "Service"). This Privacy
                   Policy explains how we collect, use, and protect your personal
                   information when you use the Service. By using Fount, you
                   agree to the terms described here.
@@ -181,7 +174,7 @@ export default function PrivacyPage() {
                 </h2>
                 <p className="text-white leading-relaxed">
                   If you have questions or concerns about this Privacy Policy or
-                  our data practices, contact us at: Zekiel Dee Email:
+                  our data practices, contact us at: FOUNT LABS LLC Email:
                   support@fount.sh Address: Los Angeles, CA, 90001 USA
                 </p>
               </section>
